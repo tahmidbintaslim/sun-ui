@@ -68,6 +68,6 @@ const StyledSwitch = styled(MuiSwitch, {
 }));
 
 export const Switch = React.forwardRef<HTMLButtonElement, SwitchProps>(
-    ({ variant, ...rest }, ref) => <StyledSwitch ref={ref} {...(rest as any)} />
+    ({ variant, ...rest }, ref) => <StyledSwitch ref={ref} variant={variant} {...(rest as any)} />
 );
 Switch.displayName = 'Switch';

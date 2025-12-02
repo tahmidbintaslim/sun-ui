@@ -3,6 +3,7 @@ import { Meta, StoryObj } from '@storybook/react-vite';
 import { MenuItem, Select } from './Select';
 
 const meta = {
+    title: 'Atoms/Select',
     component: Select,
     tags: ['autodocs'],
     argTypes: {

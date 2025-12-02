@@ -64,6 +64,6 @@ const StyledTextField = styled(MuiTextField, {
 }));
 
 export const TextField = React.forwardRef<HTMLDivElement, TextFieldProps>(
-    ({ variant, ...rest }, ref) => <StyledTextField ref={ref} {...(rest as any)} />
+    ({ variant, ...rest }, ref) => <StyledTextField ref={ref} variant={variant} {...(rest as any)} />
 );
 TextField.displayName = 'TextField';

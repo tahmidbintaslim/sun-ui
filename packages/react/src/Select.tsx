@@ -59,7 +59,7 @@ const StyledSelect = styled(MuiSelect, {
 }));
 
 export const Select = React.forwardRef<HTMLDivElement, SelectProps>(
-    ({ variant, ...rest }, ref) => <StyledSelect ref={ref} {...(rest as any)} />
+    ({ variant, ...rest }, ref) => <StyledSelect ref={ref} variant={variant} {...(rest as any)} />
 );
 Select.displayName = 'Select';
 

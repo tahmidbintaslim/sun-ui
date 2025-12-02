@@ -1,42 +1,42 @@
 {
-  "name": "@sun-ui/react",
-  "version": "1.0.0",
-  "description": "React components for Sun UI",
-  "main": "./dist/index.js",
-  "module": "./dist/index.js",
-  "types": "./dist/index.d.ts",
-  "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.js",
-      "require": "./dist/index.js"
+    "name": "@sun-ui/react",
+    "version": "1.0.0",
+    "description": "React components for Sun UI",
+    "main": "./dist/index.js",
+    "module": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "exports": {
+        ".": {
+            "types": "./dist/index.d.ts",
+            "import": "./dist/index.js",
+            "require": "./dist/index.js"
+        }
+    },
+    "files": [
+        "dist"
+    ],
+    "scripts": {
+        "build": "tsc",
+        "test": "vitest",
+        "type-check": "tsc --noEmit",
+        "lint": "eslint src",
+        "clean": "rm -rf dist"
+    },
+    "dependencies": {
+        "@mui/material": "^7.3.5",
+        "@sun-ui/theme": "workspace:*",
+        "@sun-ui/tokens": "workspace:*"
+    },
+    "peerDependencies": {
+        "react": "^18.0.0",
+        "react-dom": "^18.0.0"
+    },
+    "devDependencies": {
+        "@storybook/addon-essentials": "^8.6.14",
+        "@storybook/addon-links": "^8.6.14",
+        "@testing-library/jest-dom": "^6.1.5",
+        "@testing-library/react": "^16.3.0",
+        "@types/react": "^19.2.7",
+        "vitest": "^4.0.0"
     }
-  },
-  "files": [
-    "dist"
-  ],
-  "scripts": {
-    "build": "tsc",
-    "test": "vitest",
-    "type-check": "tsc --noEmit",
-    "lint": "eslint src",
-    "clean": "rm -rf dist"
-  },
-  "dependencies": {
-    "@mui/material": "^5.14.0",
-    "@sun-ui/theme": "workspace:*",
-    "@sun-ui/tokens": "workspace:*"
-  },
-  "peerDependencies": {
-    "react": "^18.0.0",
-    "react-dom": "^18.0.0"
-  },
-  "devDependencies": {
-    "@storybook/addon-essentials": "^8.0.0",
-    "@storybook/addon-links": "^10.1.2",
-    "@testing-library/react": "^14.1.2",
-    "@testing-library/jest-dom": "^6.1.5",
-    "@types/react": "^18.2.46",
-    "vitest": "^1.1.0"
-  }
 }

@@ -57,6 +57,6 @@ const StyledRadio = styled(MuiRadio, {
 }));
 
 export const Radio = React.forwardRef<HTMLButtonElement, RadioProps>(
-    ({ variant, ...rest }, ref) => <StyledRadio ref={ref} {...(rest as any)} />
+    ({ variant, ...rest }, ref) => <StyledRadio ref={ref} variant={variant} {...(rest as any)} />
 );
 Radio.displayName = 'Radio';

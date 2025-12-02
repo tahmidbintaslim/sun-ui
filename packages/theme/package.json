@@ -22,7 +22,7 @@
         "clean": "rm -rf dist"
     },
     "dependencies": {
-        "@mui/material": "^5.14.0",
+        "@mui/material": "^7.3.5",
         "@sun-ui/tokens": "workspace:*"
     },
     "peerDependencies": {
@@ -30,6 +30,6 @@
         "react-dom": "^18.0.0"
     },
     "devDependencies": {
-        "@types/react": "^18.2.46"
+        "@types/react": "^19.2.7"
     }
 }

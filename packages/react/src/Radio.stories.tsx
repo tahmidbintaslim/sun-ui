@@ -3,6 +3,7 @@ import { Meta, StoryObj } from '@storybook/react-vite';
 import { Radio } from './Radio';
 
 const meta = {
+    title: 'Atoms/Radio',
     component: Radio,
     tags: ['autodocs'],
     argTypes: {

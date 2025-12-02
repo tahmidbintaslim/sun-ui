@@ -3,6 +3,7 @@ import { Meta, StoryObj } from '@storybook/react-vite';
 import { Switch } from './Switch';
 
 const meta = {
+    title: 'Atoms/Switch',
     component: Switch,
     tags: ['autodocs'],
     argTypes: {

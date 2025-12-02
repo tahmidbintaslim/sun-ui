@@ -8,7 +8,11 @@ const __dirname = dirname(__filename);
 
 const config: StorybookConfig = {
     stories: ['../../../packages/react/src/**/*.stories.tsx'],
-    addons: [getAbsolutePath("@storybook/addon-links"), getAbsolutePath("@storybook/addon-docs")],
+    addons: [
+        getAbsolutePath("@storybook/addon-links"),
+        getAbsolutePath("@storybook/addon-docs"),
+        getAbsolutePath("@storybook/addon-vitest")
+    ],
     framework: getAbsolutePath("@storybook/react-vite"),
 
     viteFinal: async (config) => {

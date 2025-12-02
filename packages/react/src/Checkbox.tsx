@@ -56,6 +56,6 @@ const StyledCheckbox = styled(MuiCheckbox, {
 }));
 
 export const Checkbox = React.forwardRef<HTMLButtonElement, CheckboxProps>(
-    ({ variant, ...rest }, ref) => <StyledCheckbox ref={ref} {...(rest as any)} />
+    ({ variant, ...rest }, ref) => <StyledCheckbox ref={ref} variant={variant} {...(rest as any)} />
 );
 Checkbox.displayName = 'Checkbox';
