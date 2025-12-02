@@ -1,0 +1,27 @@
+packages:
+  - packages/*
+  - apps/*
+
+onlyBuiltDependencies:
+  - ' '
+  - /
+  - '@'
+  - a
+  - b
+  - c
+  - d
+  - e
+  - esbuild
+  - g
+  - i
+  - l
+  - m
+  - n
+  - o
+  - p
+  - r
+  - s
+  - t
+  - u
+  - w
+  - x

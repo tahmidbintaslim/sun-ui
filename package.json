@@ -1,0 +1,40 @@
+{
+  "name": "sun-ui",
+  "version": "1.0.0",
+  "description": "Universal design system extending MUI v5",
+  "private": true,
+  "packageManager": "pnpm@10.19.0",
+  "scripts": {
+    "build": "turbo run build",
+    "test": "turbo run test",
+    "lint": "turbo run lint",
+    "type-check": "turbo run type-check",
+    "dev": "turbo run dev --parallel",
+    "clean": "turbo run clean && rm -rf node_modules pnpm-lock.yaml"
+  },
+  "devDependencies": {
+    "@changesets/cli": "^2.29.8",
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.1",
+    "@eslint/js": "^9.39.1",
+    "@types/node": "^24.10.1",
+    "@types/react": "^19.2.7",
+    "@types/react-dom": "^19.2.3",
+    "@typescript-eslint/eslint-plugin": "^8.48.0",
+    "@typescript-eslint/parser": "^8.48.0",
+    "eslint": "^9.39.1",
+    "jsdom": "^27.2.0",
+    "prettier": "^3.7.3",
+    "turbo": "^2.6.1",
+    "typescript": "^5.9.3",
+    "vitest": "^1.0.0"
+  },
+  "dependencies": {
+    "@sun-ui/core": "workspace:*",
+    "@sun-ui/icons": "workspace:*",
+    "@sun-ui/react": "workspace:*",
+    "@sun-ui/theme": "workspace:*",
+    "@sun-ui/tokens": "workspace:*",
+    "pnpm": "^10.24.0"
+  }
+}

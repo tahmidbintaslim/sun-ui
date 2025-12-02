@@ -1,0 +1,59 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "useDefineForClassFields": true,
+    "lib": [
+      "ES2020",
+      "DOM",
+      "DOM.Iterable"
+    ],
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "esModuleInterop": true,
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "react-jsx",
+    "allowSyntheticDefaultImports": true,
+    "baseUrl": ".",
+    "paths": {
+      "@sun-ui/tokens": [
+        "packages/tokens/src"
+      ],
+      "@sun-ui/theme": [
+        "packages/theme/src"
+      ],
+      "@sun-ui/react": [
+        "packages/react/src"
+      ],
+      "@sun-ui/icons": [
+        "packages/icons/src"
+      ],
+      "@sun-ui/core": [
+        "packages/core/src"
+      ]
+    }
+  },
+  "include": [],
+  "references": [
+    {
+      "path": "./packages/tokens"
+    },
+    {
+      "path": "./packages/theme"
+    },
+    {
+      "path": "./packages/react"
+    },
+    {
+      "path": "./packages/core"
+    },
+    {
+      "path": "./packages/icons"
+    }
+  ]
+}

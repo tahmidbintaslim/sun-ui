@@ -1,0 +1,32 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "composite": true,
+    "forceConsistentCasingInFileNames": true,
+    "outDir": "./dist",
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+    "skipLibCheck": true,
+    "paths": {
+      "@sun-ui/tokens": [
+        "../../packages/tokens/src"
+      ],
+      "@sun-ui/theme": [
+        "../../packages/theme/src"
+      ],
+      "@sun-ui/react": [
+        "../../packages/react/src"
+      ]
+    }
+  },
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx"
+  ],
+  "exclude": [
+    "dist",
+    "src/**/*.test.tsx",
+    "src/**/*.stories.tsx"
+  ]
+}

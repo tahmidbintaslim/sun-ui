@@ -1,0 +1,23 @@
+{
+    "name": "@sun-ui/icons",
+    "version": "1.0.0",
+    "description": "Icon library for Sun UI",
+    "main": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "exports": {
+        ".": {
+            "import": "./dist/index.js",
+            "require": "./dist/index.js"
+        }
+    },
+    "files": [
+        "dist"
+    ],
+    "scripts": {
+        "build": "tsc",
+        "type-check": "tsc --noEmit",
+        "lint": "eslint src",
+        "clean": "rm -rf dist"
+    },
+    "devDependencies": {}
+}

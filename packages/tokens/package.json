@@ -1,0 +1,26 @@
+{
+    "name": "@sun-ui/tokens",
+    "version": "1.0.0",
+    "description": "Design tokens for Sun UI",
+    "main": "./dist/index.js",
+    "module": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "exports": {
+        ".": {
+            "types": "./dist/index.d.ts",
+            "import": "./dist/index.js",
+            "require": "./dist/index.js"
+        },
+        "./css": "./dist/tokens.css"
+    },
+    "files": [
+        "dist"
+    ],
+    "scripts": {
+        "build": "tsc",
+        "type-check": "tsc --noEmit",
+        "lint": "eslint src",
+        "clean": "rm -rf dist"
+    },
+    "devDependencies": {}
+}

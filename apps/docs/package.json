@@ -1,0 +1,30 @@
+{
+  "name": "storybook",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "build": "echo 'Storybook build skipped - use storybook:build to manually build'",
+    "dev": "storybook dev -p 6006",
+    "storybook": "storybook dev -p 6006",
+    "storybook:build": "storybook build",
+    "lint": "eslint .storybook",
+    "type-check": "echo 'Storybook type-check skipped'",
+    "clean": "rm -rf dist storybook-static"
+  },
+  "devDependencies": {
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.1",
+    "@mui/material": "^5.14.0",
+    "@storybook/addon-links": "^10.1.2",
+    "@storybook/react-vite": "^10.1.2",
+    "@sun-ui/react": "workspace:*",
+    "@sun-ui/theme": "workspace:*",
+    "@sun-ui/tokens": "workspace:*",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "storybook": "^10.1.2",
+    "vite": "^5.0.0",
+    "eslint-plugin-storybook": "10.1.2",
+    "@storybook/addon-docs": "^10.1.2"
+  }
+}

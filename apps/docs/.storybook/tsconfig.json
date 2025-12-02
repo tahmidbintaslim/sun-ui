@@ -1,0 +1,27 @@
+{
+  "extends": "../../../tsconfig.json",
+  "compilerOptions": {
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true,
+    "paths": {
+      "@sun-ui/tokens": [
+        "../../../packages/tokens/src"
+      ],
+      "@sun-ui/theme": [
+        "../../../packages/theme/src"
+      ],
+      "@sun-ui/react": [
+        "../../../packages/react/src"
+      ]
+    }
+  },
+  "include": [
+    "*.ts",
+    "*.tsx",
+    "../../../packages/react/src/**/*.tsx"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}
