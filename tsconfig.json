@@ -2,11 +2,7 @@
   "compilerOptions": {
     "target": "ES2020",
     "useDefineForClassFields": true,
-    "lib": [
-      "ES2020",
-      "DOM",
-      "DOM.Iterable"
-    ],
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "esModuleInterop": true,
@@ -22,26 +18,14 @@
     "allowSyntheticDefaultImports": true,
     "baseUrl": ".",
     "paths": {
-      "@sun-ui/tokens": [
-        "packages/tokens/src"
-      ],
-      "@sun-ui/theme": [
-        "packages/theme/src"
-      ],
-      "@sun-ui/react": [
-        "packages/react/src"
-      ],
-      "@sun-ui/icons": [
-        "packages/icons/src"
-      ],
-      "@sun-ui/core": [
-        "packages/core/src"
-      ]
+      "@sun-ui/tokens": ["packages/tokens/src"],
+      "@sun-ui/theme": ["packages/theme/src"],
+      "@sun-ui/react": ["packages/react/src"],
+      "@sun-ui/icons": ["packages/icons/src"],
+      "@sun-ui/core": ["packages/core/src"]
     }
   },
-  "include": [
-    "vitest.config.ts"
-  ],
+  "include": ["vitest.config.ts"],
   "references": [
     {
       "path": "./packages/tokens"

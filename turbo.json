@@ -2,19 +2,12 @@
   "$schema": "https://turbo.build/schema.json",
   "tasks": {
     "build": {
-      "outputs": [
-        "dist/**",
-        "storybook-static/**"
-      ],
+      "outputs": ["dist/**", "storybook-static/**"],
       "cache": false,
-      "dependsOn": [
-        "^build"
-      ]
+      "dependsOn": ["^build"]
     },
     "test": {
-      "outputs": [
-        "coverage/**"
-      ],
+      "outputs": ["coverage/**"],
       "cache": false
     },
     "lint": {

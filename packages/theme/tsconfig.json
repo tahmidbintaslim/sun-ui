@@ -7,12 +7,14 @@
     "declaration": true,
     "declarationMap": true,
     "sourceMap": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "rootDir": "src"
   },
-  "include": [
-    "src"
-  ],
-  "exclude": [
-    "dist"
+  "include": ["src"],
+  "exclude": ["dist"],
+  "references": [
+    {
+      "path": "../tokens"
+    }
   ]
 }

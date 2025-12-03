@@ -1,35 +1,38 @@
 {
-    "name": "@sun-ui/theme",
-    "version": "1.0.0",
-    "description": "MUI theme and module augmentation for Sun UI",
-    "main": "./dist/index.js",
-    "module": "./dist/index.js",
-    "types": "./dist/index.d.ts",
-    "exports": {
-        ".": {
-            "types": "./dist/index.d.ts",
-            "import": "./dist/index.js",
-            "require": "./dist/index.js"
-        }
-    },
-    "files": [
-        "dist"
-    ],
-    "scripts": {
-        "build": "tsc",
-        "type-check": "tsc --noEmit",
-        "lint": "eslint src",
-        "clean": "rm -rf dist"
-    },
-    "dependencies": {
-        "@mui/material": "^7.3.5",
-        "@sun-ui/tokens": "workspace:*"
-    },
-    "peerDependencies": {
-        "react": "^18.0.0",
-        "react-dom": "^18.0.0"
-    },
-    "devDependencies": {
-        "@types/react": "^19.2.7"
+  "name": "@sun-ui/theme",
+  "version": "1.0.0",
+  "description": "MUI theme and module augmentation for Sun UI",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.js"
     }
+  },
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "tsc",
+    "type-check": "tsc --noEmit",
+    "lint": "eslint src",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "@mui/material": "^7.3.5",
+    "@sun-ui/tokens": "workspace:*"
+  },
+  "peerDependencies": {
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0"
+  },
+  "devDependencies": {
+    "@types/react": "^19.2.7"
+  }
 }

@@ -2,14 +2,20 @@
   "name": "sun-ui",
   "version": "1.0.0",
   "description": "Universal design system extending MUI v5",
+  "type": "module",
   "private": true,
   "packageManager": "pnpm@10.19.0",
   "scripts": {
     "build": "turbo run build",
     "test": "vitest",
+    "test:storybook": "pnpm --filter=storybook test:storybook",
     "lint": "turbo run lint",
     "type-check": "turbo run type-check",
+    "format": "prettier --write \"**/*.{ts,tsx,json,md}\" --ignore-path .gitignore",
+    "check:all": "pnpm lint && pnpm type-check && pnpm test",
     "dev": "turbo run dev --parallel",
+    "storybook:build": "pnpm --filter=storybook storybook:build",
+    "storybook:dev": "pnpm --filter=storybook storybook",
     "clean": "turbo run clean && rm -rf node_modules pnpm-lock.yaml"
   },
   "devDependencies": {
@@ -27,14 +33,16 @@
     "@vitest/browser": "^4.0.14",
     "@vitest/browser-playwright": "^4.0.14",
     "@vitest/ui": "^4.0.14",
+    "@vitest/coverage-v8": "^4.0.14",
     "eslint": "^9.39.1",
+    "eslint-plugin-storybook": "^0.8.0",
     "jsdom": "^27.2.0",
     "prettier": "^3.7.3",
     "turbo": "^2.6.1",
     "typescript": "^5.9.3",
+    "typescript-eslint": "^8.48.0",
     "vitest": "^4.0.14",
-    "playwright": "^1.57.0",
-    "@vitest/coverage-v8": "^4.0.14"
+    "playwright": "^1.57.0"
   },
   "dependencies": {
     "@sun-ui/core": "workspace:*",

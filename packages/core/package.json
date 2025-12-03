@@ -1,23 +1,26 @@
 {
-    "name": "@sun-ui/core",
-    "version": "1.0.0",
-    "description": "Headless primitives for Sun UI",
-    "main": "./dist/index.js",
-    "types": "./dist/index.d.ts",
-    "exports": {
-        ".": {
-            "import": "./dist/index.js",
-            "require": "./dist/index.js"
-        }
-    },
-    "files": [
-        "dist"
-    ],
-    "scripts": {
-        "build": "tsc",
-        "type-check": "tsc --noEmit",
-        "lint": "eslint src",
-        "clean": "rm -rf dist"
-    },
-    "devDependencies": {}
+  "name": "@sun-ui/core",
+  "version": "1.0.0",
+  "description": "Headless primitives for Sun UI",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "tsc",
+    "type-check": "tsc --noEmit",
+    "lint": "eslint src",
+    "clean": "rm -rf dist"
+  },
+  "devDependencies": {}
 }

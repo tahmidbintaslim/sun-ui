@@ -8,26 +8,11 @@
     "module": "ES2020",
     "moduleResolution": "bundler",
     "paths": {
-      "@sun-ui/tokens": [
-        "../../packages/tokens/src"
-      ],
-      "@sun-ui/theme": [
-        "../../packages/theme/src"
-      ],
-      "@sun-ui/react": [
-        "../../packages/react/src"
-      ]
+      "@sun-ui/tokens": ["../../packages/tokens/src"],
+      "@sun-ui/theme": ["../../packages/theme/src"],
+      "@sun-ui/react": ["../../packages/react/src"]
     }
   },
-  "include": [
-    ".storybook/**/*",
-    "src/**/*",
-    "vite.config.ts",
-    "vitest.config.ts"
-  ],
-  "exclude": [
-    "node_modules",
-    "dist",
-    "storybook-static"
-  ]
+  "include": [".storybook/**/*", "src/**/*", "vite.config.ts", "vitest.config.ts"],
+  "exclude": ["node_modules", "dist", "storybook-static"]
 }

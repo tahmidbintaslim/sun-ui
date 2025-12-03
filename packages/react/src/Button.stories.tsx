@@ -1,11 +1,15 @@
 import { Stack } from '@mui/material';
 import { Meta, StoryObj } from '@storybook/react-vite';
+import { expect, fn, userEvent } from '@storybook/test';
 import { Button } from './Button';
 
 const meta = {
   title: 'Atoms/Button',
   component: Button,
   tags: ['autodocs'],
+  args: {
+    onClick: fn(),
+  },
   argTypes: {
     variant: {
       control: { type: 'select' },
@@ -62,6 +66,34 @@ export const Disabled: Story = {
     variant: 'solid',
     disabled: true,
     children: 'Disabled Button',
+  },
+  play: async ({ args, canvas }) => {
+    const button = canvas.getByRole('button', { name: /disabled button/i });
+
+    // Verify button is disabled
+    await expect(button).toBeDisabled();
+
+    // Verify onClick was not called (button can't be clicked when disabled)
+    await expect(args.onClick).not.toHaveBeenCalled();
+  },
+};
+
+export const Clickable: Story = {
+  args: {
+    variant: 'solid',
+    children: 'Click Me',
+  },
+  play: async ({ args, canvas }) => {
+    const button = canvas.getByRole('button', { name: /click me/i });
+
+    // Verify button is enabled
+    await expect(button).not.toBeDisabled();
+
+    // Click the button
+    await userEvent.click(button);
+
+    // Verify onClick was called
+    await expect(args.onClick).toHaveBeenCalled();
   },
 };
 

@@ -9,10 +9,6 @@
     "declarationMap": true,
     "sourceMap": true
   },
-  "include": [
-    "src"
-  ],
-  "exclude": [
-    "dist"
-  ]
+  "include": ["src"],
+  "exclude": ["dist"]
 }

@@ -1,0 +1,70 @@
+name: Publish Storybook
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  publish-storybook:
+    name: Build & Publish Storybook
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+
+      - name: Install Dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Install Playwright Browsers
+        run: pnpm exec playwright install chromium --with-deps
+
+      # Build Storybook static site
+      - name: Build Storybook
+        run: pnpm --filter=storybook storybook:build
+
+      # Publish to Chromatic for visual testing review
+      - name: Publish to Chromatic
+        uses: chromaui/action@v11
+        with:
+          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+          storybookBuildDir: ./apps/docs/storybook-static
+          onlyChanged: true
+          exitZeroOnChanges: true
+        continue-on-error: true
+
+      # Deploy to Vercel (optional alternative to Chromatic)
+      # Uncomment below if you want to deploy Storybook to Vercel
+      # - name: Deploy to Vercel
+      #   uses: vercel/action@master
+      #   with:
+      #     vercel-token: ${{ secrets.VERCEL_TOKEN }}
+      #     vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+      #     vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+      #     scope: ${{ secrets.VERCEL_ORG_ID }}
+
+      # Deploy to Netlify (optional alternative to Chromatic)
+      # Uncomment below if you want to deploy Storybook to Netlify
+      # - name: Deploy to Netlify
+      #   uses: netlify/actions/build@main
+      #   with:
+      #     publish-dir: ./apps/docs/storybook-static
+      #   env:
+      #     NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+      #     NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}

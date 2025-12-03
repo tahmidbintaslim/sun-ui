@@ -11,25 +11,11 @@
     "module": "ES2020",
     "moduleResolution": "bundler",
     "paths": {
-      "@sun-ui/tokens": [
-        "../../packages/tokens/src"
-      ],
-      "@sun-ui/theme": [
-        "../../packages/theme/src"
-      ],
-      "@sun-ui/react": [
-        "../../packages/react/src"
-      ]
+      "@sun-ui/tokens": ["../../packages/tokens/src"],
+      "@sun-ui/theme": ["../../packages/theme/src"],
+      "@sun-ui/react": ["../../packages/react/src"]
     }
   },
-  "include": [
-    "src/**/*.ts",
-    "src/**/*.tsx",
-    "vitest.config.ts"
-  ],
-  "exclude": [
-    "dist",
-    "src/**/*.test.tsx",
-    "src/**/*.stories.tsx"
-  ]
+  "include": ["src/**/*.ts", "src/**/*.tsx", "vitest.config.ts"],
+  "exclude": ["dist", "src/**/*.test.tsx", "src/**/*.stories.tsx"]
 }

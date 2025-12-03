@@ -1,0 +1,63 @@
+name: CI
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+# Cancel previous runs if a new commit is pushed to the same PR
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: Validate
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      # Install pnpm (matching your local v10 usage)
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      # Setup Node.js with caching for faster installs
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: "pnpm"
+
+      - name: Install Dependencies
+        run: pnpm install --frozen-lockfile
+
+      # Required for Storybook Vitest (Browser Mode)
+      - name: Install Playwright Browsers
+        run: pnpm exec playwright install chromium --with-deps
+
+      # 1. Run Package Unit Tests
+      - name: Run Unit Tests
+        run: pnpm test
+
+      # 2. Run Storybook Component Tests
+      - name: Run Storybook Tests
+        run: pnpm test:storybook
+
+      # 3. Run Visual Tests (via Vitest + Storybook addon)
+      - name: Run Visual Tests
+        run: pnpm --filter=storybook test:storybook
+        continue-on-error: true
+
+      # 4. Publish Storybook to Chromatic for visual review
+      - name: Publish to Chromatic
+        uses: chromaui/action@v11
+        with:
+          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+          onlyChanged: true
+          exitZeroOnChanges: true
+        continue-on-error: true
