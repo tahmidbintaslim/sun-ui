@@ -1,6 +1,6 @@
 import { Stack } from '@mui/material';
-import { Meta, StoryObj } from '@storybook/react-vite';
-import { expect, fn, userEvent } from '@storybook/test';
+import { Meta, StoryObj } from 'storybook/react';
+import { expect, fn, userEvent } from 'storybook/test';
 import { Alert } from './Alert';
 
 const meta = {

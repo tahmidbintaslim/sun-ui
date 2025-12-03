@@ -5,6 +5,38 @@
   "type": "module",
   "private": true,
   "packageManager": "pnpm@10.19.0",
+  "pnpm": {
+    "overrides": {
+      "react": "^19.0.0",
+      "react-dom": "^19.0.0"
+    },
+    "onlyBuiltDependencies": [
+      " ",
+      "/",
+      "@",
+      "@swc/core",
+      "a",
+      "b",
+      "c",
+      "d",
+      "e",
+      "esbuild",
+      "g",
+      "i",
+      "l",
+      "m",
+      "n",
+      "o",
+      "p",
+      "r",
+      "s",
+      "t",
+      "u",
+      "unrs-resolver",
+      "w",
+      "x"
+    ]
+  },
   "scripts": {
     "build": "turbo run build",
     "test": "vitest",
@@ -32,17 +64,16 @@
     "@typescript-eslint/parser": "^8.48.0",
     "@vitest/browser": "^4.0.14",
     "@vitest/browser-playwright": "^4.0.14",
-    "@vitest/ui": "^4.0.14",
     "@vitest/coverage-v8": "^4.0.14",
+    "@vitest/ui": "^4.0.14",
     "eslint": "^9.39.1",
-    "eslint-plugin-storybook": "^0.8.0",
     "jsdom": "^27.2.0",
+    "playwright": "^1.57.0",
     "prettier": "^3.7.3",
     "turbo": "^2.6.1",
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.48.0",
-    "vitest": "^4.0.14",
-    "playwright": "^1.57.0"
+    "vitest": "^4.0.14"
   },
   "dependencies": {
     "@sun-ui/core": "workspace:*",
@@ -50,6 +81,7 @@
     "@sun-ui/react": "workspace:*",
     "@sun-ui/theme": "workspace:*",
     "@sun-ui/tokens": "workspace:*",
-    "pnpm": "^10.24.0"
+    "pnpm": "^10.24.0",
+    "storybook": "^10.1.4"
   }
 }

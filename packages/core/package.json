@@ -1,7 +1,7 @@
 {
   "name": "@sun-ui/core",
   "version": "1.0.0",
-  "description": "Headless primitives for Sun UI",
+  "description": "Core utilities, types, and presets for Sun UI",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
@@ -22,5 +22,20 @@
     "lint": "eslint src",
     "clean": "rm -rf dist"
   },
-  "devDependencies": {}
+  "dependencies": {
+    "@storybook/react": "^10.1.4",
+    "@sun-ui/tokens": "workspace:*",
+    "storybook": "^10.1.4"
+  },
+  "peerDependencies": {
+    "react": ">=18.0.0"
+  },
+  "devDependencies": {
+    "@storybook/addon-docs": "^10.1.4",
+    "@storybook/addon-links": "^10.1.4",
+    "@storybook/test": "^8.6.14",
+    "@storybook/test-runner": "^0.24.2",
+    "@types/react": "^19.0.0",
+    "eslint-plugin-storybook": "^10.1.4"
+  }
 }

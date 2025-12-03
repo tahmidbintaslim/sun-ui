@@ -1,5 +1,4 @@
 import { Tooltip as MuiTooltip, TooltipProps as MuiTooltipProps } from '@mui/material';
-import { styled } from '@mui/material/styles';
 import { sunPalette } from '@sun-ui/tokens';
 import * as React from 'react';
 
@@ -9,57 +8,84 @@ export interface TooltipProps extends Omit<MuiTooltipProps, 'variant'> {
   variant?: SunUIVariant;
 }
 
-const StyledTooltip = styled(MuiTooltip, {
-  shouldForwardProp: (prop) => prop !== 'variant',
-})(({ variant = 'solid' }: TooltipProps) => ({
-  '& .MuiTooltip-tooltip': {
+const getVariantStyles = (variant: SunUIVariant = 'solid') => {
+  const baseStyles = {
     fontSize: '12px',
     fontWeight: 500,
     padding: '8px 12px',
-    borderRadius: '4px',
-    ...(variant === 'solid' && {
+    borderRadius: '6px',
+    boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)',
+  };
+
+  const variantStyles = {
+    solid: {
       backgroundColor: sunPalette.neutral[900],
       color: sunPalette.neutral[50],
-    }),
-    ...(variant === 'soft' && {
+    },
+    soft: {
       backgroundColor: sunPalette.neutral[200],
       color: sunPalette.neutral[900],
-    }),
-    ...(variant === 'outlined' && {
+    },
+    outlined: {
       backgroundColor: sunPalette.neutral[50],
       color: sunPalette.neutral[900],
       border: `1px solid ${sunPalette.neutral[300]}`,
-    }),
-    ...(variant === 'ghost' && {
+    },
+    ghost: {
       backgroundColor: sunPalette.primary.alpha20,
       color: sunPalette.primary.main,
-    }),
-    ...(variant === 'plain' && {
-      backgroundColor: 'transparent',
+    },
+    plain: {
+      backgroundColor: 'white',
       color: sunPalette.neutral[900],
-    }),
-  },
-  '& .MuiTooltip-arrow': {
-    ...(variant === 'solid' && {
-      color: sunPalette.neutral[900],
-    }),
-    ...(variant === 'soft' && {
-      color: sunPalette.neutral[200],
-    }),
-    ...(variant === 'outlined' && {
-      color: sunPalette.neutral[50],
-    }),
-    ...(variant === 'ghost' && {
-      color: sunPalette.primary.alpha20,
-    }),
-    ...(variant === 'plain' && {
-      color: 'transparent',
-    }),
-  },
-}));
+      border: `1px solid ${sunPalette.neutral[200]}`,
+    },
+  };
 
-export const Tooltip = React.forwardRef<HTMLDivElement, TooltipProps>((props, ref) => {
-  const { ...rest } = props;
-  return <StyledTooltip ref={ref} {...(rest as any)} />;
-});
+  return { ...baseStyles, ...variantStyles[variant] };
+};
+
+const getArrowStyles = (variant: SunUIVariant = 'solid') => {
+  const arrowColors = {
+    solid: sunPalette.neutral[900],
+    soft: sunPalette.neutral[200],
+    outlined: sunPalette.neutral[50],
+    ghost: sunPalette.primary.alpha20,
+    plain: 'white',
+  };
+
+  return { color: arrowColors[variant] };
+};
+
+export const Tooltip = React.forwardRef<HTMLDivElement, TooltipProps>(
+  ({ variant = 'solid', slotProps, ...rest }, ref) => {
+    return (
+      <MuiTooltip
+        ref={ref}
+        slotProps={{
+          ...slotProps,
+          tooltip: {
+            ...slotProps?.tooltip,
+            sx: {
+              ...getVariantStyles(variant),
+              ...(typeof slotProps?.tooltip === 'object' && 'sx' in slotProps.tooltip
+                ? slotProps.tooltip.sx
+                : {}),
+            },
+          },
+          arrow: {
+            ...slotProps?.arrow,
+            sx: {
+              ...getArrowStyles(variant),
+              ...(typeof slotProps?.arrow === 'object' && 'sx' in slotProps.arrow
+                ? slotProps.arrow.sx
+                : {}),
+            },
+          },
+        }}
+        {...rest}
+      />
+    );
+  }
+);
 Tooltip.displayName = 'Tooltip';

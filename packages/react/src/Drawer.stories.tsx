@@ -1,5 +1,6 @@
 import { Box, List, ListItem, ListItemButton, ListItemText, Stack } from '@mui/material';
-import { Meta, StoryObj } from '@storybook/react-vite';
+import { Meta, StoryObj } from 'storybook/react';
+import { expect } from 'storybook/test';
 import { useState } from 'react';
 import { Button } from './Button';
 import { Drawer } from './Drawer';
@@ -57,6 +58,10 @@ function DrawerExample({
 
 export const Solid: Story = {
   render: () => <DrawerExample variant="solid" />,
+  play: async ({ canvas }) => {
+    const openButton = canvas.getByRole('button', { name: /open drawer/i });
+    await expect(openButton).toBeInTheDocument();
+  },
 };
 
 export const Soft: Story = {
@@ -85,6 +90,10 @@ export const AllVariants: Story = {
       <DrawerExample variant="plain" />
     </Stack>
   ),
+  play: async ({ canvas }) => {
+    const buttons = canvas.getAllByRole('button', { name: /open drawer/i });
+    await expect(buttons).toHaveLength(5);
+  },
 };
 
 export const RightAnchor: Story = {

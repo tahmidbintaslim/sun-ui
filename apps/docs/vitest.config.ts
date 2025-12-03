@@ -28,13 +28,19 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      '@sun-ui/tokens': path.resolve(__dirname, '../../packages/tokens/src'),
-      '@sun-ui/theme': path.resolve(__dirname, '../../packages/theme/src'),
+      // Point to dist for proper ESM module resolution
+      '@sun-ui/tokens': path.resolve(__dirname, '../../packages/tokens/dist'),
+      '@sun-ui/theme': path.resolve(__dirname, '../../packages/theme/dist'),
       '@sun-ui/react': path.resolve(__dirname, '../../packages/react/src'),
       '@emotion/react': path.dirname(require.resolve('@emotion/react/package.json')),
       '@emotion/styled': path.dirname(require.resolve('@emotion/styled/package.json')),
       react: path.dirname(require.resolve('react/package.json')),
       'react-dom': path.dirname(require.resolve('react-dom/package.json')),
     },
+  },
+  optimizeDeps: {
+    include: ['@mui/material', '@mui/system', '@mui/utils', '@emotion/react', '@emotion/styled'],
+    // Exclude workspace packages from pre-bundling - they're resolved via aliases
+    exclude: ['@sun-ui/tokens', '@sun-ui/theme', '@sun-ui/react'],
   },
 });

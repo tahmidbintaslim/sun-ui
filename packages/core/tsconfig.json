@@ -8,5 +8,10 @@
     "declaration": true
   },
   "include": ["src"],
-  "exclude": ["dist"]
+  "exclude": ["dist"],
+  "references": [
+    {
+      "path": "../tokens"
+    }
+  ]
 }

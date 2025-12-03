@@ -1,7 +1,7 @@
 import CssBaseline from '@mui/material/CssBaseline';
 import { ThemeProvider } from '@mui/material/styles';
-import type { Preview } from '@storybook/react-vite';
-import { lightTheme } from '@sun-ui/theme';
+import { darkTheme, lightTheme } from '@sun-ui/theme';
+import type { Preview } from 'storybook/react';
 import { INITIAL_VIEWPORTS } from 'storybook/viewport';
 
 // Custom Sun UI viewports for specific breakpoints
@@ -85,12 +85,18 @@ const preview: Preview = {
     },
   },
   decorators: [
-    (Story) => (
-      <ThemeProvider theme={lightTheme}>
-        <CssBaseline />
-        <Story />
-      </ThemeProvider>
-    ),
+    (Story, context) => {
+      // Get background value from Storybook's backgrounds addon
+      const backgroundValue = context.globals?.backgrounds?.value;
+      const isDarkMode = backgroundValue === 'dark' || backgroundValue === '#333333';
+
+      return (
+        <ThemeProvider theme={isDarkMode ? darkTheme : lightTheme}>
+          <CssBaseline />
+          <Story />
+        </ThemeProvider>
+      );
+    },
   ],
 };
 

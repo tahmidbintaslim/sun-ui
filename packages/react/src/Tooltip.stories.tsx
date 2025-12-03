@@ -1,5 +1,6 @@
 import { Box, Stack } from '@mui/material';
-import { Meta, StoryObj } from '@storybook/react-vite';
+import { Meta, StoryObj } from 'storybook/react';
+import { expect } from 'storybook/test';
 import { Button } from './Button';
 import { Tooltip } from './Tooltip';
 
@@ -32,6 +33,10 @@ export const Solid: Story = {
       <Button variant="soft">Hover me</Button>
     </Tooltip>
   ),
+  play: async ({ canvas }) => {
+    const button = canvas.getByRole('button');
+    await expect(button).toBeInTheDocument();
+  },
 };
 
 export const Soft: Story = {
@@ -115,6 +120,10 @@ export const AllVariants: Story = {
       </Tooltip>
     </Stack>
   ),
+  play: async ({ canvas }) => {
+    const buttons = canvas.getAllByRole('button');
+    await expect(buttons).toHaveLength(5);
+  },
 };
 
 export const Placements: Story = {
@@ -134,4 +143,28 @@ export const Placements: Story = {
       </Tooltip>
     </Box>
   ),
+  play: async ({ canvas }) => {
+    const buttons = canvas.getAllByRole('button');
+    await expect(buttons).toHaveLength(4);
+  },
+};
+
+export const Disabled: Story = {
+  args: {
+    variant: 'solid',
+    title: 'Tooltip on disabled button',
+  },
+  render: (args) => (
+    <Tooltip {...args}>
+      <span>
+        <Button variant="soft" disabled>
+          Disabled Button
+        </Button>
+      </span>
+    </Tooltip>
+  ),
+  play: async ({ canvas }) => {
+    const button = canvas.getByRole('button', { name: /disabled button/i });
+    await expect(button).toBeDisabled();
+  },
 };

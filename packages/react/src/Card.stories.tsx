@@ -1,6 +1,6 @@
 import { CardContent, CardHeader, Stack, Typography } from '@mui/material';
-import { Meta, StoryObj } from '@storybook/react-vite';
-import { expect } from '@storybook/test';
+import { Meta, StoryObj } from 'storybook/react';
+import { expect } from 'storybook/test';
 import { Card } from './Card';
 
 const meta = {

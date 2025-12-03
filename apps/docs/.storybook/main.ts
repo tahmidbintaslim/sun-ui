@@ -7,15 +7,24 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 const config: StorybookConfig = {
-  stories: ['../../../packages/react/src/**/*.stories.tsx'],
+  stories: ['../../../packages/react/src/**/*.stories.@(ts|tsx|mdx)'],
   addons: [
+    // Note: addon-essentials is built into storybook@10.x core - no need to list it
     getAbsolutePath('@storybook/addon-links'),
     getAbsolutePath('@storybook/addon-docs'),
     getAbsolutePath('@storybook/addon-vitest'),
     getAbsolutePath('@storybook/addon-a11y'),
+    getAbsolutePath('@storybook/addon-themes'),
     getAbsolutePath('@chromatic-com/storybook'),
   ],
-  framework: getAbsolutePath('@storybook/react-vite'),
+  framework: {
+    name: getAbsolutePath('@storybook/react-vite'),
+    options: {},
+  },
+
+  docs: {
+    autodocs: 'tag',
+  },
 
   viteFinal: async (config) => {
     // Configure Vite to handle "use client" directives from MUI
@@ -24,9 +33,26 @@ const config: StorybookConfig = {
       resolve: {
         ...config.resolve,
         alias: {
-          '@sun-ui/tokens': path.resolve(__dirname, '../../../packages/tokens/src'),
-          '@sun-ui/theme': path.resolve(__dirname, '../../../packages/theme/src'),
+          // Point to dist for proper ESM module resolution in Vitest browser mode
+          '@sun-ui/tokens': path.resolve(__dirname, '../../../packages/tokens/dist'),
+          '@sun-ui/theme': path.resolve(__dirname, '../../../packages/theme/dist'),
           '@sun-ui/react': path.resolve(__dirname, '../../../packages/react/src'),
+          // Fix CJS/ESM compatibility issues
+          semver: path.resolve(__dirname, './semver-esm-wrapper.js'),
+          'use-sync-external-store/shim/index.js': path.resolve(
+            __dirname,
+            './use-sync-external-store-shim.js'
+          ),
+        },
+      },
+      optimizeDeps: {
+        include: ['@mui/material', '@emotion/react', '@emotion/styled'],
+        // Exclude workspace packages from pre-bundling - they're resolved via aliases
+        exclude: ['@sun-ui/tokens', '@sun-ui/theme', '@sun-ui/react'],
+        esbuildOptions: {
+          define: {
+            global: 'globalThis',
+          },
         },
       },
       ssr: {

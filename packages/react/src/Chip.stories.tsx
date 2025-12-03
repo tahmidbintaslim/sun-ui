@@ -1,6 +1,6 @@
 import { Stack } from '@mui/material';
-import { Meta, StoryObj } from '@storybook/react-vite';
-import { expect, fn } from '@storybook/test';
+import { Meta, StoryObj } from 'storybook/react';
+import { expect, fn } from 'storybook/test';
 import { Chip } from './Chip';
 
 const meta = {

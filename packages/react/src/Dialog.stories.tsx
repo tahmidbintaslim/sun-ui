@@ -1,5 +1,6 @@
 import { Stack } from '@mui/material';
-import { Meta, StoryObj } from '@storybook/react-vite';
+import { Meta, StoryObj } from 'storybook/react';
+import { expect } from 'storybook/test';
 import { useState } from 'react';
 import { Button } from './Button';
 import { Dialog, DialogActions, DialogContent, DialogTitle } from './Dialog';
@@ -58,6 +59,10 @@ function DialogExample({
 
 export const Solid: Story = {
   render: () => <DialogExample variant="solid" />,
+  play: async ({ canvas }) => {
+    const openButton = canvas.getByRole('button', { name: /open dialog/i });
+    await expect(openButton).toBeInTheDocument();
+  },
 };
 
 export const Soft: Story = {
@@ -86,6 +91,10 @@ export const AllVariants: Story = {
       <DialogExample variant="plain" />
     </Stack>
   ),
+  play: async ({ canvas }) => {
+    const buttons = canvas.getAllByRole('button', { name: /open dialog/i });
+    await expect(buttons).toHaveLength(5);
+  },
 };
 
 export const FullWidth: Story = {

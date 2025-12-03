@@ -1,5 +1,6 @@
 import { Stack } from '@mui/material';
-import { Meta, StoryObj } from '@storybook/react-vite';
+import { Meta, StoryObj } from 'storybook/react';
+import { expect } from 'storybook/test';
 import { useState } from 'react';
 import { Button } from './Button';
 import { Snackbar } from './Snackbar';
@@ -56,6 +57,10 @@ function SnackbarExample({
 
 export const Solid: Story = {
   render: () => <SnackbarExample variant="solid" />,
+  play: async ({ canvas }) => {
+    const showButton = canvas.getByRole('button', { name: /show snackbar/i });
+    await expect(showButton).toBeInTheDocument();
+  },
 };
 
 export const Soft: Story = {
@@ -84,6 +89,10 @@ export const AllVariants: Story = {
       <SnackbarExample variant="plain" />
     </Stack>
   ),
+  play: async ({ canvas }) => {
+    const buttons = canvas.getAllByRole('button', { name: /show snackbar/i });
+    await expect(buttons).toHaveLength(5);
+  },
 };
 
 export const WithAction: Story = {
@@ -146,7 +155,7 @@ export const Positions: Story = {
 
       return (
         <>
-          <Button onClick={handleOpen} variant="soft" size="small">
+          <Button onClick={handleOpen} variant="soft" size="sm">
             {vertical}-{horizontal}
           </Button>
           <Snackbar

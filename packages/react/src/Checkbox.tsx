@@ -1,58 +1,251 @@
-import { Checkbox as MuiCheckbox, CheckboxProps as MuiCheckboxProps } from '@mui/material';
+import {
+  Box,
+  CircularProgress,
+  FormControlLabel,
+  Checkbox as MuiCheckbox,
+  CheckboxProps as MuiCheckboxProps,
+} from '@mui/material';
 import { styled } from '@mui/material/styles';
-import { sunPalette } from '@sun-ui/tokens';
+import { animations, colors, sizing, typography } from '@sun-ui/tokens';
 import * as React from 'react';
 
-export interface CheckboxProps extends MuiCheckboxProps {
-  variant?: 'solid' | 'soft' | 'outlined' | 'ghost' | 'plain';
+// =============================================================================
+// TYPES
+// =============================================================================
+
+type SunVariant = 'solid' | 'soft' | 'outlined' | 'ghost' | 'plain';
+type SunColor = 'primary' | 'secondary' | 'success' | 'warning' | 'danger' | 'info' | 'neutral';
+type SunSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+
+export interface CheckboxProps extends Omit<MuiCheckboxProps, 'size' | 'color'> {
+  /** Visual style variant */
+  variant?: SunVariant;
+  /** Color scheme */
+  color?: SunColor;
+  /** Checkbox size */
+  size?: SunSize;
+  /** Label text */
+  label?: React.ReactNode;
+  /** Show loading state */
+  loading?: boolean;
 }
 
-const StyledCheckbox = styled(MuiCheckbox, {
-  shouldForwardProp: (prop) => prop !== 'variant',
-})(({ variant = 'outlined' }: CheckboxProps) => ({
-  padding: 8,
-  ...(variant === 'solid' && {
-    color: sunPalette.neutral[300],
-    '&.Mui-checked': {
-      backgroundColor: sunPalette.primary.main,
-      color: 'white',
-    },
-    '&:hover': {
-      backgroundColor: sunPalette.primary.alpha12,
-    },
-  }),
-  ...(variant === 'soft' && {
-    color: sunPalette.neutral[300],
-    '&.Mui-checked': {
-      color: sunPalette.primary.main,
-      backgroundColor: sunPalette.primary.alpha12,
-    },
-    '&:hover': {
-      backgroundColor: sunPalette.neutral[100],
-    },
-  }),
-  ...(variant === 'outlined' && {
-    border: `1px solid ${sunPalette.neutral[300]}`,
-    '&.Mui-checked': {
-      color: sunPalette.primary.main,
-      borderColor: sunPalette.primary.main,
-    },
-  }),
-  ...(variant === 'ghost' && {
-    color: sunPalette.neutral[400],
-    '&.Mui-checked': {
-      color: sunPalette.primary.main,
-    },
-  }),
-  ...(variant === 'plain' && {
-    color: sunPalette.neutral[400],
-    '&.Mui-checked': {
-      color: sunPalette.primary.main,
-    },
-  }),
+// =============================================================================
+// STYLE UTILITIES
+// =============================================================================
+
+const getColorScale = (color: SunColor) => colors.semantic[color];
+
+const sizeConfig = {
+  xs: { checkbox: 16, icon: 12, label: typography.fontSize.xs },
+  sm: { checkbox: 18, icon: 14, label: typography.fontSize.sm },
+  md: { checkbox: 22, icon: 16, label: typography.fontSize.base },
+  lg: { checkbox: 26, icon: 20, label: typography.fontSize.lg },
+  xl: { checkbox: 32, icon: 24, label: typography.fontSize.xl },
+};
+
+// =============================================================================
+// CUSTOM CHECKBOX ICONS
+// =============================================================================
+
+interface IconProps {
+  size: number;
+  variant: SunVariant;
+  colorScale: ReturnType<typeof getColorScale>;
+  checked?: boolean;
+  indeterminate?: boolean;
+}
+
+const CheckboxIcon = ({ size, variant, colorScale, checked, indeterminate }: IconProps) => {
+  const baseStyles: React.CSSProperties = {
+    width: size,
+    height: size,
+    borderRadius: sizing.radius.sm,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    transition: animations.transitions.button,
+  };
+
+  const getVariantStyles = (): React.CSSProperties => {
+    const isActive = checked || indeterminate;
+
+    switch (variant) {
+      case 'solid':
+        return {
+          backgroundColor: isActive ? colorScale.main : colors.semantic.neutral[200],
+          border: 'none',
+        };
+      case 'soft':
+        return {
+          backgroundColor: isActive ? colorScale.alpha20 : colors.semantic.neutral[100],
+          border: `2px solid ${isActive ? colorScale.main : colors.semantic.neutral[300]}`,
+        };
+      case 'outlined':
+        return {
+          backgroundColor: 'transparent',
+          border: `2px solid ${isActive ? colorScale.main : colors.semantic.neutral[400]}`,
+        };
+      case 'ghost':
+        return {
+          backgroundColor: isActive ? colorScale.alpha12 : 'transparent',
+          border: `2px solid ${isActive ? colorScale.main : 'transparent'}`,
+        };
+      case 'plain':
+      default:
+        return {
+          backgroundColor: 'transparent',
+          border: `2px solid ${isActive ? colorScale.main : colors.semantic.neutral[400]}`,
+        };
+    }
+  };
+
+  const iconColor = variant === 'solid' && (checked || indeterminate) ? '#fff' : colorScale.main;
+
+  return (
+    <Box sx={{ ...baseStyles, ...getVariantStyles() }}>
+      {(checked || indeterminate) && (
+        <svg
+          width={size * 0.6}
+          height={size * 0.6}
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke={iconColor}
+          strokeWidth="3"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          {indeterminate ? (
+            <line x1="5" y1="12" x2="19" y2="12" />
+          ) : (
+            <polyline points="20 6 9 17 4 12" />
+          )}
+        </svg>
+      )}
+    </Box>
+  );
+};
+
+// =============================================================================
+// STYLED COMPONENTS
+// =============================================================================
+
+interface StyledProps {
+  sunSize: SunSize;
+}
+
+const StyledCheckbox = styled(MuiCheckbox)<StyledProps>(({ sunSize: _sunSize }) => ({
+  padding: sizing.spacing[1],
+  '&:hover': {
+    backgroundColor: 'transparent',
+  },
+  '&.Mui-focusVisible': {
+    outline: `2px solid ${colors.semantic.primary.main}`,
+    outlineOffset: '2px',
+    borderRadius: sizing.radius.sm,
+  },
+  '&.Mui-disabled': {
+    opacity: 0.5,
+  },
 }));
 
+const StyledLabel = styled(FormControlLabel)<{ sunSize: SunSize }>(({ sunSize }) => ({
+  margin: 0,
+  gap: sizing.spacing[2],
+  '& .MuiFormControlLabel-label': {
+    fontSize: sizeConfig[sunSize].label,
+    fontFamily: typography.fontFamily.sans,
+    color: colors.textColors.light.primary,
+    '&.Mui-disabled': {
+      color: colors.textColors.light.disabled,
+    },
+  },
+}));
+
+// =============================================================================
+// COMPONENT
+// =============================================================================
+
 export const Checkbox = React.forwardRef<HTMLButtonElement, CheckboxProps>(
-  ({ variant, ...rest }, ref) => <StyledCheckbox ref={ref} variant={variant} {...(rest as any)} />
+  (
+    {
+      variant = 'outlined',
+      color = 'primary',
+      size = 'md',
+      label,
+      loading = false,
+      checked,
+      disabled,
+      indeterminate,
+      onChange,
+      ...rest
+    },
+    ref
+  ) => {
+    const [isChecked, setIsChecked] = React.useState(checked ?? false);
+    const colorScale = getColorScale(color);
+    const sizeStyles = sizeConfig[size];
+
+    React.useEffect(() => {
+      if (checked !== undefined) {
+        setIsChecked(checked);
+      }
+    }, [checked]);
+
+    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+      if (checked === undefined) {
+        setIsChecked(event.target.checked);
+      }
+      onChange?.(event, event.target.checked);
+    };
+
+    const checkboxElement = (
+      <StyledCheckbox
+        ref={ref}
+        sunSize={size}
+        checked={checked ?? isChecked}
+        indeterminate={indeterminate}
+        disabled={disabled || loading}
+        onChange={handleChange}
+        icon={
+          loading ? (
+            <CircularProgress size={sizeStyles.icon} color="inherit" />
+          ) : (
+            <CheckboxIcon size={sizeStyles.checkbox} variant={variant} colorScale={colorScale} />
+          )
+        }
+        checkedIcon={
+          <CheckboxIcon
+            size={sizeStyles.checkbox}
+            variant={variant}
+            colorScale={colorScale}
+            checked
+          />
+        }
+        indeterminateIcon={
+          <CheckboxIcon
+            size={sizeStyles.checkbox}
+            variant={variant}
+            colorScale={colorScale}
+            indeterminate
+          />
+        }
+        {...rest}
+      />
+    );
+
+    if (label) {
+      return (
+        <StyledLabel
+          sunSize={size}
+          control={checkboxElement}
+          label={label}
+          disabled={disabled || loading}
+        />
+      );
+    }
+
+    return checkboxElement;
+  }
 );
 Checkbox.displayName = 'Checkbox';
