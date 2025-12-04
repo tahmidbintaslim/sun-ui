@@ -227,83 +227,84 @@ interface StyledButtonProps {
 
 const StyledButton = styled(MuiButton, {
   shouldForwardProp: (prop) =>
-    ![
-      '$variant',
-      '$color',
-      '$size',
-      '$shape',
-      '$loading',
-      '$active',
-      '$disableElevation',
-    ].includes(prop as string),
-})<StyledButtonProps>(
-  ({ theme, $variant, $color, $size, $shape, $loading, $active, $disableElevation }) => {
-    const isDark = theme.palette.mode === 'dark';
+    !['$variant', '$color', '$size', '$shape', '$loading', '$active', '$disableElevation'].includes(
+      prop as string
+    ),
+})<StyledButtonProps>(({
+  theme,
+  $variant,
+  $color,
+  $size,
+  $shape,
+  $loading,
+  $active,
+  $disableElevation,
+}) => {
+  const isDark = theme.palette.mode === 'dark';
 
-    return {
-      // Base styles
-      display: 'inline-flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      textTransform: 'none',
-      fontWeight: 600,
-      fontFamily: 'inherit',
-      borderRadius: radius.md,
-      transition: transitions.button,
-      position: 'relative',
-      overflow: 'hidden',
-      cursor: 'pointer',
-      userSelect: 'none',
-      whiteSpace: 'nowrap',
-      flexShrink: 0,
+  return {
+    // Base styles
+    display: 'inline-flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    textTransform: 'none',
+    fontWeight: 600,
+    fontFamily: 'inherit',
+    borderRadius: radius.md,
+    transition: transitions.button,
+    position: 'relative',
+    overflow: 'hidden',
+    cursor: 'pointer',
+    userSelect: 'none',
+    whiteSpace: 'nowrap',
+    flexShrink: 0,
 
-      // Apply variant, size, and shape styles
-      ...getColorStyles($color, $variant, isDark),
-      ...getSizeStyles($size),
-      ...getShapeStyles($shape, $size),
+    // Apply variant, size, and shape styles
+    ...getColorStyles($color, $variant, isDark),
+    ...getSizeStyles($size),
+    ...getShapeStyles($shape, $size),
 
-      // Disable hover lift if requested
-      ...($disableElevation && {
-        '&:hover:not(:disabled)': {
-          transform: 'none',
-          boxShadow: 'none',
-        },
-      }),
-
-      // Focus visible styles (keyboard navigation)
-      '&:focus-visible': {
-        outline: 'none',
-        boxShadow: `0 0 0 3px ${colors[$color].alpha40}`,
-      },
-
-      // Active/pressed state
-      ...($active && {
-        backgroundColor: colors[$color].alpha20,
-        boxShadow: `inset 0 2px 4px ${colors[$color].alpha30}`,
-      }),
-
-      // Disabled state
-      '&.Mui-disabled': {
-        backgroundColor: isDark ? colors.neutral[700] : colors.neutral[200],
-        color: isDark ? colors.neutral[500] : colors.neutral[400],
-        borderColor: 'transparent',
-        cursor: 'not-allowed',
-        opacity: 0.6,
+    // Disable hover lift if requested
+    ...($disableElevation && {
+      '&:hover:not(:disabled)': {
         transform: 'none',
         boxShadow: 'none',
       },
+    }),
 
-      // Loading state
-      ...($loading && {
-        cursor: 'wait',
-        pointerEvents: 'none',
-        '& .button-content': {
-          opacity: 0.6,
-        },
-      }),
-    };
-  }
-);
+    // Focus visible styles (keyboard navigation)
+    '&:focus-visible': {
+      outline: 'none',
+      boxShadow: `0 0 0 3px ${colors[$color].alpha40}`,
+    },
+
+    // Active/pressed state
+    ...($active && {
+      backgroundColor: colors[$color].alpha20,
+      boxShadow: `inset 0 2px 4px ${colors[$color].alpha30}`,
+    }),
+
+    // Disabled state
+    '&.Mui-disabled': {
+      backgroundColor: isDark ? colors.neutral[700] : colors.neutral[200],
+      color: isDark ? colors.neutral[500] : colors.neutral[400],
+      borderColor: 'transparent',
+      cursor: 'not-allowed',
+      opacity: 0.6,
+      transform: 'none',
+      boxShadow: 'none',
+    },
+
+    // Loading state
+    ...($loading && {
+      cursor: 'wait',
+      pointerEvents: 'none',
+      '& .button-content': {
+        opacity: 0.6,
+      },
+    }),
+  };
+});
 
 const LoadingSpinner = styled('span')<{ $size: SunSize }>(({ $size }) => ({
   display: 'inline-flex',

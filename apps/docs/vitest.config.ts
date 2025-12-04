@@ -12,11 +12,14 @@ const require = createRequire(import.meta.url);
 // Falls back to localhost for local development
 const storybookUrl = process.env.SB_URL || 'http://localhost:6006';
 
+// Absolute path to .storybook config (required when running from monorepo root)
+const storybookConfigDir = path.resolve(__dirname, '.storybook');
+
 export default defineConfig({
   plugins: [
     // This plugin reads your main.ts to find stories
     storybookTest({
-      configDir: '.storybook',
+      configDir: storybookConfigDir,
       // Use the environment variable for CI debugging
       storybookUrl,
     }),

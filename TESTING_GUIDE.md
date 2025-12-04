@@ -59,17 +59,32 @@ Sun UI uses a monorepo structure with TurboRepo and pnpm workspaces.
 # Build all packages
 pnpm build
 
-# Run tests
+# Run tests (watch mode)
 pnpm test
 
-# Run tests in watch mode
-pnpm test:watch
+# Run unit tests (CI mode, non-watch)
+pnpm test:unit
+
+# Run Storybook component tests (requires Storybook running)
+pnpm test:storybook
+
+# Run Storybook tests in CI mode
+pnpm test:storybook:ci
+
+# Run all tests for CI (non-watch)
+pnpm test:ci
+
+# Run all checks (lint + type-check + test:ci)
+pnpm check:all
 
 # Lint code
 pnpm lint
 
 # Type check
 pnpm type-check
+
+# Format code
+pnpm format
 
 # Start Storybook
 pnpm storybook:dev
@@ -245,40 +260,52 @@ pnpm test packages/react/src/Button.test.tsx --watch
 
 ## Running Tests
 
-### Run All Tests
+### Run All Tests (Watch Mode)
 
 ```bash
 pnpm test
 ```
 
-### Run Tests in Watch Mode
+### Run Unit Tests (CI Mode)
 
 ```bash
-pnpm test:watch
+pnpm test:unit
 ```
+
+This runs all package unit tests in non-watch mode, suitable for CI pipelines.
 
 ### Run Tests for Specific Package
 
 ```bash
-pnpm test packages/react
+pnpm vitest --project=@sun-ui/react
 ```
 
 ### Run Single Test File
 
 ```bash
-pnpm test packages/react/src/Button.test.tsx
+pnpm vitest packages/react/src/Button.test.tsx
 ```
 
-### Run Tests with Coverage
+### Run Storybook Component Tests
+
+Storybook tests require a running Storybook server:
 
 ```bash
-pnpm test:coverage
-```
+# Terminal 1: Start Storybook
+pnpm storybook:dev
 
-### Run Storybook Tests
-
-```bash
+# Terminal 2: Run Storybook tests (watch mode)
 pnpm test:storybook
+
+# Or run in CI mode (non-watch)
+pnpm test:storybook:ci
+```
+
+### Run All CI Checks
+
+```bash
+# Runs: lint + type-check + test:ci
+pnpm check:all
 ```
 
 ---
@@ -542,31 +569,47 @@ export const InCard: Story = {
 
 Sun UI uses GitHub Actions for continuous integration with multiple test layers:
 
-| Workflow | Trigger | Purpose |
-|----------|---------|---------|
-| `test.yml` | Push/PR | Unit tests, Storybook tests, linting, builds |
-| `ui-tests.yml` | Vercel deployment | Run tests against deployed Storybook |
-| `storybook-publish.yml` | Push to main | Visual regression tests via Chromatic |
-| `publish.yml` | Release | Publish packages to npm |
+| Workflow                | Trigger           | Purpose                                      |
+| ----------------------- | ----------------- | -------------------------------------------- |
+| `test.yml`              | Push/PR           | Unit tests, Storybook tests, linting, builds |
+| `ui-tests.yml`          | Vercel deployment | Run tests against deployed Storybook         |
+| `storybook-publish.yml` | Push to main      | Visual regression tests via Chromatic        |
+| `publish.yml`           | Release           | Publish packages to npm                      |
 
 ### Test Scripts
 
 ```bash
-# Run all tests
+# Run tests in watch mode
 pnpm test
 
-# Run only unit tests
+# Run unit tests (CI mode, non-watch)
 pnpm test:unit
 
-# Run only Storybook component tests
+# Run Storybook component tests (requires Storybook running)
 pnpm test:storybook
 
-# Run Storybook tests with coverage
-pnpm test:storybook:coverage
+# Run Storybook tests in CI mode
+pnpm test:storybook:ci
 
-# Run all tests for CI (non-watch mode)
+# Run all unit tests for CI (non-watch)
 pnpm test:ci
+
+# Run all checks (lint + type-check + tests)
+pnpm check:all
 ```
+
+### Test Architecture
+
+Sun UI separates unit tests from Storybook tests:
+
+| Test Type       | Command               | Purpose                         |
+| --------------- | --------------------- | ------------------------------- |
+| Unit Tests      | `pnpm test:unit`      | Fast, isolated component tests  |
+| Storybook Tests | `pnpm test:storybook` | Browser-based interaction tests |
+| CI Tests        | `pnpm test:ci`        | All unit tests (non-watch)      |
+| Full CI         | `pnpm check:all`      | Lint + Type-check + Unit tests  |
+
+**Why separate?** Storybook tests require a running Storybook server and browser (Playwright). Unit tests run instantly in Node.js with jsdom.
 
 ### CI Workflow Details
 
@@ -576,11 +619,11 @@ Runs on every push and pull request:
 
 ```yaml
 jobs:
-  lint:           # ESLint + TypeScript checks
-  unit-tests:     # Component unit tests (@sun-ui/react)
+  lint: # ESLint + TypeScript checks
+  unit-tests: # Component unit tests (@sun-ui/react)
   storybook-tests: # Interaction + accessibility tests
-  visual-tests:   # Chromatic visual regression
-  build:          # Verify packages compile
+  visual-tests: # Chromatic visual regression
+  build: # Verify packages compile
 ```
 
 #### 2. UI Tests on Deployment (`ui-tests.yml`)
@@ -603,7 +646,7 @@ When a test fails in CI, the output includes a clickable link:
 
 ```
 ❌ FAIL  src/Button.stories.tsx > Button > Click Event
-   
+
    View in Storybook: https://sun-ui.vercel.app/?path=/story/atoms-button--click-event
 ```
 
@@ -615,10 +658,10 @@ This link points to your deployed Storybook (via `SB_URL` environment variable).
 
 Add these secrets in GitHub Settings → Secrets:
 
-| Secret | Purpose |
-|--------|---------|
+| Secret                    | Purpose                       |
+| ------------------------- | ----------------------------- |
 | `CHROMATIC_PROJECT_TOKEN` | Visual testing with Chromatic |
-| `NPM_TOKEN` | Publishing to npm (optional) |
+| `NPM_TOKEN`               | Publishing to npm (optional)  |
 
 #### Vercel Integration
 
@@ -634,14 +677,14 @@ The `ui-tests.yml` workflow automatically triggers when Vercel deploys:
 Simulate the CI environment locally:
 
 ```bash
-# Full CI check
+# Full CI check (recommended)
 pnpm check:all
 
-# Individual steps
-pnpm lint
-pnpm type-check
-pnpm test:ci
-pnpm build
+# Individual steps:
+pnpm lint           # ESLint checks
+pnpm type-check     # TypeScript checks
+pnpm test:ci        # Unit tests (62 tests)
+pnpm build          # Build all packages
 ```
 
 ### Test Coverage
@@ -650,14 +693,17 @@ Generate coverage reports:
 
 ```bash
 # Unit test coverage
-pnpm test:unit -- --coverage
-
-# Storybook test coverage
-pnpm test:storybook:coverage
+pnpm vitest run --coverage
 
 # View coverage report
 open coverage/index.html
 ```
+
+### Current Test Status
+
+- **Unit Tests**: 62 passing (16 test files)
+- **Components Tested**: All 14 components
+- **Test Framework**: Vitest with jsdom
 
 ### GitHub Actions Workflows
 
@@ -695,20 +741,15 @@ Publishes packages to npm on release:
 Run all CI checks locally:
 
 ```bash
-# Run tests
-pnpm test
+# Quick: Run all checks at once
+pnpm check:all
 
-# Run linter
-pnpm lint
-
-# Run type check
-pnpm type-check
-
-# Build
-pnpm build
-
-# Build Storybook
-pnpm storybook:build
+# Or run individually:
+pnpm lint          # ESLint
+pnpm type-check    # TypeScript
+pnpm test:ci       # Unit tests (non-watch)
+pnpm build         # Build packages
+pnpm storybook:build  # Build Storybook
 ```
 
 ---

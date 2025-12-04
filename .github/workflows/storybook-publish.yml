@@ -1,3 +1,20 @@
+# Sun UI - Publish Storybook
+#
+# This workflow builds and publishes Storybook on every push and PR.
+#
+# Deployment Strategy:
+# 1. Vercel (Primary) - Automatic via GitHub integration
+#    - Vercel is connected to this repo and auto-deploys on push
+#    - Preview URLs generated for PRs, Production for main branch
+#    - URL: https://sun-ui.vercel.app (or your custom domain)
+#
+# 2. Chromatic (Visual Testing) - Via this workflow
+#    - Publishes Storybook for visual regression testing
+#    - Captures snapshots for UI review
+#    - Requires CHROMATIC_PROJECT_TOKEN secret
+#
+# To debug test failures, see ui-tests.yml which uses SB_URL
+
 name: Publish Storybook
 
 on:
@@ -48,23 +65,3 @@ jobs:
           onlyChanged: true
           exitZeroOnChanges: true
         continue-on-error: true
-
-      # Deploy to Vercel (optional alternative to Chromatic)
-      # Uncomment below if you want to deploy Storybook to Vercel
-      # - name: Deploy to Vercel
-      #   uses: vercel/action@master
-      #   with:
-      #     vercel-token: ${{ secrets.VERCEL_TOKEN }}
-      #     vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
-      #     vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
-      #     scope: ${{ secrets.VERCEL_ORG_ID }}
-
-      # Deploy to Netlify (optional alternative to Chromatic)
-      # Uncomment below if you want to deploy Storybook to Netlify
-      # - name: Deploy to Netlify
-      #   uses: netlify/actions/build@main
-      #   with:
-      #     publish-dir: ./apps/docs/storybook-static
-      #   env:
-      #     NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-      #     NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}

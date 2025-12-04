@@ -1,22 +1,22 @@
 {
-    "buildCommand": "cd apps/docs && pnpm build-storybook",
-    "outputDirectory": "apps/docs/storybook-static",
-    "framework": null,
-    "installCommand": "pnpm install",
-    "devCommand": "pnpm storybook:dev",
-    "headers": [
+  "buildCommand": "cd apps/docs && pnpm build-storybook",
+  "outputDirectory": "apps/docs/storybook-static",
+  "framework": null,
+  "installCommand": "corepack enable && pnpm install --frozen-lockfile",
+  "devCommand": "pnpm storybook:dev",
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
         {
-            "source": "/(.*)",
-            "headers": [
-                {
-                    "key": "X-Content-Type-Options",
-                    "value": "nosniff"
-                },
-                {
-                    "key": "X-XSS-Protection",
-                    "value": "1; mode=block"
-                }
-            ]
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "X-XSS-Protection",
+          "value": "1; mode=block"
         }
-    ]
+      ]
+    }
+  ]
 }

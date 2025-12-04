@@ -5,12 +5,26 @@ import { Button } from './Button';
 
 // Sample icons for demos
 const PlusIcon = () => (
-  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+  <svg
+    width="1em"
+    height="1em"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+  >
     <path d="M12 5v14M5 12h14" strokeLinecap="round" />
   </svg>
 );
 const ArrowRightIcon = () => (
-  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+  <svg
+    width="1em"
+    height="1em"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+  >
     <path d="M5 12h14M12 5l7 7-7 7" strokeLinecap="round" strokeLinejoin="round" />
   </svg>
 );
@@ -20,12 +34,30 @@ const HeartIcon = () => (
   </svg>
 );
 const DownloadIcon = () => (
-  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-    <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3" strokeLinecap="round" strokeLinejoin="round" />
+  <svg
+    width="1em"
+    height="1em"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+  >
+    <path
+      d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
   </svg>
 );
 const SearchIcon = () => (
-  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+  <svg
+    width="1em"
+    height="1em"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+  >
     <circle cx="11" cy="11" r="8" />
     <path d="M21 21l-4.35-4.35" strokeLinecap="round" />
   </svg>
@@ -174,13 +206,27 @@ export const Colors: Story = {
             {variant.charAt(0).toUpperCase() + variant.slice(1)}
           </Typography>
           <Stack direction="row" spacing={1} flexWrap="wrap" useFlexGap>
-            <Button variant={variant} color="primary">Primary</Button>
-            <Button variant={variant} color="secondary">Secondary</Button>
-            <Button variant={variant} color="success">Success</Button>
-            <Button variant={variant} color="warning">Warning</Button>
-            <Button variant={variant} color="danger">Danger</Button>
-            <Button variant={variant} color="info">Info</Button>
-            <Button variant={variant} color="neutral">Neutral</Button>
+            <Button variant={variant} color="primary">
+              Primary
+            </Button>
+            <Button variant={variant} color="secondary">
+              Secondary
+            </Button>
+            <Button variant={variant} color="success">
+              Success
+            </Button>
+            <Button variant={variant} color="warning">
+              Warning
+            </Button>
+            <Button variant={variant} color="danger">
+              Danger
+            </Button>
+            <Button variant={variant} color="info">
+              Info
+            </Button>
+            <Button variant={variant} color="neutral">
+              Neutral
+            </Button>
           </Stack>
         </Box>
       ))}
@@ -249,18 +295,38 @@ export const Shapes: Story = {
           Square & Circle
         </Typography>
         <Stack direction="row" spacing={2} alignItems="center">
-          <Button shape="square" size="xs" aria-label="Add"><PlusIcon /></Button>
-          <Button shape="square" size="sm" aria-label="Add"><PlusIcon /></Button>
-          <Button shape="square" size="md" aria-label="Add"><PlusIcon /></Button>
-          <Button shape="square" size="lg" aria-label="Add"><PlusIcon /></Button>
-          <Button shape="square" size="xl" aria-label="Add"><PlusIcon /></Button>
+          <Button shape="square" size="xs" aria-label="Add">
+            <PlusIcon />
+          </Button>
+          <Button shape="square" size="sm" aria-label="Add">
+            <PlusIcon />
+          </Button>
+          <Button shape="square" size="md" aria-label="Add">
+            <PlusIcon />
+          </Button>
+          <Button shape="square" size="lg" aria-label="Add">
+            <PlusIcon />
+          </Button>
+          <Button shape="square" size="xl" aria-label="Add">
+            <PlusIcon />
+          </Button>
         </Stack>
         <Stack direction="row" spacing={2} alignItems="center" sx={{ mt: 2 }}>
-          <Button shape="circle" size="xs" color="danger" aria-label="Like"><HeartIcon /></Button>
-          <Button shape="circle" size="sm" color="danger" aria-label="Like"><HeartIcon /></Button>
-          <Button shape="circle" size="md" color="danger" aria-label="Like"><HeartIcon /></Button>
-          <Button shape="circle" size="lg" color="danger" aria-label="Like"><HeartIcon /></Button>
-          <Button shape="circle" size="xl" color="danger" aria-label="Like"><HeartIcon /></Button>
+          <Button shape="circle" size="xs" color="danger" aria-label="Like">
+            <HeartIcon />
+          </Button>
+          <Button shape="circle" size="sm" color="danger" aria-label="Like">
+            <HeartIcon />
+          </Button>
+          <Button shape="circle" size="md" color="danger" aria-label="Like">
+            <HeartIcon />
+          </Button>
+          <Button shape="circle" size="lg" color="danger" aria-label="Like">
+            <HeartIcon />
+          </Button>
+          <Button shape="circle" size="xl" color="danger" aria-label="Like">
+            <HeartIcon />
+          </Button>
         </Stack>
       </Box>
     </Stack>
@@ -286,13 +352,23 @@ export const LoadingPositions: Story = {
         Loading Indicator Positions
       </Typography>
       <Stack direction="row" spacing={2} flexWrap="wrap" useFlexGap>
-        <Button loading loadingPosition="start">Start</Button>
-        <Button loading loadingPosition="center">Center</Button>
-        <Button loading loadingPosition="end">End</Button>
+        <Button loading loadingPosition="start">
+          Start
+        </Button>
+        <Button loading loadingPosition="center">
+          Center
+        </Button>
+        <Button loading loadingPosition="end">
+          End
+        </Button>
       </Stack>
       <Stack direction="row" spacing={2} flexWrap="wrap" useFlexGap>
-        <Button variant="soft" loading loadingPosition="start">Soft Start</Button>
-        <Button variant="outlined" loading loadingPosition="center">Outlined Center</Button>
+        <Button variant="soft" loading loadingPosition="start">
+          Soft Start
+        </Button>
+        <Button variant="outlined" loading loadingPosition="center">
+          Outlined Center
+        </Button>
         <Button shape="square" loading aria-label="Loading" />
       </Stack>
     </Stack>
@@ -307,9 +383,15 @@ export const Active: Story = {
       </Typography>
       <Stack direction="row" spacing={2} flexWrap="wrap" useFlexGap>
         <Button active>Active Solid</Button>
-        <Button variant="soft" active>Active Soft</Button>
-        <Button variant="outlined" active>Active Outlined</Button>
-        <Button variant="ghost" active>Active Ghost</Button>
+        <Button variant="soft" active>
+          Active Soft
+        </Button>
+        <Button variant="outlined" active>
+          Active Outlined
+        </Button>
+        <Button variant="ghost" active>
+          Active Ghost
+        </Button>
       </Stack>
     </Stack>
   ),
@@ -335,13 +417,27 @@ export const DisabledVariants: Story = {
         Disabled State
       </Typography>
       <Stack direction="row" spacing={2} flexWrap="wrap" useFlexGap>
-        <Button variant="solid" disabled>Solid</Button>
-        <Button variant="soft" disabled>Soft</Button>
-        <Button variant="outlined" disabled>Outlined</Button>
-        <Button variant="dash" disabled>Dash</Button>
-        <Button variant="ghost" disabled>Ghost</Button>
-        <Button variant="plain" disabled>Plain</Button>
-        <Button variant="link" disabled>Link</Button>
+        <Button variant="solid" disabled>
+          Solid
+        </Button>
+        <Button variant="soft" disabled>
+          Soft
+        </Button>
+        <Button variant="outlined" disabled>
+          Outlined
+        </Button>
+        <Button variant="dash" disabled>
+          Dash
+        </Button>
+        <Button variant="ghost" disabled>
+          Ghost
+        </Button>
+        <Button variant="plain" disabled>
+          Plain
+        </Button>
+        <Button variant="link" disabled>
+          Link
+        </Button>
       </Stack>
     </Stack>
   ),
@@ -359,19 +455,33 @@ export const WithIcons: Story = {
       </Typography>
       <Stack direction="row" spacing={2} alignItems="center" flexWrap="wrap" useFlexGap>
         <Button startIcon={<PlusIcon />}>Create New</Button>
-        <Button variant="soft" endIcon={<ArrowRightIcon />}>Continue</Button>
-        <Button variant="outlined" startIcon={<DownloadIcon />}>Download</Button>
-        <Button variant="ghost" startIcon={<SearchIcon />}>Search</Button>
+        <Button variant="soft" endIcon={<ArrowRightIcon />}>
+          Continue
+        </Button>
+        <Button variant="outlined" startIcon={<DownloadIcon />}>
+          Download
+        </Button>
+        <Button variant="ghost" startIcon={<SearchIcon />}>
+          Search
+        </Button>
       </Stack>
 
       <Typography variant="caption" color="text.secondary">
         Icon-only buttons (use shape="square" or shape="circle")
       </Typography>
       <Stack direction="row" spacing={2} alignItems="center">
-        <Button shape="square" variant="solid" aria-label="Add"><PlusIcon /></Button>
-        <Button shape="square" variant="soft" aria-label="Download"><DownloadIcon /></Button>
-        <Button shape="circle" variant="outlined" aria-label="Search"><SearchIcon /></Button>
-        <Button shape="circle" variant="ghost" aria-label="Like"><HeartIcon /></Button>
+        <Button shape="square" variant="solid" aria-label="Add">
+          <PlusIcon />
+        </Button>
+        <Button shape="square" variant="soft" aria-label="Download">
+          <DownloadIcon />
+        </Button>
+        <Button shape="circle" variant="outlined" aria-label="Search">
+          <SearchIcon />
+        </Button>
+        <Button shape="circle" variant="ghost" aria-label="Like">
+          <HeartIcon />
+        </Button>
       </Stack>
     </Stack>
   ),
@@ -430,9 +540,15 @@ export const Accessibility: Story = {
       </Typography>
       <Stack direction="row" spacing={2} flexWrap="wrap" useFlexGap>
         <Button aria-label="Submit form">With ARIA Label</Button>
-        <Button variant="soft" loading aria-busy="true">Loading (aria-busy)</Button>
-        <Button variant="outlined" disabled aria-disabled="true">Disabled</Button>
-        <Button shape="circle" color="danger" aria-label="Delete item"><HeartIcon /></Button>
+        <Button variant="soft" loading aria-busy="true">
+          Loading (aria-busy)
+        </Button>
+        <Button variant="outlined" disabled aria-disabled="true">
+          Disabled
+        </Button>
+        <Button shape="circle" color="danger" aria-label="Delete item">
+          <HeartIcon />
+        </Button>
       </Stack>
     </Stack>
   ),
@@ -489,7 +605,14 @@ export const FullDemo: Story = {
         <Typography variant="overline" color="text.secondary">
           Sizes
         </Typography>
-        <Stack direction="row" spacing={1} alignItems="center" sx={{ mt: 1 }} flexWrap="wrap" useFlexGap>
+        <Stack
+          direction="row"
+          spacing={1}
+          alignItems="center"
+          sx={{ mt: 1 }}
+          flexWrap="wrap"
+          useFlexGap
+        >
           <Button size="xs">XS</Button>
           <Button size="sm">SM</Button>
           <Button size="md">MD</Button>
@@ -502,9 +625,20 @@ export const FullDemo: Story = {
         <Typography variant="overline" color="text.secondary">
           Shapes
         </Typography>
-        <Stack direction="row" spacing={1} alignItems="center" sx={{ mt: 1 }} flexWrap="wrap" useFlexGap>
-          <Button shape="square" aria-label="Add"><PlusIcon /></Button>
-          <Button shape="circle" aria-label="Like"><HeartIcon /></Button>
+        <Stack
+          direction="row"
+          spacing={1}
+          alignItems="center"
+          sx={{ mt: 1 }}
+          flexWrap="wrap"
+          useFlexGap
+        >
+          <Button shape="square" aria-label="Add">
+            <PlusIcon />
+          </Button>
+          <Button shape="circle" aria-label="Like">
+            <HeartIcon />
+          </Button>
           <Button shape="wide">Wide</Button>
         </Stack>
       </Box>

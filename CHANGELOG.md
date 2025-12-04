@@ -11,11 +11,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Planned for v1.1
 
-- [ ] Additional components (Drawer, Modal, Tooltip, Progress, Skeleton)
+- [ ] Additional components (Table, Tabs, Accordion, Stepper, Menu)
 - [ ] Theme builder UI
 - [ ] Design token customization
 - [ ] Figma design kit
-- [ ] Enhanced documentation
+- [ ] CLI scaffolding tool
 
 ---
 
@@ -23,9 +23,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added - Initial Release 🎉
 
-#### Components (11 Total)
+#### Components (14 Total)
 
-- ✨ **Button** — 5 variants (solid, soft, outlined, ghost, plain)
+- ✨ **Button** — 7 variants (solid, soft, outlined, dash, ghost, plain, link)
 - 📝 **TextField** — Text input with validation states
 - 🎯 **Select** — Dropdown with multi-select support
 - ☑️ **Checkbox** — Form control with states
@@ -36,23 +36,27 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - 🏷️ **Badge** — Status indicators
 - 💳 **Card** — Content containers
 - 🏷️ **Chip** — Compact elements
+- 📦 **Dialog** — Modal dialogs
+- 📥 **Drawer** — Side panels
+- 💬 **Tooltip** — Helpful hints
+- 🎈 **Popover** — Floating content
+- 🍞 **Snackbar** — Toast notifications
 
 #### Packages
 
 - `@sun-ui/react` — React component library
-- `@sun-ui/theme` — MUI v5 theme configuration
+- `@sun-ui/theme` — MUI v7 theme configuration
 - `@sun-ui/tokens` — Design tokens (colors, spacing, radius)
 - `@sun-ui/icons` — Icon library (2000+ SVG icons)
 - `@sun-ui/core` — Headless primitives (foundation)
 
 #### Testing
 
-- 124/124 tests passing (100% success rate)
-- Unit tests with React Testing Library
+- 62/62 unit tests passing (100% success rate)
+- Unit tests with Vitest + React Testing Library
 - Interaction tests with Storybook
 - Accessibility tests (WCAG 2.1 AA)
-- Visual tests with Vitest
-- Real browser testing with Chromium
+- Real browser testing with Playwright
 
 #### Documentation
 
@@ -65,7 +69,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 #### Developer Experience
 
 - TypeScript with strict mode
-- 5 design variants per component
+- 7 design variants per component
 - Dark mode support
 - Tree-shakeable modules
 - Comprehensive prop types

@@ -57,10 +57,9 @@
   "scripts": {
     "build": "turbo run build",
     "test": "vitest",
-    "test:unit": "vitest --project=@sun-ui/react",
-    "test:storybook": "vitest --project=storybook",
-    "test:storybook:coverage": "vitest --project=storybook --coverage",
-    "test:all": "vitest",
+    "test:unit": "vitest run",
+    "test:storybook": "vitest --project=storybook --config apps/docs/vitest.config.ts",
+    "test:storybook:ci": "vitest run --project=storybook --config apps/docs/vitest.config.ts",
     "test:ci": "vitest run",
     "lint": "turbo run lint",
     "type-check": "turbo run type-check",

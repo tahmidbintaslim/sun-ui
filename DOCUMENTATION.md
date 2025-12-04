@@ -29,17 +29,17 @@
 - **7 Design Variants** — solid, soft, outlined, dash, ghost, plain, link
 - **7 Color Schemes** — primary, secondary, success, warning, danger, info, neutral
 - **5 Sizes** — xs, sm, md, lg, xl
-- **Production-Ready** — 124 tests passing, WCAG 2.1 AA compliant
+- **Production-Ready** — 62 tests passing, WCAG 2.1 AA compliant
 - **Zero Config** — Beautiful defaults that just work
 
 ### Who is Sun UI For?
 
-| If you are... | Sun UI helps you... |
-|---------------|---------------------|
+| If you are...                                 | Sun UI helps you...                     |
+| --------------------------------------------- | --------------------------------------- |
 | **MUI user frustrated with limited variants** | Get 7 beautiful variants out of the box |
-| **Team needing consistent design** | Use production-ready design tokens |
-| **Developer wanting type safety** | Enjoy 100% TypeScript with strict mode |
-| **Building accessible products** | Ship WCAG 2.1 AA compliant components |
+| **Team needing consistent design**            | Use production-ready design tokens      |
+| **Developer wanting type safety**             | Enjoy 100% TypeScript with strict mode  |
+| **Building accessible products**              | Ship WCAG 2.1 AA compliant components   |
 
 ### The Problem We Solve
 
@@ -54,6 +54,7 @@
 ```
 
 **Sun UI gives you:**
+
 - 🎨 Beautiful defaults (like Chakra/Mantine)
 - 🔌 Full MUI ecosystem access (600+ components)
 - 🛠️ Complete customization (it's still MUI under the hood)
@@ -86,9 +87,9 @@ export default function App() {
       <Alert variant="soft" color="info">
         Welcome to Sun UI!
       </Alert>
-      
+
       <TextField variant="outlined" label="Email" />
-      
+
       <Button variant="solid" color="primary">
         Get Started
       </Button>
@@ -127,15 +128,15 @@ export default function App() {
 
 Every Sun UI component supports the same 7 variants:
 
-| Variant | Use Case | Appearance |
-|---------|----------|------------|
-| `solid` | Primary actions, CTAs | Filled background, high contrast |
-| `soft` | Secondary actions | Subtle tinted background |
-| `outlined` | Tertiary actions | Border with transparent background |
-| `dash` | Upload zones, placeholders | Dashed border style |
-| `ghost` | Minimal actions | Shows color on hover only |
-| `plain` | Text-only actions | No background or border |
-| `link` | Inline links | Underlined, hyperlink style |
+| Variant    | Use Case                   | Appearance                         |
+| ---------- | -------------------------- | ---------------------------------- |
+| `solid`    | Primary actions, CTAs      | Filled background, high contrast   |
+| `soft`     | Secondary actions          | Subtle tinted background           |
+| `outlined` | Tertiary actions           | Border with transparent background |
+| `dash`     | Upload zones, placeholders | Dashed border style                |
+| `ghost`    | Minimal actions            | Shows color on hover only          |
+| `plain`    | Text-only actions          | No background or border            |
+| `link`     | Inline links               | Underlined, hyperlink style        |
 
 ```tsx
 <Button variant="solid">Primary Action</Button>
@@ -151,15 +152,15 @@ Every Sun UI component supports the same 7 variants:
 
 All components support 7 semantic colors:
 
-| Color | Use Case |
-|-------|----------|
-| `primary` | Brand color, main actions |
-| `secondary` | Secondary brand color |
-| `success` | Positive actions, confirmations |
-| `warning` | Caution, attention needed |
-| `danger` | Destructive actions, errors |
-| `info` | Informational content |
-| `neutral` | Neutral, subdued actions |
+| Color       | Use Case                        |
+| ----------- | ------------------------------- |
+| `primary`   | Brand color, main actions       |
+| `secondary` | Secondary brand color           |
+| `success`   | Positive actions, confirmations |
+| `warning`   | Caution, attention needed       |
+| `danger`    | Destructive actions, errors     |
+| `info`      | Informational content           |
+| `neutral`   | Neutral, subdued actions        |
 
 ```tsx
 <Button color="primary">Primary</Button>
@@ -171,13 +172,13 @@ All components support 7 semantic colors:
 
 Components come in 5 sizes:
 
-| Size | Use Case |
-|------|----------|
+| Size | Use Case            |
+| ---- | ------------------- |
 | `xs` | Compact UIs, tables |
-| `sm` | Secondary actions |
-| `md` | Default size |
-| `lg` | Primary CTAs |
-| `xl` | Hero sections |
+| `sm` | Secondary actions   |
+| `md` | Default size        |
+| `lg` | Primary CTAs        |
+| `xl` | Hero sections       |
 
 ```tsx
 <Button size="xs">Extra Small</Button>
@@ -229,19 +230,19 @@ import { TextField } from '@sun-ui/react';
 <TextField variant="outlined" label="Email" />
 
 // With validation
-<TextField 
-  variant="solid" 
-  label="Password" 
+<TextField
+  variant="solid"
+  label="Password"
   type="password"
   error
   helperText="Password is required"
 />
 
 // Multiline
-<TextField 
-  variant="soft" 
-  label="Message" 
-  multiline 
+<TextField
+  variant="soft"
+  label="Message"
+  multiline
   rows={4}
 />
 ```
@@ -255,7 +256,7 @@ import { Select } from '@sun-ui/react';
   <option value="us">United States</option>
   <option value="uk">United Kingdom</option>
   <option value="ca">Canada</option>
-</Select>
+</Select>;
 ```
 
 #### Checkbox, Radio, Switch
@@ -289,12 +290,12 @@ import { Alert } from '@sun-ui/react';
 ```tsx
 import { Snackbar } from '@sun-ui/react';
 
-<Snackbar 
-  open={open} 
+<Snackbar
+  open={open}
   onClose={handleClose}
   message="Item deleted"
   action={<Button size="sm">Undo</Button>}
-/>
+/>;
 ```
 
 #### Dialog
@@ -304,7 +305,7 @@ import { Dialog } from '@sun-ui/react';
 
 <Dialog open={open} onClose={handleClose} title="Confirm">
   Are you sure you want to delete this item?
-</Dialog>
+</Dialog>;
 ```
 
 #### Tooltip & Popover
@@ -330,13 +331,11 @@ import { Card } from '@sun-ui/react';
 
 <Card variant="soft">
   <Card.Header title="Card Title" subtitle="Subtitle" />
-  <Card.Content>
-    Card content goes here.
-  </Card.Content>
+  <Card.Content>Card content goes here.</Card.Content>
   <Card.Actions>
     <Button>Action</Button>
   </Card.Actions>
-</Card>
+</Card>;
 ```
 
 #### Avatar & Badge
@@ -376,18 +375,18 @@ npm install @sun-ui/tokens
 import { colors } from '@sun-ui/tokens';
 
 // Full color palette
-colors.primary.main      // #3b82f6
-colors.primary.light     // #60a5fa
-colors.primary.dark      // #2563eb
-colors.primary[500]      // #3b82f6
-colors.primary.alpha20   // rgba(59, 130, 246, 0.2)
+colors.primary.main; // #3b82f6
+colors.primary.light; // #60a5fa
+colors.primary.dark; // #2563eb
+colors.primary[500]; // #3b82f6
+colors.primary.alpha20; // rgba(59, 130, 246, 0.2)
 
 // Semantic colors
-colors.success.main
-colors.warning.main
-colors.danger.main
-colors.info.main
-colors.neutral[500]
+colors.success.main;
+colors.warning.main;
+colors.danger.main;
+colors.info.main;
+colors.neutral[500];
 ```
 
 ### Spacing
@@ -395,12 +394,12 @@ colors.neutral[500]
 ```tsx
 import { spacing } from '@sun-ui/tokens';
 
-spacing.xs   // 4px
-spacing.sm   // 8px
-spacing.md   // 16px
-spacing.lg   // 24px
-spacing.xl   // 32px
-spacing.xxl  // 48px
+spacing.xs; // 4px
+spacing.sm; // 8px
+spacing.md; // 16px
+spacing.lg; // 24px
+spacing.xl; // 32px
+spacing.xxl; // 48px
 ```
 
 ### Typography
@@ -408,16 +407,16 @@ spacing.xxl  // 48px
 ```tsx
 import { typography } from '@sun-ui/tokens';
 
-typography.fontSize.xs    // 12px
-typography.fontSize.sm    // 14px
-typography.fontSize.base  // 16px
-typography.fontSize.lg    // 18px
-typography.fontSize.xl    // 20px
+typography.fontSize.xs; // 12px
+typography.fontSize.sm; // 14px
+typography.fontSize.base; // 16px
+typography.fontSize.lg; // 18px
+typography.fontSize.xl; // 20px
 
-typography.fontWeight.normal   // 400
-typography.fontWeight.medium   // 500
-typography.fontWeight.semibold // 600
-typography.fontWeight.bold     // 700
+typography.fontWeight.normal; // 400
+typography.fontWeight.medium; // 500
+typography.fontWeight.semibold; // 600
+typography.fontWeight.bold; // 700
 ```
 
 ### Radius
@@ -425,12 +424,12 @@ typography.fontWeight.bold     // 700
 ```tsx
 import { radius } from '@sun-ui/tokens';
 
-radius.none  // 0
-radius.sm    // 4px
-radius.md    // 8px
-radius.lg    // 12px
-radius.xl    // 16px
-radius.full  // 9999px
+radius.none; // 0
+radius.sm; // 4px
+radius.md; // 8px
+radius.lg; // 12px
+radius.xl; // 16px
+radius.full; // 9999px
 ```
 
 ---
@@ -484,7 +483,7 @@ import { lightTheme, darkTheme } from '@sun-ui/theme';
 
 function App() {
   const prefersDark = useMediaQuery('(prefers-color-scheme: dark)');
-  
+
   return (
     <ThemeProvider theme={prefersDark ? darkTheme : lightTheme}>
       <YourApp />
@@ -502,14 +501,10 @@ import { Switch } from '@sun-ui/react';
 
 function App() {
   const [isDark, setIsDark] = useState(false);
-  
+
   return (
     <ThemeProvider theme={isDark ? darkTheme : lightTheme}>
-      <Switch 
-        checked={isDark} 
-        onChange={() => setIsDark(!isDark)}
-        label="Dark mode"
-      />
+      <Switch checked={isDark} onChange={() => setIsDark(!isDark)} label="Dark mode" />
       <YourApp />
     </ThemeProvider>
   );
@@ -523,7 +518,7 @@ function App() {
 ### Using the `sx` Prop
 
 ```tsx
-<Button 
+<Button
   variant="solid"
   sx={{
     borderRadius: '20px',
@@ -548,7 +543,7 @@ const GradientButton = styled(Button)({
   padding: '0 30px',
 });
 
-<GradientButton variant="solid">Gradient</GradientButton>
+<GradientButton variant="solid">Gradient</GradientButton>;
 ```
 
 ---
@@ -599,22 +594,22 @@ interface MyButtonProps extends ButtonProps {
 
 ### Common Props (All Components)
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `variant` | `'solid' \| 'soft' \| 'outlined' \| 'dash' \| 'ghost' \| 'plain' \| 'link'` | `'solid'` | Visual style |
-| `color` | `'primary' \| 'secondary' \| 'success' \| 'warning' \| 'danger' \| 'info' \| 'neutral'` | `'primary'` | Color scheme |
-| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` | Component size |
-| `disabled` | `boolean` | `false` | Disabled state |
+| Prop       | Type                                                                                    | Default     | Description    |
+| ---------- | --------------------------------------------------------------------------------------- | ----------- | -------------- |
+| `variant`  | `'solid' \| 'soft' \| 'outlined' \| 'dash' \| 'ghost' \| 'plain' \| 'link'`             | `'solid'`   | Visual style   |
+| `color`    | `'primary' \| 'secondary' \| 'success' \| 'warning' \| 'danger' \| 'info' \| 'neutral'` | `'primary'` | Color scheme   |
+| `size`     | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'`                                                  | `'md'`      | Component size |
+| `disabled` | `boolean`                                                                               | `false`     | Disabled state |
 
 ### Button Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `loading` | `boolean` | `false` | Show loading spinner |
-| `loadingPosition` | `'start' \| 'end' \| 'center'` | `'center'` | Spinner position |
-| `startIcon` | `ReactNode` | - | Icon before text |
-| `endIcon` | `ReactNode` | - | Icon after text |
-| `shape` | `'default' \| 'wide' \| 'block' \| 'square' \| 'circle'` | `'default'` | Button shape |
+| Prop              | Type                                                     | Default     | Description          |
+| ----------------- | -------------------------------------------------------- | ----------- | -------------------- |
+| `loading`         | `boolean`                                                | `false`     | Show loading spinner |
+| `loadingPosition` | `'start' \| 'end' \| 'center'`                           | `'center'`  | Spinner position     |
+| `startIcon`       | `ReactNode`                                              | -           | Icon before text     |
+| `endIcon`         | `ReactNode`                                              | -           | Icon after text      |
+| `shape`           | `'default' \| 'wide' \| 'block' \| 'square' \| 'circle'` | `'default'` | Button shape         |
 
 ---
 

@@ -2,12 +2,10 @@
 import { defineConfig } from 'vitest/config';
 
 export default defineConfig({
-    test: {
-        globals: true,
-        // Include both package tests and Storybook tests
-        projects: [
-            'packages/*/vitest.config.ts',
-            'apps/docs/vitest.config.ts',
-        ],
-    },
+  test: {
+    globals: true,
+    // Only include package unit tests by default
+    // Storybook tests require a running Storybook server and are run separately
+    projects: ['packages/*/vitest.config.ts'],
+  },
 });

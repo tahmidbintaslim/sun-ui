@@ -102,15 +102,15 @@ Sun UI sits in a unique sweet spot:
 
 Every component supports **7 design variants** for maximum flexibility:
 
-| Variant | Use Case | Visual Style |
-|---------|----------|--------------|
-| `solid` | Primary actions, CTAs | Filled background, high contrast |
-| `soft` | Secondary actions | Subtle tinted background |
-| `outlined` | Tertiary actions | Border with transparent background |
-| `dash` | Upload zones, placeholders | Dashed border style |
-| `ghost` | Minimal actions | Shows color on hover only |
-| `plain` | Text-only actions | No background or border |
-| `link` | Inline links | Underlined, hyperlink style |
+| Variant    | Use Case                   | Visual Style                       |
+| ---------- | -------------------------- | ---------------------------------- |
+| `solid`    | Primary actions, CTAs      | Filled background, high contrast   |
+| `soft`     | Secondary actions          | Subtle tinted background           |
+| `outlined` | Tertiary actions           | Border with transparent background |
+| `dash`     | Upload zones, placeholders | Dashed border style                |
+| `ghost`    | Minimal actions            | Shows color on hover only          |
+| `plain`    | Text-only actions          | No background or border            |
+| `link`     | Inline links               | Underlined, hyperlink style        |
 
 ```tsx
 // Every component follows this pattern

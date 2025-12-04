@@ -9,6 +9,5 @@ build
 .env.local
 coverage
 storybook-static
-pnpm-lock.yaml
 .vercel
 .env*.local
