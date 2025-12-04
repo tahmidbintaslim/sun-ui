@@ -66,7 +66,7 @@ export const letterSpacing = {
     widest: '0.1em',
 };
 // Typography presets for components
-export const typography = {
+export const typographyPresets = {
     // Display styles
     display1: {
         fontSize: fontSize['5xl'],
@@ -177,3 +177,4 @@ export const typography = {
         lineHeight: lineHeight.normal,
     },
 };
+//# sourceMappingURL=typography.js.map

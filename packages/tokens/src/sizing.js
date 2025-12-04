@@ -42,61 +42,61 @@ export const spacing = {
     96: '384px',
 };
 export const componentSizes = {
-    // Button sizes
+    // Button sizes (following DaisyUI scale: 6×4, 8×4, 10×4, 12×4, 14×4)
     button: {
-        xs: { height: '24px', padding: '4px 8px', fontSize: '12px', iconSize: '14px' },
-        sm: { height: '32px', padding: '6px 12px', fontSize: '13px', iconSize: '16px' },
-        md: { height: '40px', padding: '8px 16px', fontSize: '14px', iconSize: '18px' },
-        lg: { height: '48px', padding: '10px 20px', fontSize: '16px', iconSize: '20px' },
-        xl: { height: '56px', padding: '12px 24px', fontSize: '18px', iconSize: '24px' },
+        xs: { height: '24px', padding: '0 8px', fontSize: '0.6875rem', iconSize: '14px' },
+        sm: { height: '32px', padding: '0 12px', fontSize: '0.75rem', iconSize: '16px' },
+        md: { height: '40px', padding: '0 16px', fontSize: '0.875rem', iconSize: '18px' },
+        lg: { height: '48px', padding: '0 20px', fontSize: '1.125rem', iconSize: '20px' },
+        xl: { height: '56px', padding: '0 24px', fontSize: '1.375rem', iconSize: '24px' },
     },
-    // Input/TextField sizes
+    // Input/TextField sizes (following DaisyUI scale: 6×4, 8×4, 10×4, 12×4, 14×4)
     input: {
-        xs: { height: '28px', padding: '4px 8px', fontSize: '12px' },
-        sm: { height: '36px', padding: '6px 12px', fontSize: '13px' },
-        md: { height: '44px', padding: '8px 14px', fontSize: '14px' },
-        lg: { height: '52px', padding: '10px 16px', fontSize: '16px' },
-        xl: { height: '60px', padding: '12px 18px', fontSize: '18px' },
+        xs: { height: '24px', padding: '0 8px', fontSize: '0.6875rem' },
+        sm: { height: '32px', padding: '0 12px', fontSize: '0.75rem' },
+        md: { height: '40px', padding: '0 14px', fontSize: '0.875rem' },
+        lg: { height: '48px', padding: '0 16px', fontSize: '1.125rem' },
+        xl: { height: '56px', padding: '0 18px', fontSize: '1.375rem' },
     },
-    // Checkbox/Radio sizes
+    // Checkbox/Radio sizes (following DaisyUI scale: 4×4, 5×4, 6×4, 7×4, 8×4)
     control: {
-        xs: { size: '16px', iconSize: '12px' },
-        sm: { size: '18px', iconSize: '14px' },
-        md: { size: '22px', iconSize: '16px' },
-        lg: { size: '26px', iconSize: '20px' },
-        xl: { size: '30px', iconSize: '24px' },
+        xs: { size: '16px', iconSize: '10px' },
+        sm: { size: '20px', iconSize: '12px' },
+        md: { size: '24px', iconSize: '14px' },
+        lg: { size: '28px', iconSize: '18px' },
+        xl: { size: '32px', iconSize: '22px' },
     },
-    // Switch sizes
+    // Switch sizes (following DaisyUI toggle scale: 4×4, 5×4, 6×4, 7×4, 8×4)
     switch: {
-        xs: { width: '32px', height: '18px', thumbSize: '14px' },
-        sm: { width: '40px', height: '22px', thumbSize: '18px' },
-        md: { width: '52px', height: '28px', thumbSize: '24px' },
-        lg: { width: '64px', height: '34px', thumbSize: '30px' },
-        xl: { width: '76px', height: '40px', thumbSize: '36px' },
+        xs: { width: '28px', height: '16px', thumbSize: '12px' },
+        sm: { width: '36px', height: '20px', thumbSize: '16px' },
+        md: { width: '44px', height: '24px', thumbSize: '20px' },
+        lg: { width: '52px', height: '28px', thumbSize: '24px' },
+        xl: { width: '60px', height: '32px', thumbSize: '28px' },
     },
     // Avatar sizes
     avatar: {
-        xs: { size: '24px', fontSize: '10px' },
-        sm: { size: '32px', fontSize: '12px' },
-        md: { size: '40px', fontSize: '14px' },
-        lg: { size: '56px', fontSize: '18px' },
-        xl: { size: '80px', fontSize: '24px' },
+        xs: { size: '24px', fontSize: '0.625rem' },
+        sm: { size: '32px', fontSize: '0.75rem' },
+        md: { size: '40px', fontSize: '0.875rem' },
+        lg: { size: '56px', fontSize: '1.125rem' },
+        xl: { size: '80px', fontSize: '1.5rem' },
     },
-    // Badge sizes
+    // Badge sizes (following DaisyUI scale: 4×4, 5×4, 6×4, 7×4, 8×4)
     badge: {
-        xs: { minWidth: '14px', height: '14px', fontSize: '10px', padding: '0 4px' },
-        sm: { minWidth: '18px', height: '18px', fontSize: '11px', padding: '0 5px' },
-        md: { minWidth: '22px', height: '22px', fontSize: '12px', padding: '0 6px' },
-        lg: { minWidth: '26px', height: '26px', fontSize: '14px', padding: '0 8px' },
-        xl: { minWidth: '32px', height: '32px', fontSize: '16px', padding: '0 10px' },
+        xs: { minWidth: '16px', height: '16px', fontSize: '0.625rem', padding: '0 6px' },
+        sm: { minWidth: '20px', height: '20px', fontSize: '0.75rem', padding: '0 8px' },
+        md: { minWidth: '24px', height: '24px', fontSize: '0.875rem', padding: '0 10px' },
+        lg: { minWidth: '28px', height: '28px', fontSize: '1rem', padding: '0 12px' },
+        xl: { minWidth: '32px', height: '32px', fontSize: '1.125rem', padding: '0 14px' },
     },
     // Chip sizes
     chip: {
-        xs: { height: '20px', padding: '0 6px', fontSize: '11px' },
-        sm: { height: '26px', padding: '0 8px', fontSize: '12px' },
-        md: { height: '32px', padding: '0 12px', fontSize: '13px' },
-        lg: { height: '38px', padding: '0 16px', fontSize: '14px' },
-        xl: { height: '44px', padding: '0 20px', fontSize: '16px' },
+        xs: { height: '20px', padding: '0 6px', fontSize: '0.6875rem' },
+        sm: { height: '26px', padding: '0 8px', fontSize: '0.75rem' },
+        md: { height: '32px', padding: '0 12px', fontSize: '0.8125rem' },
+        lg: { height: '38px', padding: '0 16px', fontSize: '0.875rem' },
+        xl: { height: '44px', padding: '0 20px', fontSize: '1rem' },
     },
     // Icon sizes
     icon: {
@@ -160,3 +160,4 @@ export const breakpoints = {
     xl: '1280px',
     '2xl': '1536px',
 };
+//# sourceMappingURL=sizing.js.map

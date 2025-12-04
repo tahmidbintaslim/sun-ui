@@ -11,7 +11,7 @@
  * Sun UI Brand Colors
  * Primary: Sky Blue (Sun-inspired warmth meets modern tech)
  */
-export const colors = {
+export const colorPalette = {
     // Brand Primary - Sky Blue
     primary: {
         50: '#f0f9ff',
@@ -179,58 +179,57 @@ export const backgrounds = {
     light: {
         default: '#ffffff',
         paper: '#ffffff',
-        subtle: colors.neutral[50],
-        muted: colors.neutral[100],
+        subtle: colorPalette.neutral[50],
+        muted: colorPalette.neutral[100],
     },
     dark: {
-        default: colors.neutral[900],
-        paper: colors.neutral[800],
-        subtle: colors.neutral[800],
-        muted: colors.neutral[700],
+        default: colorPalette.neutral[900],
+        paper: colorPalette.neutral[800],
+        subtle: colorPalette.neutral[800],
+        muted: colorPalette.neutral[700],
     },
 };
 // Semantic color aliases for easier access
 export const semantic = {
-    primary: colors.primary,
-    secondary: colors.secondary,
-    success: colors.success,
-    warning: colors.warning,
-    danger: colors.danger,
-    info: colors.info,
-    neutral: colors.neutral,
+    primary: colorPalette.primary,
+    secondary: colorPalette.secondary,
+    success: colorPalette.success,
+    warning: colorPalette.warning,
+    danger: colorPalette.danger,
+    info: colorPalette.info,
+    neutral: colorPalette.neutral,
 };
 // Extended colors object with semantic alias
 export const colorsWithSemantic = {
-    ...colors,
+    ...colorPalette,
     semantic,
 };
-// Re-export as colors.semantic for convenience
-Object.assign(colors, { semantic });
 // Text colors
 export const textColors = {
     light: {
-        primary: colors.neutral[900],
-        secondary: colors.neutral[600],
-        disabled: colors.neutral[400],
-        hint: colors.neutral[500],
+        primary: colorPalette.neutral[900],
+        secondary: colorPalette.neutral[600],
+        disabled: colorPalette.neutral[400],
+        hint: colorPalette.neutral[500],
     },
     dark: {
-        primary: colors.neutral[50],
-        secondary: colors.neutral[300],
-        disabled: colors.neutral[500],
-        hint: colors.neutral[400],
+        primary: colorPalette.neutral[50],
+        secondary: colorPalette.neutral[300],
+        disabled: colorPalette.neutral[500],
+        hint: colorPalette.neutral[400],
     },
 };
 // Border colors
 export const borderColors = {
     light: {
-        default: colors.neutral[200],
-        subtle: colors.neutral[100],
-        strong: colors.neutral[300],
+        default: colorPalette.neutral[200],
+        subtle: colorPalette.neutral[100],
+        strong: colorPalette.neutral[300],
     },
     dark: {
-        default: colors.neutral[700],
-        subtle: colors.neutral[800],
-        strong: colors.neutral[600],
+        default: colorPalette.neutral[700],
+        subtle: colorPalette.neutral[800],
+        strong: colorPalette.neutral[600],
     },
 };
+//# sourceMappingURL=colors.js.map

@@ -59,7 +59,7 @@ export declare const letterSpacing: {
   readonly wider: '0.05em';
   readonly widest: '0.1em';
 };
-export declare const typography: {
+export declare const typographyPresets: {
   readonly display1: {
     readonly fontSize: '3rem';
     readonly fontWeight: 700;
@@ -168,4 +168,5 @@ export type FontSize = typeof fontSize;
 export type FontWeight = typeof fontWeight;
 export type LineHeight = typeof lineHeight;
 export type LetterSpacing = typeof letterSpacing;
-export type Typography = typeof typography;
+export type TypographyPresets = typeof typographyPresets;
+//# sourceMappingURL=typography.d.ts.map

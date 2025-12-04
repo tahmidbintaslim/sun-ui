@@ -97,3 +97,4 @@ export declare const spacingScale: {
   xl: number;
   xxl: number;
 };
+//# sourceMappingURL=palette.d.ts.map

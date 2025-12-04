@@ -179,7 +179,7 @@ export const keyframes = {
   `,
 };
 // Animation presets for components
-export const animations = {
+export const animationPresets = {
     spin: 'spin 1s linear infinite',
     ping: 'ping 1s cubic-bezier(0, 0, 0.2, 1) infinite',
     pulse: 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
@@ -195,3 +195,4 @@ export const animations = {
     shake: 'shake 0.5s ease-in-out',
     shimmer: 'shimmer 2s infinite linear',
 };
+//# sourceMappingURL=animations.js.map

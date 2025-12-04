@@ -45,190 +45,190 @@ export declare const componentSizes: {
   readonly button: {
     readonly xs: {
       readonly height: '24px';
-      readonly padding: '4px 8px';
-      readonly fontSize: '12px';
+      readonly padding: '0 8px';
+      readonly fontSize: '0.6875rem';
       readonly iconSize: '14px';
     };
     readonly sm: {
       readonly height: '32px';
-      readonly padding: '6px 12px';
-      readonly fontSize: '13px';
+      readonly padding: '0 12px';
+      readonly fontSize: '0.75rem';
       readonly iconSize: '16px';
     };
     readonly md: {
       readonly height: '40px';
-      readonly padding: '8px 16px';
-      readonly fontSize: '14px';
+      readonly padding: '0 16px';
+      readonly fontSize: '0.875rem';
       readonly iconSize: '18px';
     };
     readonly lg: {
       readonly height: '48px';
-      readonly padding: '10px 20px';
-      readonly fontSize: '16px';
+      readonly padding: '0 20px';
+      readonly fontSize: '1.125rem';
       readonly iconSize: '20px';
     };
     readonly xl: {
       readonly height: '56px';
-      readonly padding: '12px 24px';
-      readonly fontSize: '18px';
+      readonly padding: '0 24px';
+      readonly fontSize: '1.375rem';
       readonly iconSize: '24px';
     };
   };
   readonly input: {
     readonly xs: {
-      readonly height: '28px';
-      readonly padding: '4px 8px';
-      readonly fontSize: '12px';
+      readonly height: '24px';
+      readonly padding: '0 8px';
+      readonly fontSize: '0.6875rem';
     };
     readonly sm: {
-      readonly height: '36px';
-      readonly padding: '6px 12px';
-      readonly fontSize: '13px';
+      readonly height: '32px';
+      readonly padding: '0 12px';
+      readonly fontSize: '0.75rem';
     };
     readonly md: {
-      readonly height: '44px';
-      readonly padding: '8px 14px';
-      readonly fontSize: '14px';
+      readonly height: '40px';
+      readonly padding: '0 14px';
+      readonly fontSize: '0.875rem';
     };
     readonly lg: {
-      readonly height: '52px';
-      readonly padding: '10px 16px';
-      readonly fontSize: '16px';
+      readonly height: '48px';
+      readonly padding: '0 16px';
+      readonly fontSize: '1.125rem';
     };
     readonly xl: {
-      readonly height: '60px';
-      readonly padding: '12px 18px';
-      readonly fontSize: '18px';
+      readonly height: '56px';
+      readonly padding: '0 18px';
+      readonly fontSize: '1.375rem';
     };
   };
   readonly control: {
     readonly xs: {
       readonly size: '16px';
-      readonly iconSize: '12px';
+      readonly iconSize: '10px';
     };
     readonly sm: {
-      readonly size: '18px';
-      readonly iconSize: '14px';
+      readonly size: '20px';
+      readonly iconSize: '12px';
     };
     readonly md: {
-      readonly size: '22px';
-      readonly iconSize: '16px';
+      readonly size: '24px';
+      readonly iconSize: '14px';
     };
     readonly lg: {
-      readonly size: '26px';
-      readonly iconSize: '20px';
+      readonly size: '28px';
+      readonly iconSize: '18px';
     };
     readonly xl: {
-      readonly size: '30px';
-      readonly iconSize: '24px';
+      readonly size: '32px';
+      readonly iconSize: '22px';
     };
   };
   readonly switch: {
     readonly xs: {
-      readonly width: '32px';
-      readonly height: '18px';
-      readonly thumbSize: '14px';
+      readonly width: '28px';
+      readonly height: '16px';
+      readonly thumbSize: '12px';
     };
     readonly sm: {
-      readonly width: '40px';
-      readonly height: '22px';
-      readonly thumbSize: '18px';
+      readonly width: '36px';
+      readonly height: '20px';
+      readonly thumbSize: '16px';
     };
     readonly md: {
+      readonly width: '44px';
+      readonly height: '24px';
+      readonly thumbSize: '20px';
+    };
+    readonly lg: {
       readonly width: '52px';
       readonly height: '28px';
       readonly thumbSize: '24px';
     };
-    readonly lg: {
-      readonly width: '64px';
-      readonly height: '34px';
-      readonly thumbSize: '30px';
-    };
     readonly xl: {
-      readonly width: '76px';
-      readonly height: '40px';
-      readonly thumbSize: '36px';
+      readonly width: '60px';
+      readonly height: '32px';
+      readonly thumbSize: '28px';
     };
   };
   readonly avatar: {
     readonly xs: {
       readonly size: '24px';
-      readonly fontSize: '10px';
+      readonly fontSize: '0.625rem';
     };
     readonly sm: {
       readonly size: '32px';
-      readonly fontSize: '12px';
+      readonly fontSize: '0.75rem';
     };
     readonly md: {
       readonly size: '40px';
-      readonly fontSize: '14px';
+      readonly fontSize: '0.875rem';
     };
     readonly lg: {
       readonly size: '56px';
-      readonly fontSize: '18px';
+      readonly fontSize: '1.125rem';
     };
     readonly xl: {
       readonly size: '80px';
-      readonly fontSize: '24px';
+      readonly fontSize: '1.5rem';
     };
   };
   readonly badge: {
     readonly xs: {
-      readonly minWidth: '14px';
-      readonly height: '14px';
-      readonly fontSize: '10px';
-      readonly padding: '0 4px';
-    };
-    readonly sm: {
-      readonly minWidth: '18px';
-      readonly height: '18px';
-      readonly fontSize: '11px';
-      readonly padding: '0 5px';
-    };
-    readonly md: {
-      readonly minWidth: '22px';
-      readonly height: '22px';
-      readonly fontSize: '12px';
+      readonly minWidth: '16px';
+      readonly height: '16px';
+      readonly fontSize: '0.625rem';
       readonly padding: '0 6px';
     };
-    readonly lg: {
-      readonly minWidth: '26px';
-      readonly height: '26px';
-      readonly fontSize: '14px';
+    readonly sm: {
+      readonly minWidth: '20px';
+      readonly height: '20px';
+      readonly fontSize: '0.75rem';
       readonly padding: '0 8px';
+    };
+    readonly md: {
+      readonly minWidth: '24px';
+      readonly height: '24px';
+      readonly fontSize: '0.875rem';
+      readonly padding: '0 10px';
+    };
+    readonly lg: {
+      readonly minWidth: '28px';
+      readonly height: '28px';
+      readonly fontSize: '1rem';
+      readonly padding: '0 12px';
     };
     readonly xl: {
       readonly minWidth: '32px';
       readonly height: '32px';
-      readonly fontSize: '16px';
-      readonly padding: '0 10px';
+      readonly fontSize: '1.125rem';
+      readonly padding: '0 14px';
     };
   };
   readonly chip: {
     readonly xs: {
       readonly height: '20px';
       readonly padding: '0 6px';
-      readonly fontSize: '11px';
+      readonly fontSize: '0.6875rem';
     };
     readonly sm: {
       readonly height: '26px';
       readonly padding: '0 8px';
-      readonly fontSize: '12px';
+      readonly fontSize: '0.75rem';
     };
     readonly md: {
       readonly height: '32px';
       readonly padding: '0 12px';
-      readonly fontSize: '13px';
+      readonly fontSize: '0.8125rem';
     };
     readonly lg: {
       readonly height: '38px';
       readonly padding: '0 16px';
-      readonly fontSize: '14px';
+      readonly fontSize: '0.875rem';
     };
     readonly xl: {
       readonly height: '44px';
       readonly padding: '0 20px';
-      readonly fontSize: '16px';
+      readonly fontSize: '1rem';
     };
   };
   readonly icon: {
@@ -293,3 +293,4 @@ export type Radius = typeof radius;
 export type Shadows = typeof shadows;
 export type ZIndex = typeof zIndex;
 export type Breakpoints = typeof breakpoints;
+//# sourceMappingURL=sizing.d.ts.map

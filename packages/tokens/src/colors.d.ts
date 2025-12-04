@@ -41,7 +41,7 @@ export type SemanticColor =
  * Sun UI Brand Colors
  * Primary: Sky Blue (Sun-inspired warmth meets modern tech)
  */
-export declare const colors: {
+export declare const colorPalette: {
   primary: ColorScale;
   secondary: ColorScale;
   success: ColorScale;
@@ -117,9 +117,8 @@ export declare const borderColors: {
     strong: string;
   };
 };
-export type Colors = typeof colors & {
-  semantic: typeof semantic;
-};
+export type ColorPalette = typeof colorPalette;
 export type Backgrounds = typeof backgrounds;
 export type TextColors = typeof textColors;
 export type BorderColors = typeof borderColors;
+//# sourceMappingURL=colors.d.ts.map

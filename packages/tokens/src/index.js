@@ -6,8 +6,45 @@
  */
 // Legacy palette (for backwards compatibility)
 export * from './palette';
-// New comprehensive token system
+// Individual exports from token files
 export * from './animations';
 export * from './colors';
 export * from './sizing';
 export * from './typography';
+// Import everything for bundled exports
+import { animationPresets, duration, easing, keyframes, transitions } from './animations';
+import { backgrounds, borderColors, colorPalette, semantic, textColors } from './colors';
+import { breakpoints, componentSizes, radius, shadows, spacing, zIndex } from './sizing';
+import { fontFamily, fontSize, fontWeight, letterSpacing, lineHeight, typographyPresets, } from './typography';
+// Bundled exports for convenience
+export const colors = {
+    ...colorPalette,
+    semantic,
+    backgrounds,
+    textColors,
+    borderColors,
+};
+export const sizing = {
+    spacing,
+    componentSizes,
+    radius,
+    shadows,
+    zIndex,
+    breakpoints,
+};
+export const typography = {
+    fontFamily,
+    fontSize,
+    fontWeight,
+    lineHeight,
+    letterSpacing,
+    ...typographyPresets,
+};
+export const animations = {
+    duration,
+    easing,
+    transitions,
+    keyframes,
+    ...animationPresets,
+};
+//# sourceMappingURL=index.js.map

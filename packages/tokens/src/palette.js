@@ -97,3 +97,4 @@ export const spacingScale = {
     xl: 24,
     xxl: 32,
 };
+//# sourceMappingURL=palette.js.map

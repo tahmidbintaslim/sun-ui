@@ -75,7 +75,7 @@ export declare const keyframes: {
   readonly shake: '\n    @keyframes shake {\n      0%, 100% { transform: translateX(0); }\n      10%, 30%, 50%, 70%, 90% { transform: translateX(-4px); }\n      20%, 40%, 60%, 80% { transform: translateX(4px); }\n    }\n  ';
   readonly shimmer: '\n    @keyframes shimmer {\n      0% { background-position: -200% 0; }\n      100% { background-position: 200% 0; }\n    }\n  ';
 };
-export declare const animations: {
+export declare const animationPresets: {
   readonly spin: 'spin 1s linear infinite';
   readonly ping: 'ping 1s cubic-bezier(0, 0, 0.2, 1) infinite';
   readonly pulse: 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite';
@@ -96,4 +96,5 @@ export type Easing = typeof easing;
 export type TransitionProperty = typeof transitionProperty;
 export type Transitions = typeof transitions;
 export type Keyframes = typeof keyframes;
-export type Animations = typeof animations;
+export type AnimationPresets = typeof animationPresets;
+//# sourceMappingURL=animations.d.ts.map
