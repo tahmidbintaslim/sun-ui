@@ -1,0 +1,67 @@
+# Sun UI - Automated UI Tests
+# 
+# This workflow runs Storybook component tests after Vercel deployments.
+# It provides clickable links to the deployed Storybook for debugging failures.
+#
+# For more info: https://storybook.js.org/docs/writing-tests/in-ci
+
+name: UI Tests
+
+# Trigger on deployment status events (emitted by Vercel, Netlify, etc.)
+on: deployment_status
+
+# Cancel previous runs for the same deployment
+concurrency:
+  group: ui-tests-${{ github.event.deployment.id }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: Storybook Tests
+    runs-on: ubuntu-latest
+    # Use Playwright's Docker image for pre-installed browsers
+    container:
+      image: mcr.microsoft.com/playwright:v1.52.0-noble
+    
+    # Only run on successful deployments (not pending or failed)
+    if: github.event_name == 'deployment_status' && github.event.deployment_status.state == 'success'
+    
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: "pnpm"
+
+      - name: Install Dependencies
+        run: pnpm install --frozen-lockfile
+
+      # Run Storybook component tests
+      # The SB_URL env var makes test failure links point to the deployed Storybook
+      - name: Run Storybook Tests
+        run: pnpm test:storybook
+        env:
+          # Pass the deployed Storybook URL for debugging test failures
+          SB_URL: ${{ github.event.deployment_status.environment_url }}
+          # Ensure Playwright uses the container's browsers
+          PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: 1
+          HOME: /root
+
+      # Upload test results as artifacts for debugging
+      - name: Upload Test Results
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: storybook-test-results
+          path: |
+            apps/docs/test-results/
+            apps/docs/playwright-report/
+          retention-days: 7

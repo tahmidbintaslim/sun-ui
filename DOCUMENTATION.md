@@ -1,82 +1,107 @@
-# Sun UI Documentation
+# 🌞 Sun UI Documentation
 
-Complete guide for using, customizing, and extending Sun UI.
+> **MUI Components, Reimagined.** Beautiful defaults. Full MUI ecosystem. Zero config.
+
+---
 
 ## Table of Contents
 
-1. [Getting Started](#getting-started)
-2. [Installation](#installation)
-3. [Basic Usage](#basic-usage)
+1. [Introduction](#introduction)
+2. [Quick Start](#quick-start)
+3. [Core Concepts](#core-concepts)
 4. [Components](#components)
-5. [Theming](#theming)
-6. [Design Tokens](#design-tokens)
-7. [Customization](#customization)
-8. [Dark Mode](#dark-mode)
-9. [Advanced Usage](#advanced-usage)
+5. [Design Tokens](#design-tokens)
+6. [Theming](#theming)
+7. [Dark Mode](#dark-mode)
+8. [Customization](#customization)
+9. [Best Practices](#best-practices)
 10. [API Reference](#api-reference)
+11. [Troubleshooting](#troubleshooting)
 
 ---
 
-## Getting Started
+## Introduction
 
-Sun UI is a modern, accessible design system built on Material-UI v5. It provides:
+### What is Sun UI?
 
-- **11 Production-Ready Components** with 5 design variants each
-- **TypeScript First** with full type safety
-- **Zero Dependencies** (peer dependencies only)
-- **Dark Mode Support** out of the box
-- **Accessible** — WCAG 2.1 AA compliant
-- **Tree-Shakeable** — import only what you need
+**Sun UI** is a React component library built on top of Material-UI (MUI) v7 that provides:
 
-### Packages
+- **7 Design Variants** — solid, soft, outlined, dash, ghost, plain, link
+- **7 Color Schemes** — primary, secondary, success, warning, danger, info, neutral
+- **5 Sizes** — xs, sm, md, lg, xl
+- **Production-Ready** — 124 tests passing, WCAG 2.1 AA compliant
+- **Zero Config** — Beautiful defaults that just work
 
-Sun UI is organized into several packages:
+### Who is Sun UI For?
 
-| Package          | Purpose                         | Import                                                  |
-| ---------------- | ------------------------------- | ------------------------------------------------------- |
-| `@sun-ui/react`  | React components                | `import { Button } from '@sun-ui/react'`                |
-| `@sun-ui/theme`  | MUI theme configuration         | `import { lightTheme, darkTheme } from '@sun-ui/theme'` |
-| `@sun-ui/tokens` | Design tokens (colors, spacing) | `import { sunPalette } from '@sun-ui/tokens'`           |
-| `@sun-ui/icons`  | Icon library                    | `import { ChevronDown } from '@sun-ui/icons'`           |
-| `@sun-ui/core`   | Headless primitives             | (Coming soon)                                           |
+| If you are... | Sun UI helps you... |
+|---------------|---------------------|
+| **MUI user frustrated with limited variants** | Get 7 beautiful variants out of the box |
+| **Team needing consistent design** | Use production-ready design tokens |
+| **Developer wanting type safety** | Enjoy 100% TypeScript with strict mode |
+| **Building accessible products** | Ship WCAG 2.1 AA compliant components |
+
+### The Problem We Solve
+
+```
+┌─────────────────────────────────────────────────────────────────────┐
+│                                                                     │
+│   Raw MUI ←────────── Sun UI ──────────→ Opinionated Systems        │
+│   (Flexible           (Best of          (Chakra, Mantine —          │
+│    but verbose)        both worlds)       locked ecosystem)         │
+│                                                                     │
+└─────────────────────────────────────────────────────────────────────┘
+```
+
+**Sun UI gives you:**
+- 🎨 Beautiful defaults (like Chakra/Mantine)
+- 🔌 Full MUI ecosystem access (600+ components)
+- 🛠️ Complete customization (it's still MUI under the hood)
 
 ---
 
-## Installation
+## Quick Start
 
-### Install via npm
-
-```bash
-npm install @sun-ui/react @sun-ui/theme
-```
-
-### Install via pnpm (recommended)
+### Installation
 
 ```bash
-pnpm add @sun-ui/react @sun-ui/theme
+# npm
+npm install @sun-ui/react @mui/material @emotion/react @emotion/styled
+
+# pnpm (recommended)
+pnpm add @sun-ui/react @mui/material @emotion/react @emotion/styled
+
+# yarn
+yarn add @sun-ui/react @mui/material @emotion/react @emotion/styled
 ```
 
-### Install via yarn
+### Basic Usage
 
-```bash
-yarn add @sun-ui/react @sun-ui/theme
+```tsx
+import { Button, TextField, Alert } from '@sun-ui/react';
+
+export default function App() {
+  return (
+    <div>
+      <Alert variant="soft" color="info">
+        Welcome to Sun UI!
+      </Alert>
+      
+      <TextField variant="outlined" label="Email" />
+      
+      <Button variant="solid" color="primary">
+        Get Started
+      </Button>
+    </div>
+  );
+}
 ```
 
-### Peer Dependencies
+**That's it!** No ThemeProvider required for basic usage.
 
-Make sure you have the required peer dependencies installed:
+### With Theme Provider (Recommended)
 
-```bash
-npm install react react-dom @mui/material @emotion/react @emotion/styled
-```
-
----
-
-## Basic Usage
-
-### Setup Theme Provider
-
-Wrap your app with the `ThemeProvider` to apply Sun UI theming:
+For full theming support including dark mode:
 
 ```tsx
 import { ThemeProvider } from '@mui/material/styles';
@@ -94,679 +119,436 @@ export default function App() {
 }
 ```
 
-### Using Components
+---
 
-All Sun UI components support the same pattern with 5 variants:
+## Core Concepts
+
+### 7 Design Variants
+
+Every Sun UI component supports the same 7 variants:
+
+| Variant | Use Case | Appearance |
+|---------|----------|------------|
+| `solid` | Primary actions, CTAs | Filled background, high contrast |
+| `soft` | Secondary actions | Subtle tinted background |
+| `outlined` | Tertiary actions | Border with transparent background |
+| `dash` | Upload zones, placeholders | Dashed border style |
+| `ghost` | Minimal actions | Shows color on hover only |
+| `plain` | Text-only actions | No background or border |
+| `link` | Inline links | Underlined, hyperlink style |
 
 ```tsx
-import { Button, TextField, Select } from '@sun-ui/react';
+<Button variant="solid">Primary Action</Button>
+<Button variant="soft">Secondary Action</Button>
+<Button variant="outlined">Tertiary Action</Button>
+<Button variant="dash">Upload File</Button>
+<Button variant="ghost">Cancel</Button>
+<Button variant="plain">Learn more</Button>
+<Button variant="link">View details</Button>
+```
 
-export function MyForm() {
-  return (
-    <>
-      <Button variant="solid">Solid</Button>
-      <Button variant="soft">Soft</Button>
-      <Button variant="outlined">Outlined</Button>
-      <Button variant="ghost">Ghost</Button>
-      <Button variant="plain">Plain</Button>
+### 7 Color Schemes
 
-      <TextField variant="solid" label="Name" />
-      <Select variant="soft" label="Option" />
-    </>
-  );
-}
+All components support 7 semantic colors:
+
+| Color | Use Case |
+|-------|----------|
+| `primary` | Brand color, main actions |
+| `secondary` | Secondary brand color |
+| `success` | Positive actions, confirmations |
+| `warning` | Caution, attention needed |
+| `danger` | Destructive actions, errors |
+| `info` | Informational content |
+| `neutral` | Neutral, subdued actions |
+
+```tsx
+<Button color="primary">Primary</Button>
+<Button color="success">Success</Button>
+<Button color="danger">Delete</Button>
+```
+
+### 5 Sizes
+
+Components come in 5 sizes:
+
+| Size | Use Case |
+|------|----------|
+| `xs` | Compact UIs, tables |
+| `sm` | Secondary actions |
+| `md` | Default size |
+| `lg` | Primary CTAs |
+| `xl` | Hero sections |
+
+```tsx
+<Button size="xs">Extra Small</Button>
+<Button size="sm">Small</Button>
+<Button size="md">Medium</Button>
+<Button size="lg">Large</Button>
+<Button size="xl">Extra Large</Button>
 ```
 
 ---
 
 ## Components
 
-Sun UI ships with 11 components, each with 5 design variants.
-
-### Form Components
+### Form Controls
 
 #### Button
 
-Trigger actions with visual feedback.
-
 ```tsx
-import { Button, Stack } from '@sun-ui/react';
+import { Button } from '@sun-ui/react';
 
-export function ButtonDemo() {
-  return (
-    <Stack spacing={2}>
-      <Button variant="solid" size="small">
-        Small Solid
-      </Button>
-      <Button variant="soft" size="medium">
-        Medium Soft
-      </Button>
-      <Button variant="outlined" size="large">
-        Large Outlined
-      </Button>
-      <Button variant="ghost" disabled>
-        Disabled Ghost
-      </Button>
-      <Button variant="plain" fullWidth>
-        Full Width Plain
-      </Button>
-    </Stack>
-  );
-}
+// Basic usage
+<Button variant="solid" color="primary">
+  Click me
+</Button>
+
+// With loading state
+<Button variant="solid" loading>
+  Saving...
+</Button>
+
+// With icons
+<Button variant="soft" startIcon={<SaveIcon />}>
+  Save
+</Button>
+
+// Different shapes
+<Button shape="circle"><AddIcon /></Button>
+<Button shape="square"><MenuIcon /></Button>
+<Button shape="wide">Wide Button</Button>
+<Button shape="block">Full Width</Button>
 ```
 
-**Props:**
-
-- `variant`: 'solid' | 'soft' | 'outlined' | 'ghost' | 'plain'
-- `size`: 'small' | 'medium' | 'large'
-- `color`: 'primary' | 'secondary' | 'error' | 'warning' | 'info' | 'success'
-- `disabled`: boolean
-- `fullWidth`: boolean
-
 #### TextField
-
-Collect text input from users.
 
 ```tsx
 import { TextField } from '@sun-ui/react';
 
-export function FormDemo() {
-  return (
-    <>
-      <TextField variant="solid" label="Email" type="email" placeholder="you@example.com" />
-      <TextField
-        variant="soft"
-        label="Message"
-        multiline
-        rows={4}
-        error
-        helperText="This field is required"
-      />
-    </>
-  );
-}
+// Basic
+<TextField variant="outlined" label="Email" />
+
+// With validation
+<TextField 
+  variant="solid" 
+  label="Password" 
+  type="password"
+  error
+  helperText="Password is required"
+/>
+
+// Multiline
+<TextField 
+  variant="soft" 
+  label="Message" 
+  multiline 
+  rows={4}
+/>
 ```
 
-**Props:**
-
-- `variant`: 'solid' | 'soft' | 'outlined' | 'ghost' | 'plain'
-- `label`: string
-- `type`: 'text' | 'email' | 'password' | 'number' | etc.
-- `multiline`: boolean
-- `rows`: number
-- `error`: boolean
-- `helperText`: string
-
 #### Select
-
-Choose from a list of options.
 
 ```tsx
 import { Select } from '@sun-ui/react';
 
-export function SelectDemo() {
-  return (
-    <Select variant="solid" label="Choose option" defaultValue="option1">
-      <option value="option1">Option 1</option>
-      <option value="option2">Option 2</option>
-    </Select>
-  );
-}
+<Select variant="outlined" label="Country">
+  <option value="us">United States</option>
+  <option value="uk">United Kingdom</option>
+  <option value="ca">Canada</option>
+</Select>
 ```
 
-#### Checkbox
-
-Toggle boolean values in forms.
+#### Checkbox, Radio, Switch
 
 ```tsx
-import { Checkbox, FormControlLabel } from '@sun-ui/react';
+import { Checkbox, Radio, Switch } from '@sun-ui/react';
 
-export function CheckboxDemo() {
-  return (
-    <>
-      <FormControlLabel control={<Checkbox variant="solid" />} label="I agree to the terms" />
-      <FormControlLabel
-        control={<Checkbox variant="soft" defaultChecked />}
-        label="Subscribe to newsletter"
-      />
-    </>
-  );
-}
+<Checkbox variant="solid" label="I agree" />
+<Radio variant="soft" label="Option A" />
+<Switch variant="solid" label="Dark mode" />
 ```
 
-#### Radio
-
-Select one option from a group.
-
-```tsx
-import { Radio, RadioGroup, FormControlLabel } from '@sun-ui/react';
-
-export function RadioDemo() {
-  return (
-    <RadioGroup defaultValue="option1">
-      <FormControlLabel value="option1" control={<Radio variant="solid" />} label="Option 1" />
-      <FormControlLabel value="option2" control={<Radio variant="solid" />} label="Option 2" />
-    </RadioGroup>
-  );
-}
-```
-
-#### Switch
-
-Toggle between two states.
-
-```tsx
-import { Switch, FormControlLabel } from '@sun-ui/react';
-
-export function SwitchDemo() {
-  return <FormControlLabel control={<Switch variant="solid" defaultChecked />} label="Dark mode" />;
-}
-```
-
-### Display Components
+### Feedback Components
 
 #### Alert
 
-Display system messages and notifications.
-
 ```tsx
-import { Alert, AlertTitle } from '@sun-ui/react';
+import { Alert } from '@sun-ui/react';
 
-export function AlertDemo() {
-  return (
-    <>
-      <Alert variant="solid" severity="success">
-        <AlertTitle>Success!</AlertTitle>
-        Your changes have been saved.
-      </Alert>
-      <Alert variant="soft" severity="warning">
-        Warning: This action cannot be undone.
-      </Alert>
-      <Alert variant="outlined" severity="error">
-        Error: Something went wrong.
-      </Alert>
-    </>
-  );
-}
+<Alert variant="solid" color="success">
+  Changes saved successfully!
+</Alert>
+
+<Alert variant="soft" color="warning" onClose={() => {}}>
+  Your session will expire soon.
+</Alert>
 ```
 
-**Props:**
-
-- `variant`: 'solid' | 'soft' | 'outlined' | 'ghost' | 'plain'
-- `severity`: 'success' | 'info' | 'warning' | 'error'
-
-#### Avatar
-
-Display user avatars and profile images.
+#### Snackbar
 
 ```tsx
-import { Avatar } from '@sun-ui/react';
+import { Snackbar } from '@sun-ui/react';
 
-export function AvatarDemo() {
-  return (
-    <>
-      <Avatar variant="solid">JD</Avatar>
-      <Avatar variant="soft" src="/path/to/image.jpg" alt="John Doe" />
-      <Avatar variant="outlined">AB</Avatar>
-    </>
-  );
-}
+<Snackbar 
+  open={open} 
+  onClose={handleClose}
+  message="Item deleted"
+  action={<Button size="sm">Undo</Button>}
+/>
 ```
 
-**Props:**
-
-- `variant`: 'solid' | 'soft' | 'outlined' | 'ghost' | 'plain'
-- `src`: string (image URL)
-- `alt`: string (alt text)
-
-#### Badge
-
-Display status indicators.
+#### Dialog
 
 ```tsx
-import { Badge, Avatar } from '@sun-ui/react';
+import { Dialog } from '@sun-ui/react';
 
-export function BadgeDemo() {
-  return (
-    <>
-      <Badge variant="solid" badgeContent={4}>
-        <Avatar>JD</Avatar>
-      </Badge>
-      <Badge variant="dot" overlap="circular">
-        <Avatar>AB</Avatar>
-      </Badge>
-    </>
-  );
-}
+<Dialog open={open} onClose={handleClose} title="Confirm">
+  Are you sure you want to delete this item?
+</Dialog>
 ```
+
+#### Tooltip & Popover
+
+```tsx
+import { Tooltip, Popover } from '@sun-ui/react';
+
+<Tooltip title="Save changes">
+  <Button>Save</Button>
+</Tooltip>
+
+<Popover content={<MenuContent />}>
+  <Button>Open Menu</Button>
+</Popover>
+```
+
+### Data Display
 
 #### Card
 
-Container for content grouping.
+```tsx
+import { Card } from '@sun-ui/react';
+
+<Card variant="soft">
+  <Card.Header title="Card Title" subtitle="Subtitle" />
+  <Card.Content>
+    Card content goes here.
+  </Card.Content>
+  <Card.Actions>
+    <Button>Action</Button>
+  </Card.Actions>
+</Card>
+```
+
+#### Avatar & Badge
 
 ```tsx
-import { Card, CardContent, CardHeader, CardActions, Button } from '@sun-ui/react';
+import { Avatar, Badge } from '@sun-ui/react';
 
-export function CardDemo() {
-  return (
-    <Card variant="solid">
-      <CardHeader title="Card Title" />
-      <CardContent>
-        <p>This is the card content.</p>
-      </CardContent>
-      <CardActions>
-        <Button>Action</Button>
-      </CardActions>
-    </Card>
-  );
-}
+<Badge badgeContent={4} color="danger">
+  <Avatar src="/avatar.jpg" alt="John Doe" />
+</Badge>
+
+<Avatar variant="soft" color="primary">JD</Avatar>
 ```
 
 #### Chip
 
-Compact element for tags, filters, and categories.
-
 ```tsx
 import { Chip } from '@sun-ui/react';
 
-export function ChipDemo() {
-  return (
-    <>
-      <Chip variant="solid" label="Tag" />
-      <Chip variant="soft" label="Filter" onDelete={() => {}} />
-      <Chip variant="outlined" label="Category" />
-    </>
-  );
-}
+<Chip variant="solid" label="Active" color="success" />
+<Chip variant="soft" label="Pending" onDelete={() => {}} />
+```
+
+---
+
+## Design Tokens
+
+Sun UI includes a comprehensive design token system via `@sun-ui/tokens`:
+
+```bash
+npm install @sun-ui/tokens
+```
+
+### Colors
+
+```tsx
+import { colors } from '@sun-ui/tokens';
+
+// Full color palette
+colors.primary.main      // #3b82f6
+colors.primary.light     // #60a5fa
+colors.primary.dark      // #2563eb
+colors.primary[500]      // #3b82f6
+colors.primary.alpha20   // rgba(59, 130, 246, 0.2)
+
+// Semantic colors
+colors.success.main
+colors.warning.main
+colors.danger.main
+colors.info.main
+colors.neutral[500]
+```
+
+### Spacing
+
+```tsx
+import { spacing } from '@sun-ui/tokens';
+
+spacing.xs   // 4px
+spacing.sm   // 8px
+spacing.md   // 16px
+spacing.lg   // 24px
+spacing.xl   // 32px
+spacing.xxl  // 48px
+```
+
+### Typography
+
+```tsx
+import { typography } from '@sun-ui/tokens';
+
+typography.fontSize.xs    // 12px
+typography.fontSize.sm    // 14px
+typography.fontSize.base  // 16px
+typography.fontSize.lg    // 18px
+typography.fontSize.xl    // 20px
+
+typography.fontWeight.normal   // 400
+typography.fontWeight.medium   // 500
+typography.fontWeight.semibold // 600
+typography.fontWeight.bold     // 700
+```
+
+### Radius
+
+```tsx
+import { radius } from '@sun-ui/tokens';
+
+radius.none  // 0
+radius.sm    // 4px
+radius.md    // 8px
+radius.lg    // 12px
+radius.xl    // 16px
+radius.full  // 9999px
 ```
 
 ---
 
 ## Theming
 
-### Using the Light Theme
+### Using Pre-built Themes
 
 ```tsx
-import { ThemeProvider } from '@mui/material/styles';
-import { lightTheme } from '@sun-ui/theme';
-
-export function App() {
-  return <ThemeProvider theme={lightTheme}>{/* Your app */}</ThemeProvider>;
-}
-```
-
-### Using the Dark Theme
-
-```tsx
-import { ThemeProvider } from '@mui/material/styles';
-import { darkTheme } from '@sun-ui/theme';
-
-export function App() {
-  return <ThemeProvider theme={darkTheme}>{/* Your app */}</ThemeProvider>;
-}
-```
-
-### Toggling Between Themes
-
-```tsx
-import { useState } from 'react';
 import { ThemeProvider } from '@mui/material/styles';
 import { lightTheme, darkTheme } from '@sun-ui/theme';
-import { Button } from '@sun-ui/react';
 
-export function App() {
-  const [isDark, setIsDark] = useState(false);
+// Light theme
+<ThemeProvider theme={lightTheme}>
+  <App />
+</ThemeProvider>
 
-  return (
-    <ThemeProvider theme={isDark ? darkTheme : lightTheme}>
-      <Button onClick={() => setIsDark(!isDark)}>Toggle Theme</Button>
-    </ThemeProvider>
-  );
-}
+// Dark theme
+<ThemeProvider theme={darkTheme}>
+  <App />
+</ThemeProvider>
 ```
 
-### Theme Structure
-
-Sun UI themes include:
-
-- **Palette**: Colors for all semantic purposes (primary, secondary, error, warning, info, success)
-- **Typography**: Font sizes, weights, and families
-- **Spacing**: Standardized spacing scale
-- **Shape**: Border radius values
-- **Component defaults**: Pre-configured component styles
-
----
-
-## Design Tokens
-
-Design tokens are the building blocks of the design system. Access them via the `@sun-ui/tokens` package.
-
-### Color Tokens
-
-```tsx
-import { sunPalette } from '@sun-ui/tokens';
-
-// Usage
-const buttonColor = sunPalette.primary.main;
-const bgColor = sunPalette.neutral[100];
-const accentColor = sunPalette.success[500];
-```
-
-**Available Colors:**
-
-- `primary` — Primary brand color
-- `secondary` — Secondary accent color
-- `neutral` — Neutral grays
-- `success` — Success state (green)
-- `warning` — Warning state (yellow)
-- `error` — Error state (red)
-- `info` — Information state (blue)
-
-Each color includes:
-
-- `50, 100, 200, 300, 400, 500, 600, 700, 800, 900` — Numbered shades
-- `main` — Primary shade
-- `dark` — Darkest shade
-- `light` — Lightest shade
-
-### Spacing Scale
-
-```tsx
-// Spacing values in pixels
-const xs = 4; // Extra small
-const sm = 8; // Small
-const md = 16; // Medium
-const lg = 24; // Large
-const xl = 32; // Extra large
-const xxl = 48; // Extra extra large
-```
-
-### Border Radius
-
-```tsx
-// Border radius values in pixels
-const xs = 4;
-const sm = 8;
-const md = 12;
-const lg = 16;
-const xl = 24;
-```
-
----
-
-## Customization
-
-### Extending the Theme
-
-Create a custom theme by extending the base theme:
+### Creating Custom Themes
 
 ```tsx
 import { createTheme } from '@mui/material/styles';
-import { sunPalette } from '@sun-ui/tokens';
+import { colors } from '@sun-ui/tokens';
 
 const customTheme = createTheme({
   palette: {
     primary: {
-      main: sunPalette.primary.main,
-    },
-    secondary: {
-      main: sunPalette.secondary.main,
+      main: '#your-brand-color',
     },
   },
   typography: {
-    fontFamily: '"Inter", "Roboto", sans-serif',
+    fontFamily: '"Inter", sans-serif',
   },
 });
-```
-
-### Overriding Component Styles
-
-Use the `sx` prop to override styles:
-
-```tsx
-import { Button } from '@sun-ui/react';
-
-export function CustomButton() {
-  return (
-    <Button
-      variant="solid"
-      sx={{
-        backgroundColor: 'purple',
-        '&:hover': {
-          backgroundColor: 'darkviolet',
-        },
-      }}
-    >
-      Custom Button
-    </Button>
-  );
-}
-```
-
-### Creating Custom Components
-
-Build custom components using Sun UI as a foundation:
-
-```tsx
-import { Button, ButtonProps } from '@sun-ui/react';
-import { styled } from '@mui/material/styles';
-
-const PrimaryButton = styled(Button)({
-  textTransform: 'uppercase',
-  letterSpacing: 1,
-});
-
-export function MyButton(props: ButtonProps) {
-  return <PrimaryButton variant="solid" {...props} />;
-}
 ```
 
 ---
 
 ## Dark Mode
 
-### Automatic Dark Mode
-
-Sun UI includes a dark theme that automatically adapts to the system preference:
+### Automatic (System Preference)
 
 ```tsx
 import { useMediaQuery } from '@mui/material';
-import { ThemeProvider } from '@mui/material/styles';
 import { lightTheme, darkTheme } from '@sun-ui/theme';
 
-export function App() {
-  const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
-
+function App() {
+  const prefersDark = useMediaQuery('(prefers-color-scheme: dark)');
+  
   return (
-    <ThemeProvider theme={prefersDarkMode ? darkTheme : lightTheme}>{/* Your app */}</ThemeProvider>
+    <ThemeProvider theme={prefersDark ? darkTheme : lightTheme}>
+      <YourApp />
+    </ThemeProvider>
   );
 }
 ```
 
-### Responsive Dark Mode
-
-Implement user-controlled dark mode with localStorage:
+### Manual Toggle
 
 ```tsx
-import { useState, useEffect } from 'react';
-import { ThemeProvider } from '@mui/material/styles';
+import { useState } from 'react';
 import { lightTheme, darkTheme } from '@sun-ui/theme';
+import { Switch } from '@sun-ui/react';
 
-export function App() {
-  const [isDark, setIsDark] = useState(() => {
-    const saved = localStorage.getItem('isDark');
-    return saved ? JSON.parse(saved) : false;
-  });
-
-  useEffect(() => {
-    localStorage.setItem('isDark', JSON.stringify(isDark));
-  }, [isDark]);
-
-  return <ThemeProvider theme={isDark ? darkTheme : lightTheme}>{/* Your app */}</ThemeProvider>;
-}
-```
-
----
-
-## Advanced Usage
-
-### Composing Components
-
-Build complex layouts by combining components:
-
-```tsx
-import { Card, CardHeader, CardContent, Button, Stack, TextField } from '@sun-ui/react';
-
-export function LoginForm() {
+function App() {
+  const [isDark, setIsDark] = useState(false);
+  
   return (
-    <Card variant="solid" sx={{ maxWidth: 400, margin: 'auto' }}>
-      <CardHeader title="Sign In" />
-      <CardContent>
-        <Stack spacing={2}>
-          <TextField variant="soft" label="Email" fullWidth />
-          <TextField variant="soft" label="Password" type="password" fullWidth />
-          <Button variant="solid" fullWidth>
-            Sign In
-          </Button>
-        </Stack>
-      </CardContent>
-    </Card>
-  );
-}
-```
-
-### Responsive Design
-
-Use MUI's Box and Stack components with breakpoints:
-
-```tsx
-import { Stack, Box } from '@mui/material';
-import { Button } from '@sun-ui/react';
-
-export function ResponsiveLayout() {
-  return (
-    <Stack direction={{ xs: 'column', sm: 'row', md: 'row-reverse' }} spacing={2}>
-      <Box flex={1}>Content</Box>
-      <Box flex={1}>Sidebar</Box>
-    </Stack>
-  );
-}
-```
-
-### Conditional Styling
-
-Apply styles based on state:
-
-```tsx
-import { Button } from '@sun-ui/react';
-
-export function ConditionalButton() {
-  const isActive = true;
-
-  return (
-    <Button
-      variant={isActive ? 'solid' : 'ghost'}
-      sx={{
-        opacity: isActive ? 1 : 0.5,
-      }}
-    >
-      Button
-    </Button>
+    <ThemeProvider theme={isDark ? darkTheme : lightTheme}>
+      <Switch 
+        checked={isDark} 
+        onChange={() => setIsDark(!isDark)}
+        label="Dark mode"
+      />
+      <YourApp />
+    </ThemeProvider>
   );
 }
 ```
 
 ---
 
-## API Reference
+## Customization
 
-### Button
+### Using the `sx` Prop
 
 ```tsx
-interface ButtonProps extends MuiButtonProps {
-  variant?: 'solid' | 'soft' | 'outlined' | 'ghost' | 'plain';
-}
+<Button 
+  variant="solid"
+  sx={{
+    borderRadius: '20px',
+    textTransform: 'uppercase',
+    letterSpacing: 2,
+  }}
+>
+  Custom Button
+</Button>
 ```
 
-### TextField
+### Styled Components
 
 ```tsx
-interface TextFieldProps extends MuiTextFieldProps {
-  variant?: 'solid' | 'soft' | 'outlined' | 'ghost' | 'plain';
-}
-```
+import { styled } from '@mui/material/styles';
+import { Button } from '@sun-ui/react';
 
-### Select
+const GradientButton = styled(Button)({
+  background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
+  border: 0,
+  color: 'white',
+  padding: '0 30px',
+});
 
-```tsx
-interface SelectProps extends MuiSelectProps {
-  variant?: 'solid' | 'soft' | 'outlined' | 'ghost' | 'plain';
-}
-```
-
-### Alert
-
-```tsx
-interface AlertProps extends MuiAlertProps {
-  variant?: 'solid' | 'soft' | 'outlined' | 'ghost' | 'plain';
-  severity?: 'success' | 'info' | 'warning' | 'error';
-}
-```
-
-### Avatar
-
-```tsx
-interface AvatarProps extends MuiAvatarProps {
-  variant?: 'solid' | 'soft' | 'outlined' | 'ghost' | 'plain';
-}
-```
-
-### Badge
-
-```tsx
-interface BadgeProps extends MuiBadgeProps {
-  variant?: 'solid' | 'soft' | 'outlined' | 'ghost' | 'plain';
-}
-```
-
-### Card
-
-```tsx
-interface CardProps extends MuiCardProps {
-  variant?: 'solid' | 'soft' | 'outlined' | 'ghost' | 'plain';
-}
-```
-
-### Checkbox
-
-```tsx
-interface CheckboxProps extends MuiCheckboxProps {
-  variant?: 'solid' | 'soft' | 'outlined' | 'ghost' | 'plain';
-}
-```
-
-### Radio
-
-```tsx
-interface RadioProps extends MuiRadioProps {
-  variant?: 'solid' | 'soft' | 'outlined' | 'ghost' | 'plain';
-}
-```
-
-### Switch
-
-```tsx
-interface SwitchProps extends MuiSwitchProps {
-  variant?: 'solid' | 'soft' | 'outlined' | 'ghost' | 'plain';
-}
-```
-
-### Chip
-
-```tsx
-interface ChipProps extends MuiChipProps {
-  variant?: 'solid' | 'soft' | 'outlined' | 'ghost' | 'plain';
-}
+<GradientButton variant="solid">Gradient</GradientButton>
 ```
 
 ---
@@ -775,104 +557,101 @@ interface ChipProps extends MuiChipProps {
 
 ### 1. Use Semantic Variants
 
-Choose variants based on the action importance:
+```tsx
+// ✅ Good - Clear visual hierarchy
+<Button variant="solid">Save</Button>      // Primary action
+<Button variant="soft">Cancel</Button>     // Secondary
+<Button variant="ghost">Skip</Button>      // Tertiary
 
-- `solid` — Primary, important actions
-- `soft` — Secondary actions
-- `outlined` — Tertiary actions
-- `ghost` — Low-priority actions
-- `plain` — Minimal, text-only actions
+// ❌ Avoid - All same emphasis
+<Button variant="solid">Save</Button>
+<Button variant="solid">Cancel</Button>
+<Button variant="solid">Skip</Button>
+```
 
-### 2. Maintain Consistency
+### 2. Be Consistent
 
-Use the same variant for similar components throughout your app.
+Use the same variant for similar actions across your app.
 
-### 3. Accessibility
-
-All components are WCAG 2.1 AA compliant:
-
-- Keyboard navigation
-- Screen reader support
-- Color contrast
-- Focus indicators
-
-### 4. Performance
-
-Tree-shake unused components:
+### 3. Tree-shake Imports
 
 ```tsx
-// ✅ Good - tree-shakeable
-import { Button } from '@sun-ui/react';
+// ✅ Good - Tree-shakeable
+import { Button, TextField } from '@sun-ui/react';
 
-// ❌ Avoid - may include unused components
+// ❌ Avoid - May include unused code
 import * as SunUI from '@sun-ui/react';
 ```
 
-### 5. Type Safety
-
-Always use TypeScript for better developer experience:
+### 4. Leverage TypeScript
 
 ```tsx
 import { ButtonProps } from '@sun-ui/react';
 
 interface MyButtonProps extends ButtonProps {
-  customProp?: string;
-}
-
-export function MyButton({ customProp, ...props }: MyButtonProps) {
-  return <Button {...props} />;
+  analyticsId?: string;
 }
 ```
+
+---
+
+## API Reference
+
+### Common Props (All Components)
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `variant` | `'solid' \| 'soft' \| 'outlined' \| 'dash' \| 'ghost' \| 'plain' \| 'link'` | `'solid'` | Visual style |
+| `color` | `'primary' \| 'secondary' \| 'success' \| 'warning' \| 'danger' \| 'info' \| 'neutral'` | `'primary'` | Color scheme |
+| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` | Component size |
+| `disabled` | `boolean` | `false` | Disabled state |
+
+### Button Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `loading` | `boolean` | `false` | Show loading spinner |
+| `loadingPosition` | `'start' \| 'end' \| 'center'` | `'center'` | Spinner position |
+| `startIcon` | `ReactNode` | - | Icon before text |
+| `endIcon` | `ReactNode` | - | Icon after text |
+| `shape` | `'default' \| 'wide' \| 'block' \| 'square' \| 'circle'` | `'default'` | Button shape |
 
 ---
 
 ## Troubleshooting
 
-### Issue: Styles not applying
+### Styles Not Applying
 
-**Solution:** Ensure `ThemeProvider` and `CssBaseline` are wrapped around your app:
+Ensure you have peer dependencies installed:
+
+```bash
+npm install @mui/material @emotion/react @emotion/styled
+```
+
+### Dark Mode Not Working
+
+Wrap your app with `ThemeProvider`:
 
 ```tsx
-import { ThemeProvider } from '@mui/material/styles';
-import CssBaseline from '@mui/material/CssBaseline';
-import { lightTheme } from '@sun-ui/theme';
-
-<ThemeProvider theme={lightTheme}>
+<ThemeProvider theme={darkTheme}>
   <CssBaseline />
-  {/* Your app */}
-</ThemeProvider>;
+  <App />
+</ThemeProvider>
 ```
 
-### Issue: Dark mode not working
+### TypeScript Errors
 
-**Solution:** Make sure the theme is properly applied:
-
-```tsx
-const [isDark, setIsDark] = useState(false);
-<ThemeProvider theme={isDark ? darkTheme : lightTheme}>{/* Your app */}</ThemeProvider>;
-```
-
-### Issue: Component not responding to props
-
-**Solution:** Check that you're using the correct component import:
-
-```tsx
-// ✅ Correct
-import { Button } from '@sun-ui/react';
-
-// ❌ Incorrect
-import { Button } from '@mui/material';
-```
+Make sure you're using TypeScript 4.7+ and have `@types/react` installed.
 
 ---
 
-## Additional Resources
+## Resources
 
-- [Storybook Playground](http://localhost:6006) — Interactive component explorer
-- [GitHub Repository](https://github.com/tahmidbintaslim/sun-ui) — Source code and issues
-- [Material-UI Documentation](https://mui.com/material-ui/getting-started/) — Base library docs
-- [Contributing Guide](CONTRIBUTING.md) — How to contribute
+- [🎨 Live Demo](https://sun-ui.vercel.app)
+- [📖 Storybook](https://sun-ui.vercel.app)
+- [🐙 GitHub](https://github.com/tahmidbintaslim/sun-ui)
+- [📦 npm](https://www.npmjs.com/package/@sun-ui/react)
 
 ---
 
-**Happy coding with Sun UI! ☀️**
+**Happy building with Sun UI! ☀️**

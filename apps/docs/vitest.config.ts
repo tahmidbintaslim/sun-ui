@@ -8,12 +8,21 @@ import { defineConfig } from 'vitest/config';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const require = createRequire(import.meta.url);
 
+// Use SB_URL environment variable for CI debugging (points to deployed Storybook)
+// Falls back to localhost for local development
+const storybookUrl = process.env.SB_URL || 'http://localhost:6006';
+
 export default defineConfig({
   plugins: [
     // This plugin reads your main.ts to find stories
-    storybookTest({ configDir: '.storybook' }),
+    storybookTest({
+      configDir: '.storybook',
+      // Use the environment variable for CI debugging
+      storybookUrl,
+    }),
   ],
   test: {
+    name: 'storybook',
     browser: {
       enabled: true,
       provider: playwright(),

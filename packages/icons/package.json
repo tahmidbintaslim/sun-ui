@@ -1,7 +1,21 @@
 {
   "name": "@sun-ui/icons",
   "version": "1.0.0",
-  "description": "Icon library for Sun UI",
+  "description": "2000+ SVG icons for Sun UI. Tree-shakeable and optimized.",
+  "homepage": "https://sun-ui.vercel.app",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tahmidbintaslim/sun-ui.git",
+    "directory": "packages/icons"
+  },
+  "keywords": [
+    "icons",
+    "svg",
+    "react-icons",
+    "ui-icons"
+  ],
+  "author": "Tahmid Bin Taslim <hello@tahmir.dev>",
+  "license": "MIT",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {

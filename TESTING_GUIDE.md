@@ -538,6 +538,127 @@ export const InCard: Story = {
 
 ## CI/CD Pipeline
 
+### Overview
+
+Sun UI uses GitHub Actions for continuous integration with multiple test layers:
+
+| Workflow | Trigger | Purpose |
+|----------|---------|---------|
+| `test.yml` | Push/PR | Unit tests, Storybook tests, linting, builds |
+| `ui-tests.yml` | Vercel deployment | Run tests against deployed Storybook |
+| `storybook-publish.yml` | Push to main | Visual regression tests via Chromatic |
+| `publish.yml` | Release | Publish packages to npm |
+
+### Test Scripts
+
+```bash
+# Run all tests
+pnpm test
+
+# Run only unit tests
+pnpm test:unit
+
+# Run only Storybook component tests
+pnpm test:storybook
+
+# Run Storybook tests with coverage
+pnpm test:storybook:coverage
+
+# Run all tests for CI (non-watch mode)
+pnpm test:ci
+```
+
+### CI Workflow Details
+
+#### 1. Main CI Pipeline (`test.yml`)
+
+Runs on every push and pull request:
+
+```yaml
+jobs:
+  lint:           # ESLint + TypeScript checks
+  unit-tests:     # Component unit tests (@sun-ui/react)
+  storybook-tests: # Interaction + accessibility tests
+  visual-tests:   # Chromatic visual regression
+  build:          # Verify packages compile
+```
+
+#### 2. UI Tests on Deployment (`ui-tests.yml`)
+
+Runs after Vercel deploys your Storybook:
+
+- **Trigger**: `deployment_status` event from Vercel
+- **Benefit**: Test failures include links to the deployed Storybook
+- **Debugging**: Click the link in CI output to see the failing story
+
+```yaml
+# Passes deployed URL to tests for debugging
+env:
+  SB_URL: ${{ github.event.deployment_status.environment_url }}
+```
+
+#### 3. Debugging Test Failures
+
+When a test fails in CI, the output includes a clickable link:
+
+```
+❌ FAIL  src/Button.stories.tsx > Button > Click Event
+   
+   View in Storybook: https://sun-ui.vercel.app/?path=/story/atoms-button--click-event
+```
+
+This link points to your deployed Storybook (via `SB_URL` environment variable).
+
+### Setting Up CI
+
+#### Required Secrets
+
+Add these secrets in GitHub Settings → Secrets:
+
+| Secret | Purpose |
+|--------|---------|
+| `CHROMATIC_PROJECT_TOKEN` | Visual testing with Chromatic |
+| `NPM_TOKEN` | Publishing to npm (optional) |
+
+#### Vercel Integration
+
+The `ui-tests.yml` workflow automatically triggers when Vercel deploys:
+
+1. Push to `main` or open PR
+2. Vercel deploys Storybook
+3. Vercel emits `deployment_status` event
+4. UI tests run against deployed URL
+
+### Running CI Locally
+
+Simulate the CI environment locally:
+
+```bash
+# Full CI check
+pnpm check:all
+
+# Individual steps
+pnpm lint
+pnpm type-check
+pnpm test:ci
+pnpm build
+```
+
+### Test Coverage
+
+Generate coverage reports:
+
+```bash
+# Unit test coverage
+pnpm test:unit -- --coverage
+
+# Storybook test coverage
+pnpm test:storybook:coverage
+
+# View coverage report
+open coverage/index.html
+```
+
 ### GitHub Actions Workflows
 
 #### Test Workflow (test.yml)

@@ -9,6 +9,8 @@
     "dev": "storybook dev -p 6006",
     "storybook": "storybook dev -p 6006",
     "storybook:build": "storybook build",
+    "test-storybook": "vitest --project=storybook",
+    "test-storybook:coverage": "vitest --project=storybook --coverage",
     "lint": "eslint .storybook",
     "type-check": "echo 'Storybook type-check skipped'",
     "clean": "rm -rf dist storybook-static"

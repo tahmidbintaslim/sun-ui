@@ -1,7 +1,22 @@
 {
   "name": "@sun-ui/theme",
   "version": "1.0.0",
-  "description": "MUI theme and module augmentation for Sun UI",
+  "description": "Pre-configured MUI themes with beautiful defaults. Light and dark themes included.",
+  "homepage": "https://sun-ui.vercel.app",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tahmidbintaslim/sun-ui.git",
+    "directory": "packages/theme"
+  },
+  "keywords": [
+    "mui",
+    "theme",
+    "dark-mode",
+    "light-theme",
+    "design-system"
+  ],
+  "author": "Tahmid Bin Taslim <hello@tahmir.dev>",
+  "license": "MIT",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",

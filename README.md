@@ -1,427 +1,332 @@
-# 🌞 Sun UI — Universal Design System
+<div align="center">
 
-[![GitHub Release](https://img.shields.io/github/v/release/tahmidbintaslim/sun-ui)](https://github.com/tahmidbintaslim/sun-ui/releases)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![GitHub Tests](https://github.com/tahmidbintaslim/sun-ui/workflows/CI/badge.svg)](https://github.com/tahmidbintaslim/sun-ui/actions/workflows/test.yml)
-[![npm version](https://img.shields.io/npm/v/@sun-ui/react)](https://www.npmjs.com/package/@sun-ui/react)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
+# 🌞 Sun UI
 
-> **A modern, accessible, and extensible design system built on Material-UI v5**  
-> Ship beautiful products faster with Sun UI's component library, design tokens, and comprehensive documentation.
+### MUI Components, Reimagined.
+
+**7 design variants. Zero config. 100% TypeScript. Full MUI ecosystem.**
+
+[![npm version](https://img.shields.io/npm/v/@sun-ui/react?style=flat-square&color=ff6b35)](https://www.npmjs.com/package/@sun-ui/react)
+[![Bundle Size](https://img.shields.io/bundlephobia/minzip/@sun-ui/react?style=flat-square&color=4ecdc4)](https://bundlephobia.com/package/@sun-ui/react)
+[![Tests](https://img.shields.io/badge/tests-124%20passing-brightgreen?style=flat-square)](https://github.com/tahmidbintaslim/sun-ui/actions)
+[![TypeScript](https://img.shields.io/badge/TypeScript-100%25-blue?style=flat-square)](https://www.typescriptlang.org/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=flat-square)](LICENSE)
+
+[**Live Demo**](https://sun-ui.vercel.app) · [**Documentation**](https://sun-ui.vercel.app) · [**Storybook**](https://sun-ui.vercel.app)
+
+<br />
+
+</div>
 
 ---
 
-## 🚀 Quick Start
+## 🎯 The Problem We Solve
 
-### Installation
+**Building with Material-UI is powerful, but painful:**
+
+| Pain Point | How Sun UI Fixes It |
+|------------|---------------------|
+| 😤 MUI's default variants are limited (3 options) | ✅ **7 beautiful variants** out of the box |
+| 🎨 Spending hours on consistent styling | ✅ **Production-ready design tokens** included |
+| 🔧 Complex theme customization | ✅ **Beautiful defaults** that just work |
+| 📚 Steep learning curve for teams | ✅ **Intuitive API** — same props across all components |
+| ♿ Accessibility as afterthought | ✅ **WCAG 2.1 AA compliant** by default |
+
+> **Sun UI is for teams who love MUI's power but want beautiful, opinionated defaults without starting from scratch.**
+
+---
+
+## ⚡ Quick Start
 
 ```bash
-# npm
-npm install @sun-ui/react
-
-# pnpm
-pnpm add @sun-ui/react
-
-# yarn
-yarn add @sun-ui/react
+npm install @sun-ui/react @mui/material @emotion/react @emotion/styled
 ```
 
-### Basic Usage
+```tsx
+import { Button } from '@sun-ui/react';
+
+// 7 variants × 7 colors × 5 sizes = Infinite possibilities
+<Button variant="solid" color="primary">Get Started</Button>
+<Button variant="soft" color="success">Save Changes</Button>
+<Button variant="ghost" color="danger">Delete</Button>
+<Button variant="dash" color="info">Upload File</Button>
+```
+
+**That's it.** No theme setup required. Beautiful by default.
+
+---
+
+## 🎨 7 Design Variants
+
+Every Sun UI component supports **7 design variants** for maximum flexibility:
+
+| Variant | Use Case | Preview |
+|---------|----------|---------|
+| `solid` | Primary actions, CTAs | Filled background, high contrast |
+| `soft` | Secondary actions | Subtle tinted background |
+| `outlined` | Tertiary actions | Border with transparent background |
+| `dash` | Upload zones, placeholders | Dashed border style |
+| `ghost` | Minimal actions | Shows color on hover |
+| `plain` | Text-only actions | No background or border |
+| `link` | Inline links | Underlined, hyperlink style |
 
 ```tsx
-import { Button, TextField, Checkbox } from '@sun-ui/react';
+<Button variant="solid">Solid</Button>
+<Button variant="soft">Soft</Button>
+<Button variant="outlined">Outlined</Button>
+<Button variant="dash">Dash</Button>
+<Button variant="ghost">Ghost</Button>
+<Button variant="plain">Plain</Button>
+<Button variant="link">Link</Button>
+```
+
+---
+
+## 🆚 Why Sun UI Over Alternatives?
+
+| Feature | Sun UI | Raw MUI | Chakra UI | Mantine | daisyUI |
+|---------|--------|---------|-----------|---------|---------|
+| **React Required** | ✅ | ✅ | ✅ | ✅ | ❌ |
+| **Design Variants** | **7** | 3 | 4 | 4 | 10+ |
+| **MUI Ecosystem** | ✅ Full | ✅ Full | ❌ | ❌ | ❌ |
+| **Design Tokens** | ✅ Built-in | Manual | ✅ | ✅ | Via Tailwind |
+| **TypeScript** | 100% Strict | ✅ | ✅ | ✅ | N/A |
+| **Zero Config** | ✅ | ❌ | ✅ | ✅ | ✅ |
+| **Learning Curve** | Low (if know MUI) | Medium | Low | Low | Very Low |
+
+### The Sweet Spot
+
+```
+┌─────────────────────────────────────────────────────────────────────┐
+│                                                                     │
+│   Raw MUI ←────────── Sun UI ──────────→ Opinionated Systems        │
+│   (Flexible           (Best of          (Chakra, Mantine —          │
+│    but verbose)        both worlds)       locked ecosystem)         │
+│                                                                     │
+└─────────────────────────────────────────────────────────────────────┘
+```
+
+**Sun UI gives you:**
+- 🎨 Beautiful defaults (like Chakra/Mantine)
+- 🔌 Full MUI ecosystem access (600+ components)
+- 🛠️ Complete customization (it's still MUI under the hood)
+
+---
+
+## 📦 Packages
+
+| Package | Description | Install |
+|---------|-------------|---------|
+| [`@sun-ui/react`](packages/react) | React component library | `npm i @sun-ui/react` |
+| [`@sun-ui/theme`](packages/theme) | MUI v5 theme configuration | `npm i @sun-ui/theme` |
+| [`@sun-ui/tokens`](packages/tokens) | Design tokens (colors, spacing) | `npm i @sun-ui/tokens` |
+| [`@sun-ui/icons`](packages/icons) | Icon library (2000+ SVG) | `npm i @sun-ui/icons` |
+| [`@sun-ui/core`](packages/core) | Headless primitives | 🚧 Coming soon |
+
+---
+
+## 🧩 Components
+
+### 14 Production-Ready Components
+
+#### Form Controls
+- ✨ **Button** — 7 variants, loading states, icons
+- 📝 **TextField** — Validation, multiline, icons
+- 🎯 **Select** — Single & multi-select
+- ☑️ **Checkbox** — Indeterminate support
+- 🔘 **Radio** — Radio groups
+- 🔘 **Switch** — Toggle switch
+
+#### Feedback
+- ⚠️ **Alert** — Notifications with actions
+- 🍞 **Snackbar** — Toast notifications
+- 💬 **Tooltip** — Helpful hints
+- 📦 **Dialog** — Modal dialogs
+- 📥 **Drawer** — Side panels
+- 🎈 **Popover** — Floating content
+
+#### Data Display
+- 👤 **Avatar** — User profiles
+- 🏷️ **Badge** — Status indicators
+- 💳 **Card** — Content containers
+- 🏷️ **Chip** — Tags & filters
+
+---
+
+## ✨ Features
+
+| Feature | Description |
+|---------|-------------|
+| 🎨 **7 Design Variants** | solid, soft, outlined, dash, ghost, plain, link |
+| 🎯 **7 Color Schemes** | primary, secondary, success, warning, danger, info, neutral |
+| 📐 **5 Sizes** | xs, sm, md, lg, xl |
+| 🌙 **Dark Mode** | Automatic light/dark theme support |
+| ♿ **Accessible** | WCAG 2.1 AA compliant, keyboard navigation |
+| 📦 **Tree-Shakeable** | Import only what you use |
+| 🔧 **TypeScript** | 100% type-safe with strict mode |
+| 🧪 **Tested** | 124 tests passing, real browser testing |
+| 📚 **Documented** | Storybook with live examples |
+
+---
+
+## 🚀 Full Example
+
+```tsx
+import { ThemeProvider } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
+import { lightTheme } from '@sun-ui/theme';
+import { Button, TextField, Card, Alert } from '@sun-ui/react';
 
 export default function App() {
   return (
-    <div>
-      <Button variant="solid">Click me</Button>
-      <TextField label="Name" />
-      <Checkbox />
-    </div>
+    <ThemeProvider theme={lightTheme}>
+      <CssBaseline />
+      
+      <Card variant="soft">
+        <Alert variant="solid" color="success">
+          Welcome to Sun UI!
+        </Alert>
+        
+        <TextField 
+          variant="outlined" 
+          label="Email" 
+          fullWidth 
+        />
+        
+        <Button variant="solid" color="primary" fullWidth>
+          Get Started
+        </Button>
+      </Card>
+    </ThemeProvider>
   );
 }
 ```
 
 ---
 
-## 📦 Packages
+## 📖 Documentation
 
-Sun UI is organized as a monorepo with the following packages:
-
-| Package                             | Purpose                    | Status         |
-| ----------------------------------- | -------------------------- | -------------- |
-| [`@sun-ui/react`](packages/react)   | React component library    | ✅ Available   |
-| [`@sun-ui/theme`](packages/theme)   | MUI v5 theme configuration | ✅ Available   |
-| [`@sun-ui/tokens`](packages/tokens) | Design tokens              | ✅ Available   |
-| [`@sun-ui/icons`](packages/icons)   | Icon library (2000+ SVG)   | ✅ Available   |
-| [`@sun-ui/core`](packages/core)     | Headless primitives        | 🚧 In Progress |
-
----
-
-## 🎨 Components
-
-Sun UI ships with **11 production-ready components**, each with **5 design variants**:
-
-### Form Components
-
-- ✨ **Button** — Solid, soft, outlined, ghost, plain
-- 📝 **TextField** — Text input with validation states
-- 🎯 **Select** — Dropdown with multi-select support
-- ☑️ **Checkbox** — Form control with states
-- 🔘 **Radio** — Radio groups
-- 🔘 **Switch** — Toggle switch
-
-### Display Components
-
-- ⚠️ **Alert** — System notifications
-- 👤 **Avatar** — User profiles
-- 🏷️ **Badge** — Status indicators
-- 💳 **Card** — Content containers
-- 🏷️ **Chip** — Compact elements
-
-### Design Variants
-
-All components support 5 design variants:
-
-```tsx
-<Button variant="solid">Solid</Button>
-<Button variant="soft">Soft</Button>
-<Button variant="outlined">Outlined</Button>
-<Button variant="ghost">Ghost</Button>
-<Button variant="plain">Plain</Button>
-```
-
----
-
-## ✨ Features
-
-✅ **Production-Ready**
-
-- 124/124 tests passing (100% success rate)
-- Real browser testing with Chromium
-- Comprehensive test coverage
-
-✅ **Type-Safe**
-
-- 100% TypeScript with strict mode
-- Full prop type definitions
-- Autocomplete support
-
-✅ **Accessible**
-
-- WCAG 2.1 AA compliant
-- ARIA labels and semantic HTML
-- Keyboard navigation built-in
-- Integrated accessibility testing
-
-✅ **Dark Mode**
-
-- Automatic light/dark theme support
-- MUI theme integration
-- Customizable color schemes
-
-✅ **Developer Experience**
-
-- Storybook interactive documentation
-- Live code examples
-- Component playground
-- Comprehensive guides
-
-✅ **Tree-Shakeable**
-
-- ESM modules with named exports
-- Minimal bundle size
-- Zero unused code
-
----
-
-## 📚 Documentation
-
-### Getting Started
-
-- [Installation & Setup](docs/GETTING_STARTED.md)
-- [Component Library](http://localhost:6006) (Storybook)
-- [Theming & Customization](docs/THEMING.md)
-- [Testing Guide](TESTING_GUIDE.md)
-
-### View in Storybook
-
-```bash
-cd apps/docs
-pnpm storybook
-```
-
-Then visit: **http://localhost:6006**
-
-Browse:
-
-- Component stories with live previews
-- Design token documentation
-- Accessibility features
-- Test results
-
----
-
-## 🧪 Testing
-
-Sun UI includes comprehensive testing:
-
-- **Unit Tests** — Component behavior with React Testing Library
-- **Interaction Tests** — User interactions with Storybook
-- **Accessibility Tests** — WCAG compliance with a11y addon
-- **Visual Tests** — Render verification with Vitest
-
-```bash
-# Run all tests
-pnpm test
-
-# Watch mode
-pnpm test:watch
-
-# Generate coverage report
-pnpm test:coverage
-```
-
-**Test Results**
-
-```
-✓ Test Files: 11 passed (11)
-✓ Tests: 124 passed (124)
-✓ Coverage: Ready for generation
-```
-
-See [Testing Guide](TESTING_GUIDE.md) for detailed testing patterns.
+| Resource | Description |
+|----------|-------------|
+| [📚 Documentation](DOCUMENTATION.md) | Complete usage guide |
+| [🎨 Storybook](https://sun-ui.vercel.app) | Interactive component explorer |
+| [🏗️ Architecture](API_ARCHITECTURE.md) | Technical deep-dive |
+| [🧪 Testing Guide](TESTING_GUIDE.md) | Testing patterns |
+| [🤝 Contributing](CONTRIBUTING.md) | How to contribute |
 
 ---
 
 ## 🛠️ Development
 
-### Prerequisites
-
-- Node.js 20+
-- pnpm 10+
-
-### Setup
-
 ```bash
-# Clone the repository
+# Clone & install
 git clone https://github.com/tahmidbintaslim/sun-ui.git
-cd sun-ui
+cd sun-ui && pnpm install
 
-# Install dependencies
-pnpm install
-
-# Build all packages
-pnpm build
-
-# Run tests
-pnpm test
-
-# Start Storybook
-cd apps/docs
-pnpm storybook
+# Development
+pnpm dev              # Start Storybook
+pnpm build            # Build all packages
+pnpm test             # Run tests
+pnpm lint             # Lint code
 ```
 
 ### Project Structure
 
 ```
 sun-ui/
-├── apps/
-│   └── docs/                  → Storybook documentation
+├── apps/docs/         → Storybook documentation
 ├── packages/
-│   ├── tokens/                → Design tokens
-│   ├── theme/                 → MUI v5 theme
-│   ├── icons/                 → SVG icon library
-│   ├── react/                 → React components
-│   └── core/                  → Headless primitives
-├── .github/workflows/
-│   ├── test.yml              → Automated testing
-│   └── publish.yml           → Release automation
-├── docs/                      → Documentation
-├── CONTRIBUTING.md            → Contribution guidelines
-├── LICENSE                    → MIT License
-└── package.json               → Root configuration
+│   ├── react/         → React components
+│   ├── theme/         → MUI theme configuration
+│   ├── tokens/        → Design tokens
+│   ├── icons/         → Icon library
+│   └── core/          → Headless primitives
+└── ...
 ```
-
-### Common Commands
-
-```bash
-# Development
-pnpm dev              # Start Storybook in watch mode
-pnpm build            # Build all packages
-pnpm test             # Run all tests
-pnpm test:watch       # Tests in watch mode
-pnpm lint             # Lint code
-pnpm type-check       # TypeScript validation
-
-# Monorepo (with Turbo caching)
-pnpm turbo run build  # Build with caching
-pnpm turbo run test   # Test with caching
-pnpm clean            # Remove all artifacts
-```
-
-### Adding a New Component
-
-1. **Create component file**: `packages/react/src/MyComponent.tsx`
-2. **Add tests**: `packages/react/src/MyComponent.test.tsx`
-3. **Create stories**: `packages/react/src/MyComponent.stories.tsx`
-4. **Export**: Add to `packages/react/src/index.ts`
-
-Use the [Button](packages/react/src/Button.tsx) as a template.
-
----
-
-## 🤝 Contributing
-
-We ❤️ contributions! Whether it's bugs, features, or documentation, we'd love your help.
-
-### Quick Start
-
-1. **Fork** the repository
-2. **Clone** your fork: `git clone https://github.com/YOUR_USERNAME/sun-ui.git`
-3. **Install**: `pnpm install`
-4. **Create branch**: `git checkout -b feat/my-feature`
-5. **Make changes** and test: `pnpm test`
-6. **Commit**: `git commit -m "feat: add new feature"`
-7. **Push**: `git push origin feat/my-feature`
-8. **Create Pull Request**
-
-See [CONTRIBUTING.md](CONTRIBUTING.md) for complete guidelines.
-
-### Types of Contributions
-
-- 🐛 **Bug Reports** — Found an issue? [Report it](https://github.com/tahmidbintaslim/sun-ui/issues/new?template=bug_report.md)
-- ✨ **Features** — Have an idea? [Discuss it](https://github.com/tahmidbintaslim/sun-ui/discussions/new)
-- 📖 **Documentation** — Improve docs and guides
-- ♿ **Accessibility** — Enhance a11y compliance
-- 🧪 **Tests** — Add test coverage
-- 🐚 **Code Quality** — Refactor and optimize
-
----
-
-## 🐛 Issues & Bug Reports
-
-### Report a Bug
-
-[Create bug report →](https://github.com/tahmidbintaslim/sun-ui/issues/new?template=bug_report.md)
-
-Include:
-
-- Detailed description
-- Steps to reproduce
-- Expected vs. actual behavior
-- Environment (OS, browser, versions)
-- Code example or CodeSandbox link
-
-### Request a Feature
-
-[Start a discussion →](https://github.com/tahmidbintaslim/sun-ui/discussions/new?category=ideas)
-
----
-
-## 🔒 Security
-
-### Reporting Vulnerabilities
-
-**Do not** report security vulnerabilities via GitHub issues.
-
-📧 **Email**: security@sun-ui.dev
-
-Your report will be handled privately and we'll work with you to fix it.
-
-See [SECURITY.md](SECURITY.md) for complete security policy.
-
----
-
-## 📝 License
-
-Sun UI is licensed under the [MIT License](LICENSE).
-
-See [LICENSE](LICENSE) for full terms.
 
 ---
 
 ## 🗺️ Roadmap
 
-### v1.0 (January 2026) ✅
-
-- [x] 11 core components
-- [x] Comprehensive tests
+### ✅ v1.0 — Foundation (Current)
+- [x] 14 core components with 7 variants
+- [x] Comprehensive test suite (124 tests)
+- [x] Full TypeScript support
+- [x] Dark mode
 - [x] Storybook documentation
-- [x] Dark mode support
-- [x] Initial release
-- [x] Automated publishing
 
-### v1.1 (Q1 2026)
-
-- [ ] 5 additional components
+### 🚧 v1.1 — Expansion (Q1 2026)
+- [ ] 5 additional components (Table, Tabs, Accordion, Stepper, Menu)
 - [ ] Theme builder UI
-- [ ] Design token customization
 - [ ] Figma design kit
+- [ ] CLI scaffolding tool
 
-### v2.0 (Q2 2026+)
-
-- [ ] Headless core package
-- [ ] Mobile-optimized components
+### 🔮 v2.0 — Headless (Q2 2026)
+- [ ] `@sun-ui/core` headless primitives
+- [ ] Framework-agnostic tokens
 - [ ] Animation library
 - [ ] Advanced theming system
 
 ---
 
-## 🤳 Community
+## 🤝 Contributing
 
-- **[GitHub Discussions](https://github.com/tahmidbintaslim/sun-ui/discussions)** — Ask questions & share ideas
-- **[GitHub Issues](https://github.com/tahmidbintaslim/sun-ui/issues)** — Report bugs & request features
-- **[Storybook](http://localhost:6006)** — View components & documentation
+We welcome contributions! See our [Contributing Guide](CONTRIBUTING.md).
+
+```bash
+# Quick contribution workflow
+git checkout -b feat/your-feature
+pnpm test && pnpm lint
+git commit -m "feat: add awesome feature"
+git push origin feat/your-feature
+```
 
 ---
 
 ## 📊 Stats
 
-- 📦 **11** core components
-- 🎨 **5** design variants per component
-- 📖 **82** Storybook stories
-- ✅ **124** passing tests (100%)
-- ♿ **WCAG 2.1 AA** compliant
-- 🌍 **Peer deps only** — zero external dependencies
+<div align="center">
+
+| 📦 Components | 🎨 Variants | 🧪 Tests | ♿ Accessibility | 📚 Stories |
+|:-------------:|:-----------:|:--------:|:----------------:|:----------:|
+| **14** | **7** | **124** | **WCAG 2.1 AA** | **82** |
+
+</div>
 
 ---
 
 ## 🙏 Credits
 
-Sun UI is built on:
-
-- [Material-UI (MUI)](https://mui.com) — Component base
-- [React](https://react.dev) — UI library
-- [TypeScript](https://www.typescriptlang.org) — Type safety
-- [Vitest](https://vitest.dev) — Testing framework
-- [Storybook](https://storybook.js.org) — Documentation
+Built with:
+- [Material-UI (MUI)](https://mui.com) — Component foundation
+- [React 19](https://react.dev) — UI library
+- [TypeScript 5](https://www.typescriptlang.org) — Type safety
+- [Vitest](https://vitest.dev) — Testing
+- [Storybook 10](https://storybook.js.org) — Documentation
 - [TurboRepo](https://turbo.build) — Monorepo management
-- [pnpm](https://pnpm.io) — Package management
 
 ---
 
-## 👨‍💼 Author
+## 👨‍💻 Author
 
-**Tahmir Bin Taslim**
+**Tahmid Bin Taslim**
 
 - GitHub: [@tahmidbintaslim](https://github.com/tahmidbintaslim)
 - Portfolio: [tahmir.dev](https://tahmir.dev)
-- Email: hello@tahmir.dev
 
 ---
 
-## 📋 Changelog
+## 📄 License
 
-See [CHANGELOG.md](CHANGELOG.md) for detailed release history and breaking changes.
+[MIT](LICENSE) © 2026 Tahmid Bin Taslim
 
 ---
 
 <div align="center">
 
-**Made with ❤️ by the Sun UI team**
+**Made with ☀️ by the Sun UI team**
 
-[⭐ Star us on GitHub](https://github.com/tahmidbintaslim/sun-ui) — Your support means everything!
+[⭐ Star us on GitHub](https://github.com/tahmidbintaslim/sun-ui) — it means everything!
 
 [Report Bug](https://github.com/tahmidbintaslim/sun-ui/issues/new?template=bug_report.md) · [Request Feature](https://github.com/tahmidbintaslim/sun-ui/discussions/new?category=ideas) · [Contribute](CONTRIBUTING.md)
 

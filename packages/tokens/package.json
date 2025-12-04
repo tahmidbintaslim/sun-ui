@@ -1,7 +1,22 @@
 {
   "name": "@sun-ui/tokens",
   "version": "1.0.0",
-  "description": "Design tokens for Sun UI",
+  "description": "Design tokens for Sun UI. Colors, spacing, typography, and animations.",
+  "homepage": "https://sun-ui.vercel.app",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tahmidbintaslim/sun-ui.git",
+    "directory": "packages/tokens"
+  },
+  "keywords": [
+    "design-tokens",
+    "colors",
+    "spacing",
+    "typography",
+    "css-variables"
+  ],
+  "author": "Tahmid Bin Taslim <hello@tahmir.dev>",
+  "license": "MIT",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",

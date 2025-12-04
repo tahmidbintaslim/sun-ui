@@ -1,7 +1,24 @@
 {
   "name": "sun-ui",
   "version": "1.0.0",
-  "description": "Universal design system extending MUI v5",
+  "description": "MUI components, reimagined. 7 design variants. Zero config. 100% TypeScript.",
+  "homepage": "https://sun-ui.vercel.app",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tahmidbintaslim/sun-ui.git"
+  },
+  "keywords": [
+    "react",
+    "ui",
+    "components",
+    "design-system",
+    "material-ui",
+    "mui",
+    "typescript",
+    "accessible",
+    "dark-mode"
+  ],
+  "author": "Tahmid Bin Taslim <hello@tahmir.dev>",
   "type": "module",
   "private": true,
   "packageManager": "pnpm@10.19.0",
@@ -40,11 +57,15 @@
   "scripts": {
     "build": "turbo run build",
     "test": "vitest",
-    "test:storybook": "pnpm --filter=storybook test:storybook",
+    "test:unit": "vitest --project=@sun-ui/react",
+    "test:storybook": "vitest --project=storybook",
+    "test:storybook:coverage": "vitest --project=storybook --coverage",
+    "test:all": "vitest",
+    "test:ci": "vitest run",
     "lint": "turbo run lint",
     "type-check": "turbo run type-check",
     "format": "prettier --write \"**/*.{ts,tsx,json,md}\" --ignore-path .gitignore",
-    "check:all": "pnpm lint && pnpm type-check && pnpm test",
+    "check:all": "pnpm lint && pnpm type-check && pnpm test:ci",
     "dev": "turbo run dev --parallel",
     "storybook:build": "pnpm --filter=storybook storybook:build",
     "storybook:dev": "pnpm --filter=storybook storybook",

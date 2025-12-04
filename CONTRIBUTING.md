@@ -1,6 +1,8 @@
-# Contributing to Sun UI
+# 🌞 Contributing to Sun UI
 
-First off, thank you for considering a contribution to Sun UI! It's people like you that make Sun UI such a great tool.
+> **Thank you for helping make Sun UI better!** Every contribution, from bug reports to new components, helps teams ship beautiful products faster.
+
+Sun UI is **MUI components, reimagined** — and we need your help to make it the best React component library for MUI users.
 
 This document provides guidelines and instructions for contributing to Sun UI.
 

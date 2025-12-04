@@ -1,6 +1,10 @@
-# Sun UI API & Architecture Guide
+# 🌞 Sun UI — Architecture & API Reference
 
-Complete technical reference for Sun UI's design, architecture, and internal APIs.
+> **Technical deep-dive into Sun UI's architecture, design patterns, and internal APIs.**
+
+Sun UI is a React component library that gives you **beautiful, opinionated defaults on top of Material-UI** — without locking you out of MUI's full ecosystem.
+
+---
 
 ## Table of Contents
 
@@ -78,15 +82,35 @@ Source Code (TypeScript)
 
 ## Design Principles
 
-### 1. Variant System
+### The Sun UI Philosophy
 
-Every component supports exactly 5 variants:
+> **"MUI components, reimagined."**
 
-- **Solid** — Primary, important actions
-- **Soft** — Secondary actions
-- **Outlined** — Tertiary actions
-- **Ghost** — Low-priority actions
-- **Plain** — Minimal, text-only actions
+Sun UI sits in a unique sweet spot:
+
+```
+┌─────────────────────────────────────────────────────────────────────┐
+│                                                                     │
+│   Raw MUI ←────────── Sun UI ──────────→ Opinionated Systems        │
+│   (Flexible           (Best of          (Chakra, Mantine —          │
+│    but verbose)        both worlds)       locked ecosystem)         │
+│                                                                     │
+└─────────────────────────────────────────────────────────────────────┘
+```
+
+### 1. 7-Variant System
+
+Every component supports **7 design variants** for maximum flexibility:
+
+| Variant | Use Case | Visual Style |
+|---------|----------|--------------|
+| `solid` | Primary actions, CTAs | Filled background, high contrast |
+| `soft` | Secondary actions | Subtle tinted background |
+| `outlined` | Tertiary actions | Border with transparent background |
+| `dash` | Upload zones, placeholders | Dashed border style |
+| `ghost` | Minimal actions | Shows color on hover only |
+| `plain` | Text-only actions | No background or border |
+| `link` | Inline links | Underlined, hyperlink style |
 
 ```tsx
 // Every component follows this pattern
