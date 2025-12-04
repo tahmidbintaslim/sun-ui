@@ -1,5 +1,5 @@
 {
-  "buildCommand": "cd apps/docs && pnpm build-storybook",
+  "buildCommand": "pnpm turbo run build --filter=storybook",
   "outputDirectory": "apps/docs/storybook-static",
   "framework": null,
   "installCommand": "corepack enable && pnpm install --frozen-lockfile",
