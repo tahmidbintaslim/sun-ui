@@ -19,6 +19,7 @@ export type {
   SunAnchor,
   SunAnimationProps,
   SunBaseProps,
+  SunButtonVariant,
   SunColor,
   SunComponentProps,
   SunFormComponentProps,

@@ -1,47 +1,182 @@
-import { Popover as MuiPopover, PopoverProps as MuiPopoverProps } from '@mui/material';
+import {
+  Box,
+  CircularProgress,
+  Popover as MuiPopover,
+  PopoverProps as MuiPopoverProps,
+} from '@mui/material';
 import { styled } from '@mui/material/styles';
-import { sunPalette } from '@sun-ui/tokens';
+import { animations, colors, sizing, typography } from '@sun-ui/tokens';
 import * as React from 'react';
 
-type SunUIVariant = 'solid' | 'soft' | 'outlined' | 'ghost' | 'plain';
+// =============================================================================
+// TYPES
+// =============================================================================
+
+type SunVariant = 'solid' | 'soft' | 'outlined' | 'ghost' | 'plain';
+type SunColor = 'primary' | 'secondary' | 'success' | 'warning' | 'danger' | 'info' | 'neutral';
+type SunSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 
 export interface PopoverProps extends Omit<MuiPopoverProps, 'variant'> {
-  variant?: SunUIVariant;
+  /** Visual style variant */
+  variant?: SunVariant;
+  /** Color scheme */
+  color?: SunColor;
+  /** Popover size */
+  size?: SunSize;
+  /** Show loading state */
+  loading?: boolean;
+  /** Disable animations */
+  disableAnimation?: boolean;
+}
+
+// =============================================================================
+// STYLE UTILITIES
+// =============================================================================
+
+const getColorScale = (color: SunColor) => colors.semantic[color];
+
+const sizeConfig = {
+  xs: { padding: sizing.spacing[2], borderRadius: sizing.radius.sm, maxWidth: 200 },
+  sm: { padding: sizing.spacing[3], borderRadius: sizing.radius.md, maxWidth: 280 },
+  md: { padding: sizing.spacing[4], borderRadius: sizing.radius.md, maxWidth: 360 },
+  lg: { padding: sizing.spacing[5], borderRadius: sizing.radius.lg, maxWidth: 480 },
+  xl: { padding: sizing.spacing[6], borderRadius: sizing.radius.xl, maxWidth: 600 },
+};
+
+// =============================================================================
+// STYLED COMPONENTS
+// =============================================================================
+
+interface StyledProps {
+  sunVariant: SunVariant;
+  sunColor: SunColor;
+  sunSize: SunSize;
+  $loading?: boolean;
+  $disableAnimation?: boolean;
 }
 
 const StyledPopover = styled(MuiPopover, {
-  shouldForwardProp: (prop) => prop !== 'variant',
-})(({ variant = 'solid' }: PopoverProps) => ({
-  '& .MuiPopover-paper': {
-    borderRadius: '8px',
-    boxShadow: '0 4px 12px rgba(0, 0, 0, 0.12)',
-    ...(variant === 'solid' && {
-      backgroundColor: sunPalette.neutral[900],
-      color: sunPalette.neutral[50],
-    }),
-    ...(variant === 'soft' && {
-      backgroundColor: sunPalette.neutral[100],
-      color: sunPalette.neutral[900],
-    }),
-    ...(variant === 'outlined' && {
-      backgroundColor: sunPalette.neutral[50],
-      color: sunPalette.neutral[900],
-      border: `1px solid ${sunPalette.neutral[300]}`,
-    }),
-    ...(variant === 'ghost' && {
-      backgroundColor: 'transparent',
-      color: sunPalette.neutral[900],
-      border: `1px solid ${sunPalette.neutral[300]}`,
-    }),
-    ...(variant === 'plain' && {
-      backgroundColor: 'rgba(255, 255, 255, 0.95)',
-      color: sunPalette.neutral[900],
-    }),
-  },
-}));
+  shouldForwardProp: (prop) =>
+    !['sunVariant', 'sunColor', 'sunSize', '$loading', '$disableAnimation'].includes(
+      prop as string
+    ),
+})<StyledProps>(({ theme, sunVariant, sunColor, sunSize, $loading, $disableAnimation }) => {
+  const colorScale = getColorScale(sunColor);
+  const sizeStyles = sizeConfig[sunSize];
+  const isDark = theme.palette.mode === 'dark';
 
-export const Popover = React.forwardRef<HTMLDivElement, PopoverProps>((props, ref) => {
-  const { ...rest } = props;
-  return <StyledPopover ref={ref} {...(rest as any)} />;
+  const baseStyles = {
+    '& .MuiPopover-paper': {
+      borderRadius: sizeStyles.borderRadius,
+      maxWidth: sizeStyles.maxWidth,
+      padding: sizeStyles.padding,
+      transition: $disableAnimation ? 'none' : animations.transitions.smooth,
+      fontFamily: typography.fontFamily.sans,
+      position: 'relative' as const,
+      overflow: 'hidden',
+      ...($loading && {
+        pointerEvents: 'none' as const,
+        '& > *:not(.popover-loading-overlay)': {
+          opacity: 0.5,
+        },
+      }),
+    },
+  };
+
+  const variantStyles = {
+    solid: {
+      '& .MuiPopover-paper': {
+        backgroundColor: colorScale.main,
+        color: colorScale.contrastText,
+        boxShadow: sizing.shadows.lg,
+      },
+    },
+    soft: {
+      '& .MuiPopover-paper': {
+        backgroundColor: isDark ? colorScale.alpha30 : colorScale.alpha20,
+        color: isDark ? colorScale.light : colorScale.dark,
+        boxShadow: sizing.shadows.md,
+      },
+    },
+    outlined: {
+      '& .MuiPopover-paper': {
+        backgroundColor: isDark ? colors.semantic.neutral[900] : colors.semantic.neutral[50],
+        color: isDark ? colors.semantic.neutral[100] : colors.semantic.neutral[900],
+        border: `1.5px solid ${colorScale.main}`,
+        boxShadow: sizing.shadows.md,
+      },
+    },
+    ghost: {
+      '& .MuiPopover-paper': {
+        backgroundColor: isDark ? colors.semantic.neutral[800] : colors.semantic.neutral[100],
+        color: isDark ? colors.semantic.neutral[100] : colors.semantic.neutral[800],
+        boxShadow: sizing.shadows.sm,
+      },
+    },
+    plain: {
+      '& .MuiPopover-paper': {
+        backgroundColor: isDark ? colors.semantic.neutral[900] : '#ffffff',
+        color: isDark ? colors.semantic.neutral[100] : colors.semantic.neutral[900],
+        border: `1px solid ${isDark ? colors.semantic.neutral[700] : colors.semantic.neutral[200]}`,
+        boxShadow: sizing.shadows.md,
+      },
+    },
+  };
+
+  return {
+    ...baseStyles,
+    ...variantStyles[sunVariant],
+  };
 });
+
+const LoadingOverlay = styled(Box)({
+  position: 'absolute',
+  top: 0,
+  left: 0,
+  right: 0,
+  bottom: 0,
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  backgroundColor: 'rgba(255, 255, 255, 0.7)',
+  zIndex: 10,
+});
+
+// =============================================================================
+// COMPONENT
+// =============================================================================
+
+export const Popover = React.forwardRef<HTMLDivElement, PopoverProps>(
+  (
+    {
+      variant = 'plain',
+      color = 'neutral',
+      size = 'md',
+      loading = false,
+      disableAnimation = false,
+      children,
+      ...rest
+    },
+    ref
+  ) => {
+    return (
+      <StyledPopover
+        ref={ref}
+        sunVariant={variant}
+        sunColor={color}
+        sunSize={size}
+        $loading={loading}
+        $disableAnimation={disableAnimation}
+        {...rest}
+      >
+        {loading && (
+          <LoadingOverlay className="popover-loading-overlay">
+            <CircularProgress size={24} />
+          </LoadingOverlay>
+        )}
+        {children}
+      </StyledPopover>
+    );
+  }
+);
 Popover.displayName = 'Popover';

@@ -235,11 +235,9 @@ const StyledSelect = styled(MuiSelect, {
   };
 });
 
-const StyledFormControl = styled(FormControl)<{ sunSize: SunSize; sunColor: SunColor }>(({
-  theme,
-  sunSize,
-  sunColor,
-}) => {
+const StyledFormControl = styled(FormControl, {
+  shouldForwardProp: (prop) => !['sunSize', 'sunColor'].includes(prop as string),
+})<{ sunSize: SunSize; sunColor: SunColor }>(({ theme, sunSize, sunColor }) => {
   const colorScale = getColorScale(sunColor);
   const isDark = theme.palette.mode === 'dark';
   return {

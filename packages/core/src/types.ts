@@ -8,11 +8,17 @@ import type { CSSProperties } from 'react';
 
 /**
  * Variant presets - The 5 standard Sun UI variants
+ * These are the core branded presets available across all components
  */
 export type SunVariant = 'solid' | 'soft' | 'outlined' | 'ghost' | 'plain';
 
 /**
- * Semantic colors
+ * Extended variants for Button component (includes additional link-style variants)
+ */
+export type SunButtonVariant = SunVariant | 'dash' | 'link';
+
+/**
+ * Semantic colors - 7 color schemes for all components
  */
 export type SunColor =
   | 'primary'

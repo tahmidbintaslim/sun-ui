@@ -134,7 +134,9 @@ interface StyledProps {
   sunSize: SunSize;
 }
 
-const StyledCheckbox = styled(MuiCheckbox)<StyledProps>(({ sunSize: _sunSize }) => ({
+const StyledCheckbox = styled(MuiCheckbox, {
+  shouldForwardProp: (prop) => prop !== 'sunSize',
+})<StyledProps>(() => ({
   padding: sizing.spacing[1],
   '&:hover': {
     backgroundColor: 'transparent',
@@ -149,7 +151,9 @@ const StyledCheckbox = styled(MuiCheckbox)<StyledProps>(({ sunSize: _sunSize }) 
   },
 }));
 
-const StyledLabel = styled(FormControlLabel)<{ sunSize: SunSize }>(({ sunSize }) => ({
+const StyledLabel = styled(FormControlLabel, {
+  shouldForwardProp: (prop) => prop !== 'sunSize',
+})<{ sunSize: SunSize }>(({ sunSize }) => ({
   margin: 0,
   gap: sizing.spacing[2],
   '& .MuiFormControlLabel-label': {

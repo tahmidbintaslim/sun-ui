@@ -1,51 +1,177 @@
-import { Badge as MuiBadge, BadgeProps as MuiBadgeProps } from '@mui/material';
+import { CircularProgress, Badge as MuiBadge, BadgeProps as MuiBadgeProps } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import { sunPalette } from '@sun-ui/tokens';
+import { animations, colors, typography } from '@sun-ui/tokens';
 import * as React from 'react';
 
-type SunUIVariant = 'solid' | 'soft' | 'outlined' | 'ghost' | 'plain';
+// =============================================================================
+// TYPES
+// =============================================================================
 
-export interface BadgeProps extends Omit<MuiBadgeProps, 'variant'> {
-  variant?: SunUIVariant;
+type SunVariant = 'solid' | 'soft' | 'outlined' | 'ghost' | 'plain';
+type SunColor = 'primary' | 'secondary' | 'success' | 'warning' | 'danger' | 'info' | 'neutral';
+type SunSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+
+export interface BadgeProps extends Omit<MuiBadgeProps, 'variant' | 'color'> {
+  /** Visual style variant */
+  variant?: SunVariant;
+  /** Color scheme */
+  color?: SunColor;
+  /** Badge size */
+  size?: SunSize;
+  /** Show loading state */
+  loading?: boolean;
+  /** Pulse animation for attention */
+  pulse?: boolean;
+  /** Disable animations */
+  disableAnimation?: boolean;
+}
+
+// =============================================================================
+// STYLE UTILITIES
+// =============================================================================
+
+const getColorScale = (color: SunColor) => colors.semantic[color];
+
+const sizeConfig = {
+  xs: { minWidth: 14, height: 14, fontSize: 9, paddingX: 4 },
+  sm: { minWidth: 18, height: 18, fontSize: 10, paddingX: 5 },
+  md: { minWidth: 22, height: 22, fontSize: 11, paddingX: 6 },
+  lg: { minWidth: 26, height: 26, fontSize: 13, paddingX: 8 },
+  xl: { minWidth: 32, height: 32, fontSize: 15, paddingX: 10 },
+};
+
+// =============================================================================
+// STYLED COMPONENTS
+// =============================================================================
+
+interface StyledProps {
+  sunVariant: SunVariant;
+  sunColor: SunColor;
+  sunSize: SunSize;
+  $pulse?: boolean;
+  $disableAnimation?: boolean;
 }
 
 const StyledBadge = styled(MuiBadge, {
-  shouldForwardProp: (prop) => prop !== 'variant',
-})(({ variant = 'solid' }) => ({
-  '& .MuiBadge-badge': {
-    ...(variant === 'solid' && {
-      backgroundColor: sunPalette.primary.main,
-      color: 'white',
-      boxShadow: `0 0 0 2px white`,
-    }),
-    ...(variant === 'soft' && {
-      backgroundColor: sunPalette.primary.alpha12,
-      color: sunPalette.primary.main,
-      boxShadow: `0 0 0 2px ${sunPalette.primary.alpha20}`,
-      border: `1px solid ${sunPalette.primary.alpha20}`,
-    }),
-    ...(variant === 'outlined' && {
-      backgroundColor: 'white',
-      color: sunPalette.primary.main,
-      border: `2px solid ${sunPalette.primary.main}`,
-      boxShadow: '0 0 0 1px white',
-    }),
-    ...(variant === 'ghost' && {
-      backgroundColor: 'transparent',
-      color: sunPalette.neutral[700],
-      border: `1px solid ${sunPalette.neutral[300]}`,
-      boxShadow: 'none',
-    }),
-    ...(variant === 'plain' && {
-      backgroundColor: sunPalette.neutral[100],
-      color: sunPalette.neutral[700],
-      border: 'none',
-      boxShadow: 'none',
-    }),
-  },
-}));
+  shouldForwardProp: (prop) =>
+    !['sunVariant', 'sunColor', 'sunSize', '$pulse', '$disableAnimation'].includes(prop as string),
+})<StyledProps>(({ theme, sunVariant, sunColor, sunSize, $pulse, $disableAnimation }) => {
+  const colorScale = getColorScale(sunColor);
+  const sizeStyles = sizeConfig[sunSize];
+  const isDark = theme.palette.mode === 'dark';
 
-export const Badge = React.forwardRef<HTMLDivElement, BadgeProps>(({ variant, ...rest }, ref) => (
-  <StyledBadge ref={ref} variant={variant} {...(rest as any)} />
-));
+  const baseStyles = {
+    '& .MuiBadge-badge': {
+      minWidth: sizeStyles.minWidth,
+      height: sizeStyles.height,
+      fontSize: sizeStyles.fontSize,
+      fontWeight: typography.fontWeight.semibold,
+      fontFamily: typography.fontFamily.sans,
+      padding: `0 ${sizeStyles.paddingX}px`,
+      borderRadius: sizeStyles.height / 2,
+      transition: $disableAnimation ? 'none' : animations.transitions.button,
+      animation: $pulse && !$disableAnimation ? 'pulse 2s infinite' : 'none',
+      '@keyframes pulse': {
+        '0%': {
+          boxShadow: `0 0 0 0 ${colorScale.alpha40}`,
+        },
+        '70%': {
+          boxShadow: `0 0 0 8px ${colorScale.alpha8}`,
+        },
+        '100%': {
+          boxShadow: `0 0 0 0 ${colorScale.alpha8}`,
+        },
+      },
+    },
+  };
+
+  const variantStyles = {
+    solid: {
+      '& .MuiBadge-badge': {
+        backgroundColor: colorScale.main,
+        color: colorScale.contrastText,
+        boxShadow: `0 0 0 2px ${isDark ? colors.semantic.neutral[900] : 'white'}`,
+      },
+    },
+    soft: {
+      '& .MuiBadge-badge': {
+        backgroundColor: isDark ? colorScale.alpha30 : colorScale.alpha12,
+        color: isDark ? colorScale.light : colorScale.dark,
+        boxShadow: `0 0 0 2px ${isDark ? colors.semantic.neutral[900] : 'white'}`,
+        border: `1px solid ${colorScale.alpha20}`,
+      },
+    },
+    outlined: {
+      '& .MuiBadge-badge': {
+        backgroundColor: isDark ? colors.semantic.neutral[900] : 'white',
+        color: colorScale.main,
+        border: `2px solid ${colorScale.main}`,
+        boxShadow: `0 0 0 1px ${isDark ? colors.semantic.neutral[900] : 'white'}`,
+      },
+    },
+    ghost: {
+      '& .MuiBadge-badge': {
+        backgroundColor: 'transparent',
+        color: isDark ? colors.semantic.neutral[300] : colors.semantic.neutral[700],
+        border: `1px solid ${isDark ? colors.semantic.neutral[600] : colors.semantic.neutral[300]}`,
+        boxShadow: 'none',
+      },
+    },
+    plain: {
+      '& .MuiBadge-badge': {
+        backgroundColor: isDark ? colors.semantic.neutral[700] : colors.semantic.neutral[100],
+        color: isDark ? colors.semantic.neutral[200] : colors.semantic.neutral[700],
+        border: 'none',
+        boxShadow: 'none',
+      },
+    },
+  };
+
+  return {
+    ...baseStyles,
+    ...variantStyles[sunVariant],
+  };
+});
+
+// =============================================================================
+// COMPONENT
+// =============================================================================
+
+export const Badge = React.forwardRef<HTMLDivElement, BadgeProps>(
+  (
+    {
+      variant = 'solid',
+      color = 'primary',
+      size = 'md',
+      loading = false,
+      pulse = false,
+      disableAnimation = false,
+      badgeContent,
+      ...rest
+    },
+    ref
+  ) => {
+    const sizeStyles = sizeConfig[size];
+
+    const renderBadgeContent = () => {
+      if (loading) {
+        return <CircularProgress size={sizeStyles.fontSize} color="inherit" />;
+      }
+      return badgeContent;
+    };
+
+    return (
+      <StyledBadge
+        ref={ref}
+        sunVariant={variant}
+        sunColor={color}
+        sunSize={size}
+        $pulse={pulse}
+        $disableAnimation={disableAnimation}
+        badgeContent={renderBadgeContent()}
+        {...rest}
+      />
+    );
+  }
+);
 Badge.displayName = 'Badge';

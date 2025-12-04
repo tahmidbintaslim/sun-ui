@@ -125,7 +125,9 @@ interface StyledProps {
   sunSize: SunSize;
 }
 
-const StyledRadio = styled(MuiRadio)<StyledProps>(({ sunSize: _sunSize }) => ({
+const StyledRadio = styled(MuiRadio, {
+  shouldForwardProp: (prop) => prop !== 'sunSize',
+})<StyledProps>(() => ({
   padding: sizing.spacing[1],
   '&:hover': {
     backgroundColor: 'transparent',
@@ -140,7 +142,9 @@ const StyledRadio = styled(MuiRadio)<StyledProps>(({ sunSize: _sunSize }) => ({
   },
 }));
 
-const StyledLabel = styled(FormControlLabel)<{ sunSize: SunSize }>(({ sunSize }) => ({
+const StyledLabel = styled(FormControlLabel, {
+  shouldForwardProp: (prop) => prop !== 'sunSize',
+})<{ sunSize: SunSize }>(({ sunSize }) => ({
   margin: 0,
   gap: sizing.spacing[2],
   '& .MuiFormControlLabel-label': {

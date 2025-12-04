@@ -1,78 +1,236 @@
-import { Alert as MuiAlert, AlertProps as MuiAlertProps } from '@mui/material';
+import {
+  AlertTitle,
+  CircularProgress,
+  Collapse,
+  Alert as MuiAlert,
+  AlertProps as MuiAlertProps,
+} from '@mui/material';
 import { styled } from '@mui/material/styles';
-import { sunPalette } from '@sun-ui/tokens';
+import { animations, colors, sizing, typography } from '@sun-ui/tokens';
 import * as React from 'react';
 
-type SunUIVariant = 'solid' | 'soft' | 'outlined' | 'ghost' | 'plain';
+// =============================================================================
+// TYPES
+// =============================================================================
 
-export interface AlertProps extends Omit<MuiAlertProps, 'variant'> {
-  variant?: SunUIVariant;
+type SunVariant = 'solid' | 'soft' | 'outlined' | 'ghost' | 'plain';
+type SunColor = 'primary' | 'secondary' | 'success' | 'warning' | 'danger' | 'info' | 'neutral';
+type SunSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+
+export interface AlertProps extends Omit<MuiAlertProps, 'variant' | 'color' | 'severity'> {
+  /** Visual style variant */
+  variant?: SunVariant;
+  /** Color scheme */
+  color?: SunColor;
+  /** Alert size */
+  size?: SunSize;
+  /** Show loading state */
+  loading?: boolean;
+  /** Disable animations */
+  disableAnimation?: boolean;
+  /** Start icon override */
+  startIcon?: React.ReactNode;
+}
+
+// =============================================================================
+// STYLE UTILITIES
+// =============================================================================
+
+const getColorScale = (color: SunColor) => colors.semantic[color];
+
+const sizeConfig = {
+  xs: {
+    padding: `${sizing.spacing[1]} ${sizing.spacing[2]}`,
+    fontSize: typography.fontSize.xs,
+    iconSize: 16,
+    borderRadius: sizing.radius.sm,
+  },
+  sm: {
+    padding: `${sizing.spacing[2]} ${sizing.spacing[3]}`,
+    fontSize: typography.fontSize.sm,
+    iconSize: 18,
+    borderRadius: sizing.radius.md,
+  },
+  md: {
+    padding: `${sizing.spacing[3]} ${sizing.spacing[4]}`,
+    fontSize: typography.fontSize.base,
+    iconSize: 22,
+    borderRadius: sizing.radius.md,
+  },
+  lg: {
+    padding: `${sizing.spacing[4]} ${sizing.spacing[5]}`,
+    fontSize: typography.fontSize.lg,
+    iconSize: 26,
+    borderRadius: sizing.radius.lg,
+  },
+  xl: {
+    padding: `${sizing.spacing[5]} ${sizing.spacing[6]}`,
+    fontSize: typography.fontSize.xl,
+    iconSize: 30,
+    borderRadius: sizing.radius.lg,
+  },
+};
+
+// =============================================================================
+// STYLED COMPONENTS
+// =============================================================================
+
+interface StyledProps {
+  sunVariant: SunVariant;
+  sunColor: SunColor;
+  sunSize: SunSize;
+  $loading?: boolean;
+  $disableAnimation?: boolean;
 }
 
 const StyledAlert = styled(MuiAlert, {
-  shouldForwardProp: (prop) => prop !== 'variant',
-})(({ variant = 'outlined', severity = 'info' }: any) => {
-  const severityColor =
-    {
-      success: sunPalette.primary,
-      error: {
-        main: '#d32f2f',
-        alpha12: 'rgba(211, 47, 47, 0.12)',
-        alpha20: 'rgba(211, 47, 47, 0.2)',
+  shouldForwardProp: (prop) =>
+    !['sunVariant', 'sunColor', 'sunSize', '$loading', '$disableAnimation'].includes(
+      prop as string
+    ),
+})<StyledProps>(({ theme, sunVariant, sunColor, sunSize, $loading, $disableAnimation }) => {
+  const colorScale = getColorScale(sunColor);
+  const sizeStyles = sizeConfig[sunSize];
+  const isDark = theme.palette.mode === 'dark';
+
+  const baseStyles = {
+    padding: sizeStyles.padding,
+    fontSize: sizeStyles.fontSize,
+    fontFamily: typography.fontFamily.sans,
+    borderRadius: sizeStyles.borderRadius,
+    transition: $disableAnimation ? 'none' : animations.transitions.smooth,
+    alignItems: 'flex-start',
+    ...($loading && {
+      opacity: 0.8,
+    }),
+    '& .MuiAlert-icon': {
+      fontSize: sizeStyles.iconSize,
+      marginRight: sizing.spacing[2],
+      padding: 0,
+    },
+    '& .MuiAlert-message': {
+      padding: 0,
+    },
+    '& .MuiAlert-action': {
+      padding: 0,
+      marginRight: 0,
+    },
+    '& .MuiAlertTitle-root': {
+      fontWeight: typography.fontWeight.semibold,
+      marginBottom: sizing.spacing[1],
+    },
+  };
+
+  const variantStyles = {
+    solid: {
+      backgroundColor: colorScale.main,
+      color: colorScale.contrastText,
+      border: 'none',
+      '& .MuiAlert-icon': {
+        color: colorScale.contrastText,
       },
-      warning: {
-        main: '#f57c00',
-        alpha12: 'rgba(245, 124, 0, 0.12)',
-        alpha20: 'rgba(245, 124, 0, 0.2)',
+      '& .MuiAlert-action': {
+        color: colorScale.contrastText,
       },
-      info: sunPalette.primary,
-    }[severity as string] || sunPalette.primary;
+    },
+    soft: {
+      backgroundColor: isDark ? colorScale.alpha20 : colorScale.alpha12,
+      color: isDark ? colorScale.light : colorScale.dark,
+      border: `1px solid ${colorScale.alpha20}`,
+      '& .MuiAlert-icon': {
+        color: colorScale.main,
+      },
+    },
+    outlined: {
+      backgroundColor: 'transparent',
+      color: isDark ? theme.palette.text.primary : theme.palette.text.primary,
+      border: `1.5px solid ${colorScale.main}`,
+      '& .MuiAlert-icon': {
+        color: colorScale.main,
+      },
+    },
+    ghost: {
+      backgroundColor: 'transparent',
+      color: isDark ? theme.palette.text.primary : theme.palette.text.primary,
+      border: `1px solid ${colorScale.alpha20}`,
+      '& .MuiAlert-icon': {
+        color: colorScale.main,
+      },
+    },
+    plain: {
+      backgroundColor: isDark ? colorScale.alpha12 : colorScale.alpha8,
+      color: isDark ? theme.palette.text.primary : theme.palette.text.primary,
+      border: 'none',
+      '& .MuiAlert-icon': {
+        color: colorScale.main,
+      },
+    },
+  };
 
   return {
-    ...(variant === 'solid' && {
-      backgroundColor: severityColor.main,
-      color: 'white',
-      border: 'none',
-      '& .MuiAlert-icon': {
-        color: 'white',
-      },
-    }),
-    ...(variant === 'soft' && {
-      backgroundColor: severityColor.alpha12,
-      color: severityColor.main,
-      border: `1px solid ${severityColor.alpha20}`,
-      '& .MuiAlert-icon': {
-        color: severityColor.main,
-      },
-    }),
-    ...(variant === 'outlined' && {
-      backgroundColor: 'transparent',
-      color: severityColor.main,
-      border: `1px solid ${severityColor.main}`,
-      '& .MuiAlert-icon': {
-        color: severityColor.main,
-      },
-    }),
-    ...(variant === 'ghost' && {
-      backgroundColor: 'transparent',
-      color: severityColor.main,
-      border: `1px solid ${severityColor.alpha20}`,
-      '& .MuiAlert-icon': {
-        color: severityColor.main,
-      },
-    }),
-    ...(variant === 'plain' && {
-      backgroundColor: severityColor.alpha12,
-      color: severityColor.main,
-      border: 'none',
-      '& .MuiAlert-icon': {
-        color: severityColor.main,
-      },
-    }),
+    ...baseStyles,
+    ...variantStyles[sunVariant],
   };
 });
 
-export const Alert = React.forwardRef<HTMLDivElement, AlertProps>(({ variant, ...rest }, ref) => (
-  <StyledAlert ref={ref} variant={variant} {...(rest as any)} />
-));
+const LoadingWrapper = styled('span')({
+  display: 'inline-flex',
+  alignItems: 'center',
+  marginRight: sizing.spacing[2],
+});
+
+// =============================================================================
+// COMPONENT
+// =============================================================================
+
+export const Alert = React.forwardRef<HTMLDivElement, AlertProps>(
+  (
+    {
+      variant = 'soft',
+      color = 'info',
+      size = 'md',
+      loading = false,
+      disableAnimation = false,
+      startIcon,
+      icon,
+      children,
+      ...rest
+    },
+    ref
+  ) => {
+    const sizeStyles = sizeConfig[size];
+
+    const renderIcon = () => {
+      if (loading) {
+        return (
+          <LoadingWrapper>
+            <CircularProgress size={sizeStyles.iconSize - 4} color="inherit" />
+          </LoadingWrapper>
+        );
+      }
+      if (startIcon) {
+        return startIcon;
+      }
+      return icon;
+    };
+
+    return (
+      <StyledAlert
+        ref={ref}
+        sunVariant={variant}
+        sunColor={color}
+        sunSize={size}
+        $loading={loading}
+        $disableAnimation={disableAnimation}
+        icon={renderIcon()}
+        {...rest}
+      >
+        {children}
+      </StyledAlert>
+    );
+  }
+);
 Alert.displayName = 'Alert';
+
+// Re-export AlertTitle for convenience
+export { AlertTitle, Collapse };
