@@ -13,6 +13,9 @@ export * from './presets';
 // Accessibility utilities
 export * from './accessibility';
 
+// Headless primitives
+export * from './primitives';
+
 // Re-export commonly used types
 export type {
   SunA11yProps,
