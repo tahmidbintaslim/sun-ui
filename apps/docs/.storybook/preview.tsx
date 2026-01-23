@@ -1,6 +1,6 @@
 import CssBaseline from '@mui/material/CssBaseline';
 import { ThemeProvider } from '@mui/material/styles';
-import { darkTheme, lightTheme } from '@sun-ui/theme';
+import { darkTheme, lightTheme } from '@smug-ui/theme';
 import type { Preview } from 'storybook/react';
 import { INITIAL_VIEWPORTS } from 'storybook/viewport';
 

@@ -4,8 +4,8 @@ import {
   PaginationProps as MuiPaginationProps,
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import { colors, typography } from '@sun-ui/tokens';
-import type { ColorScale } from '@sun-ui/tokens';
+import { colors, typography } from '@smug-ui/tokens';
+import type { ColorScale } from '@smug-ui/tokens';
 import * as React from 'react';
 
 // =============================================================================

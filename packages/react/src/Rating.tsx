@@ -4,9 +4,9 @@ import Box from '@mui/material/Box';
 import MuiRating, { RatingProps as MuiRatingProps } from '@mui/material/Rating';
 import Typography from '@mui/material/Typography';
 import { styled } from '@mui/material/styles';
-import type { SunColor, SunSize, SunVariant } from '@sun-ui/core';
-import { getDefaultRatingLabel } from '@sun-ui/core';
-import { colors, ColorScale, transitions } from '@sun-ui/tokens';
+import type { SunColor, SunSize, SunVariant } from '@smug-ui/core';
+import { getDefaultRatingLabel } from '@smug-ui/core';
+import { colors, ColorScale, transitions } from '@smug-ui/tokens';
 import * as React from 'react';
 
 // ─────────────────────────────────────────────────────────────────────────────

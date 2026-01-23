@@ -7,9 +7,9 @@ import MuiLinearProgress, {
 } from '@mui/material/LinearProgress';
 import Typography from '@mui/material/Typography';
 import { styled } from '@mui/material/styles';
-import type { SunColor, SunSize, SunVariant } from '@sun-ui/core';
-import { calculateProgressState, clampProgress, getProgressAriaProps } from '@sun-ui/core';
-import { colors, ColorScale, radius, transitions } from '@sun-ui/tokens';
+import type { SunColor, SunSize, SunVariant } from '@smug-ui/core';
+import { calculateProgressState, clampProgress, getProgressAriaProps } from '@smug-ui/core';
+import { colors, ColorScale, radius, transitions } from '@smug-ui/tokens';
 import * as React from 'react';
 
 // ─────────────────────────────────────────────────────────────────────────────

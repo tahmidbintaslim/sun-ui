@@ -5,7 +5,7 @@
  * This ensures visual consistency across all components.
  */
 
-import { colors, type ColorScale } from '@sun-ui/tokens';
+import { colors, type ColorScale } from '@smug-ui/tokens';
 import type { SunColor, SunVariant } from './types';
 
 /**

@@ -6,7 +6,7 @@ import {
   RadioProps as MuiRadioProps,
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import { animations, colors, sizing, typography } from '@sun-ui/tokens';
+import { animations, colors, sizing, typography } from '@smug-ui/tokens';
 import * as React from 'react';
 
 // =============================================================================

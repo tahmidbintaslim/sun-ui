@@ -12,19 +12,19 @@ importers:
 
   .:
     dependencies:
-      '@sun-ui/core':
+      '@smug-ui/core':
         specifier: workspace:*
         version: link:packages/core
-      '@sun-ui/icons':
+      '@smug-ui/icons':
         specifier: workspace:*
         version: link:packages/icons
-      '@sun-ui/react':
+      '@smug-ui/react':
         specifier: workspace:*
         version: link:packages/react
-      '@sun-ui/theme':
+      '@smug-ui/theme':
         specifier: workspace:*
         version: link:packages/theme
-      '@sun-ui/tokens':
+      '@smug-ui/tokens':
         specifier: workspace:*
         version: link:packages/tokens
       pnpm:
@@ -121,6 +121,15 @@ importers:
       '@playwright/test':
         specifier: ^1.57.0
         version: 1.57.0
+      '@smug-ui/react':
+        specifier: workspace:*
+        version: link:../../packages/react
+      '@smug-ui/theme':
+        specifier: workspace:*
+        version: link:../../packages/theme
+      '@smug-ui/tokens':
+        specifier: workspace:*
+        version: link:../../packages/tokens
       '@storybook/addon-a11y':
         specifier: ^10.1.2
         version: 10.1.4(storybook@10.1.4(@testing-library/dom@10.4.1)(prettier@3.7.4)(react-dom@19.2.0(react@19.2.0))(react@19.2.0))
@@ -148,15 +157,6 @@ importers:
       '@storybook/test-runner':
         specifier: ^0.24.2
         version: 0.24.2(@types/node@24.10.1)(babel-plugin-macros@3.1.0)(storybook@10.1.4(@testing-library/dom@10.4.1)(prettier@3.7.4)(react-dom@19.2.0(react@19.2.0))(react@19.2.0))
-      '@sun-ui/react':
-        specifier: workspace:*
-        version: link:../../packages/react
-      '@sun-ui/theme':
-        specifier: workspace:*
-        version: link:../../packages/theme
-      '@sun-ui/tokens':
-        specifier: workspace:*
-        version: link:../../packages/tokens
       '@vitest/browser':
         specifier: ^4.0.0
         version: 4.0.15(vite@7.2.6(@types/node@24.10.1))(vitest@4.0.15)
@@ -190,12 +190,12 @@ importers:
 
   packages/core:
     dependencies:
+      '@smug-ui/tokens':
+        specifier: workspace:*
+        version: link:../tokens
       '@storybook/react':
         specifier: ^10.1.4
         version: 10.1.4(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(storybook@10.1.4(@testing-library/dom@10.4.1)(prettier@3.7.4)(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(typescript@5.9.3)
-      '@sun-ui/tokens':
-        specifier: workspace:*
-        version: link:../tokens
       react:
         specifier: ^19.0.0
         version: 19.2.0
@@ -264,15 +264,15 @@ importers:
       '@mui/x-date-pickers':
         specifier: ^8.0.0
         version: 8.19.0(@emotion/react@11.14.0(@types/react@19.2.7)(react@19.2.0))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@19.2.7)(react@19.2.0))(@types/react@19.2.7)(react@19.2.0))(@mui/material@7.3.6(@emotion/react@11.14.0(@types/react@19.2.7)(react@19.2.0))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@19.2.7)(react@19.2.0))(@types/react@19.2.7)(react@19.2.0))(@types/react@19.2.7)(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(@mui/system@7.3.6(@emotion/react@11.14.0(@types/react@19.2.7)(react@19.2.0))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@19.2.7)(react@19.2.0))(@types/react@19.2.7)(react@19.2.0))(@types/react@19.2.7)(react@19.2.0))(@types/react@19.2.7)(dayjs@1.11.19)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+      '@smug-ui/theme':
+        specifier: workspace:*
+        version: link:../theme
+      '@smug-ui/tokens':
+        specifier: workspace:*
+        version: link:../tokens
       '@storybook/react':
         specifier: ^10.1.4
         version: 10.1.4(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(storybook@10.1.4(@testing-library/dom@10.4.1)(prettier@3.7.4)(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(typescript@5.9.3)
-      '@sun-ui/theme':
-        specifier: workspace:*
-        version: link:../theme
-      '@sun-ui/tokens':
-        specifier: workspace:*
-        version: link:../tokens
       dayjs:
         specifier: ^1.11.13
         version: 1.11.19
@@ -331,12 +331,12 @@ importers:
       '@mui/material':
         specifier: ^7.3.5
         version: 7.3.6(@emotion/react@11.14.0(@types/react@19.2.7)(react@19.2.0))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@19.2.7)(react@19.2.0))(@types/react@19.2.7)(react@19.2.0))(@types/react@19.2.7)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+      '@smug-ui/tokens':
+        specifier: workspace:*
+        version: link:../tokens
       '@storybook/react':
         specifier: ^10.1.4
         version: 10.1.4(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(storybook@10.1.4(@testing-library/dom@10.4.1)(prettier@3.7.4)(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(typescript@5.9.3)
-      '@sun-ui/tokens':
-        specifier: workspace:*
-        version: link:../tokens
       react:
         specifier: ^19.0.0
         version: 19.2.0

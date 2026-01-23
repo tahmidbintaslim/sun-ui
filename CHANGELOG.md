@@ -44,11 +44,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 #### Packages
 
-- `@sun-ui/react` — React component library
-- `@sun-ui/theme` — MUI v7 theme configuration
-- `@sun-ui/tokens` — Design tokens (colors, spacing, radius)
-- `@sun-ui/icons` — Icon library (2000+ SVG icons)
-- `@sun-ui/core` — Headless primitives (foundation)
+- `@smug-ui/react` — React component library
+- `@smug-ui/theme` — MUI v7 theme configuration
+- `@smug-ui/tokens` — Design tokens (colors, spacing, radius)
+- `@smug-ui/icons` — Icon library (2000+ SVG icons)
+- `@smug-ui/core` — Headless primitives (foundation)
 
 #### Testing
 
@@ -127,7 +127,7 @@ Security updates and vulnerability fixes.
 No breaking changes. Installation upgrade only:
 
 ```bash
-pnpm up @sun-ui/react@latest
+pnpm up @smug-ui/react@latest
 ```
 
 ---
@@ -166,6 +166,6 @@ When releasing a new version:
 
 <div align="center">
 
-**See [Releases](https://github.com/tahmidbintaslim/sun-ui/releases) for all versions**
+**See [Releases](https://github.com/tahmidbintaslim/smug-ui/releases) for all versions**
 
 </div>

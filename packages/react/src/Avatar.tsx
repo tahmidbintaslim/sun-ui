@@ -4,7 +4,7 @@ import {
   AvatarProps as MuiAvatarProps,
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import { animations, colors, typography } from '@sun-ui/tokens';
+import { animations, colors, typography } from '@smug-ui/tokens';
 import * as React from 'react';
 
 // =============================================================================

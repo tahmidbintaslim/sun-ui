@@ -41,9 +41,9 @@ export default defineConfig({
   resolve: {
     alias: {
       // Point to dist for proper ESM module resolution
-      '@sun-ui/tokens': path.resolve(__dirname, '../../packages/tokens/dist'),
-      '@sun-ui/theme': path.resolve(__dirname, '../../packages/theme/dist'),
-      '@sun-ui/react': path.resolve(__dirname, '../../packages/react/src'),
+      '@smug-ui/tokens': path.resolve(__dirname, '../../packages/tokens/dist'),
+      '@smug-ui/theme': path.resolve(__dirname, '../../packages/theme/dist'),
+      '@smug-ui/react': path.resolve(__dirname, '../../packages/react/src'),
       '@emotion/react': path.dirname(require.resolve('@emotion/react/package.json')),
       '@emotion/styled': path.dirname(require.resolve('@emotion/styled/package.json')),
       react: path.dirname(require.resolve('react/package.json')),
@@ -53,6 +53,6 @@ export default defineConfig({
   optimizeDeps: {
     include: ['@mui/material', '@mui/system', '@mui/utils', '@emotion/react', '@emotion/styled'],
     // Exclude workspace packages from pre-bundling - they're resolved via aliases
-    exclude: ['@sun-ui/tokens', '@sun-ui/theme', '@sun-ui/react'],
+    exclude: ['@smug-ui/tokens', '@smug-ui/theme', '@smug-ui/react'],
   },
 });

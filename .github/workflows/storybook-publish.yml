@@ -6,7 +6,7 @@
 # 1. Vercel (Primary) - Automatic via GitHub integration
 #    - Vercel is connected to this repo and auto-deploys on push
 #    - Preview URLs generated for PRs, Production for main branch
-#    - URL: https://sun-ui.vercel.app (or your custom domain)
+#    - URL: https://smug-ui.vercel.app (or your custom domain)
 #
 # 2. Chromatic (Visual Testing) - Via this workflow
 #    - Publishes Storybook for visual regression testing

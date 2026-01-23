@@ -24,7 +24,7 @@ Progress indicators show the status of ongoing processes. Sun UI provides both l
 - **Determinate & Indeterminate**: Show exact progress or loading state
 - **Labels**: Optional value labels with custom formatting
 - **Buffer**: Linear progress supports buffer indicator
-- **Accessible**: Full ARIA support via @sun-ui/core primitives
+- **Accessible**: Full ARIA support via @smug-ui/core primitives
         `,
       },
     },

@@ -1,4 +1,4 @@
-# 🌞 Sun UI Documentation
+# 😎 Smug UI Documentation
 
 > **MUI Components, Reimagined.** Beautiful defaults. Full MUI ecosystem. Zero config.
 
@@ -22,9 +22,9 @@
 
 ## Introduction
 
-### What is Sun UI?
+### What is Smug UI?
 
-**Sun UI** is a React component library built on top of Material-UI (MUI) v7 that provides:
+**Smug UI** is a React component library built on top of Material-UI (MUI) v7 that provides:
 
 - **7 Design Variants** — solid, soft, outlined, dash, ghost, plain, link
 - **7 Color Schemes** — primary, secondary, success, warning, danger, info, neutral
@@ -32,9 +32,9 @@
 - **Production-Ready** — 62 tests passing, WCAG 2.1 AA compliant
 - **Zero Config** — Beautiful defaults that just work
 
-### Who is Sun UI For?
+### Who is Smug UI For?
 
-| If you are...                                 | Sun UI helps you...                     |
+| If you are...                                 | Smug UI helps you...                    |
 | --------------------------------------------- | --------------------------------------- |
 | **MUI user frustrated with limited variants** | Get 7 beautiful variants out of the box |
 | **Team needing consistent design**            | Use production-ready design tokens      |
@@ -46,14 +46,14 @@
 ```
 ┌─────────────────────────────────────────────────────────────────────┐
 │                                                                     │
-│   Raw MUI ←────────── Sun UI ──────────→ Opinionated Systems        │
+│   Raw MUI ←────────── Smug UI ──────────→ Opinionated Systems        │
 │   (Flexible           (Best of          (Chakra, Mantine —          │
 │    but verbose)        both worlds)       locked ecosystem)         │
 │                                                                     │
 └─────────────────────────────────────────────────────────────────────┘
 ```
 
-**Sun UI gives you:**
+**Smug UI gives you:**
 
 - 🎨 Beautiful defaults (like Chakra/Mantine)
 - 🔌 Full MUI ecosystem access (600+ components)
@@ -67,25 +67,25 @@
 
 ```bash
 # npm
-npm install @sun-ui/react @mui/material @emotion/react @emotion/styled
+npm install @smug-ui/react @mui/material @emotion/react @emotion/styled
 
 # pnpm (recommended)
-pnpm add @sun-ui/react @mui/material @emotion/react @emotion/styled
+pnpm add @smug-ui/react @mui/material @emotion/react @emotion/styled
 
 # yarn
-yarn add @sun-ui/react @mui/material @emotion/react @emotion/styled
+yarn add @smug-ui/react @mui/material @emotion/react @emotion/styled
 ```
 
 ### Basic Usage
 
 ```tsx
-import { Button, TextField, Alert } from '@sun-ui/react';
+import { Button, TextField, Alert } from '@smug-ui/react';
 
 export default function App() {
   return (
     <div>
       <Alert variant="soft" color="info">
-        Welcome to Sun UI!
+        Welcome to Smug UI!
       </Alert>
 
       <TextField variant="outlined" label="Email" />
@@ -107,8 +107,8 @@ For full theming support including dark mode:
 ```tsx
 import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
-import { lightTheme } from '@sun-ui/theme';
-import { Button } from '@sun-ui/react';
+import { lightTheme } from '@smug-ui/theme';
+import { Button } from '@smug-ui/react';
 
 export default function App() {
   return (
@@ -126,7 +126,7 @@ export default function App() {
 
 ### 7 Design Variants
 
-Every Sun UI component supports the same 7 variants:
+Every Smug UI component supports the same 7 variants:
 
 | Variant    | Use Case                   | Appearance                         |
 | ---------- | -------------------------- | ---------------------------------- |
@@ -197,7 +197,7 @@ Components come in 5 sizes:
 #### Button
 
 ```tsx
-import { Button } from '@sun-ui/react';
+import { Button } from '@smug-ui/react';
 
 // Basic usage
 <Button variant="solid" color="primary">
@@ -224,7 +224,7 @@ import { Button } from '@sun-ui/react';
 #### TextField
 
 ```tsx
-import { TextField } from '@sun-ui/react';
+import { TextField } from '@smug-ui/react';
 
 // Basic
 <TextField variant="outlined" label="Email" />
@@ -250,7 +250,7 @@ import { TextField } from '@sun-ui/react';
 #### Select
 
 ```tsx
-import { Select } from '@sun-ui/react';
+import { Select } from '@smug-ui/react';
 
 <Select variant="outlined" label="Country">
   <option value="us">United States</option>
@@ -262,7 +262,7 @@ import { Select } from '@sun-ui/react';
 #### Checkbox, Radio, Switch
 
 ```tsx
-import { Checkbox, Radio, Switch } from '@sun-ui/react';
+import { Checkbox, Radio, Switch } from '@smug-ui/react';
 
 <Checkbox variant="solid" label="I agree" />
 <Radio variant="soft" label="Option A" />
@@ -274,7 +274,7 @@ import { Checkbox, Radio, Switch } from '@sun-ui/react';
 #### Alert
 
 ```tsx
-import { Alert } from '@sun-ui/react';
+import { Alert } from '@smug-ui/react';
 
 <Alert variant="solid" color="success">
   Changes saved successfully!
@@ -288,7 +288,7 @@ import { Alert } from '@sun-ui/react';
 #### Snackbar
 
 ```tsx
-import { Snackbar } from '@sun-ui/react';
+import { Snackbar } from '@smug-ui/react';
 
 <Snackbar
   open={open}
@@ -301,7 +301,7 @@ import { Snackbar } from '@sun-ui/react';
 #### Dialog
 
 ```tsx
-import { Dialog } from '@sun-ui/react';
+import { Dialog } from '@smug-ui/react';
 
 <Dialog open={open} onClose={handleClose} title="Confirm">
   Are you sure you want to delete this item?
@@ -311,7 +311,7 @@ import { Dialog } from '@sun-ui/react';
 #### Tooltip & Popover
 
 ```tsx
-import { Tooltip, Popover } from '@sun-ui/react';
+import { Tooltip, Popover } from '@smug-ui/react';
 
 <Tooltip title="Save changes">
   <Button>Save</Button>
@@ -327,7 +327,7 @@ import { Tooltip, Popover } from '@sun-ui/react';
 #### Card
 
 ```tsx
-import { Card } from '@sun-ui/react';
+import { Card } from '@smug-ui/react';
 
 <Card variant="soft">
   <Card.Header title="Card Title" subtitle="Subtitle" />
@@ -341,7 +341,7 @@ import { Card } from '@sun-ui/react';
 #### Avatar & Badge
 
 ```tsx
-import { Avatar, Badge } from '@sun-ui/react';
+import { Avatar, Badge } from '@smug-ui/react';
 
 <Badge badgeContent={4} color="danger">
   <Avatar src="/avatar.jpg" alt="John Doe" />
@@ -353,7 +353,7 @@ import { Avatar, Badge } from '@sun-ui/react';
 #### Chip
 
 ```tsx
-import { Chip } from '@sun-ui/react';
+import { Chip } from '@smug-ui/react';
 
 <Chip variant="solid" label="Active" color="success" />
 <Chip variant="soft" label="Pending" onDelete={() => {}} />
@@ -363,16 +363,16 @@ import { Chip } from '@sun-ui/react';
 
 ## Design Tokens
 
-Sun UI includes a comprehensive design token system via `@sun-ui/tokens`:
+Smug UI includes a comprehensive design token system via `@smug-ui/tokens`:
 
 ```bash
-npm install @sun-ui/tokens
+npm install @smug-ui/tokens
 ```
 
 ### Colors
 
 ```tsx
-import { colors } from '@sun-ui/tokens';
+import { colors } from '@smug-ui/tokens';
 
 // Full color palette
 colors.primary.main; // #3b82f6
@@ -392,7 +392,7 @@ colors.neutral[500];
 ### Spacing
 
 ```tsx
-import { spacing } from '@sun-ui/tokens';
+import { spacing } from '@smug-ui/tokens';
 
 spacing.xs; // 4px
 spacing.sm; // 8px
@@ -405,7 +405,7 @@ spacing.xxl; // 48px
 ### Typography
 
 ```tsx
-import { typography } from '@sun-ui/tokens';
+import { typography } from '@smug-ui/tokens';
 
 typography.fontSize.xs; // 12px
 typography.fontSize.sm; // 14px
@@ -422,7 +422,7 @@ typography.fontWeight.bold; // 700
 ### Radius
 
 ```tsx
-import { radius } from '@sun-ui/tokens';
+import { radius } from '@smug-ui/tokens';
 
 radius.none; // 0
 radius.sm; // 4px
@@ -440,7 +440,7 @@ radius.full; // 9999px
 
 ```tsx
 import { ThemeProvider } from '@mui/material/styles';
-import { lightTheme, darkTheme } from '@sun-ui/theme';
+import { lightTheme, darkTheme } from '@smug-ui/theme';
 
 // Light theme
 <ThemeProvider theme={lightTheme}>
@@ -457,7 +457,7 @@ import { lightTheme, darkTheme } from '@sun-ui/theme';
 
 ```tsx
 import { createTheme } from '@mui/material/styles';
-import { colors } from '@sun-ui/tokens';
+import { colors } from '@smug-ui/tokens';
 
 const customTheme = createTheme({
   palette: {
@@ -479,7 +479,7 @@ const customTheme = createTheme({
 
 ```tsx
 import { useMediaQuery } from '@mui/material';
-import { lightTheme, darkTheme } from '@sun-ui/theme';
+import { lightTheme, darkTheme } from '@smug-ui/theme';
 
 function App() {
   const prefersDark = useMediaQuery('(prefers-color-scheme: dark)');
@@ -496,8 +496,8 @@ function App() {
 
 ```tsx
 import { useState } from 'react';
-import { lightTheme, darkTheme } from '@sun-ui/theme';
-import { Switch } from '@sun-ui/react';
+import { lightTheme, darkTheme } from '@smug-ui/theme';
+import { Switch } from '@smug-ui/react';
 
 function App() {
   const [isDark, setIsDark] = useState(false);
@@ -534,7 +534,7 @@ function App() {
 
 ```tsx
 import { styled } from '@mui/material/styles';
-import { Button } from '@sun-ui/react';
+import { Button } from '@smug-ui/react';
 
 const GradientButton = styled(Button)({
   background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
@@ -572,16 +572,16 @@ Use the same variant for similar actions across your app.
 
 ```tsx
 // ✅ Good - Tree-shakeable
-import { Button, TextField } from '@sun-ui/react';
+import { Button, TextField } from '@smug-ui/react';
 
 // ❌ Avoid - May include unused code
-import * as SunUI from '@sun-ui/react';
+import * as SunUI from '@smug-ui/react';
 ```
 
 ### 4. Leverage TypeScript
 
 ```tsx
-import { ButtonProps } from '@sun-ui/react';
+import { ButtonProps } from '@smug-ui/react';
 
 interface MyButtonProps extends ButtonProps {
   analyticsId?: string;
@@ -642,11 +642,11 @@ Make sure you're using TypeScript 4.7+ and have `@types/react` installed.
 
 ## Resources
 
-- [🎨 Live Demo](https://sun-ui.vercel.app)
-- [📖 Storybook](https://sun-ui.vercel.app)
-- [🐙 GitHub](https://github.com/tahmidbintaslim/sun-ui)
-- [📦 npm](https://www.npmjs.com/package/@sun-ui/react)
+- [🎨 Live Demo](https://smug-ui.vercel.app)
+- [📖 Storybook](https://smug-ui.vercel.app)
+- [🐙 GitHub](https://github.com/tahmidbintaslim/smug-ui)
+- [📦 npm](https://www.npmjs.com/package/@smug-ui/react)
 
 ---
 
-**Happy building with Sun UI! ☀️**
+**Happy building with Smug UI! 😎**

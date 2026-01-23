@@ -1,18 +1,18 @@
 <div align="center">
 
-# 🌞 Sun UI
+# 😎 Smug UI
 
 ### MUI Components, Reimagined.
 
 **7 design variants. Zero config. 100% TypeScript. Full MUI ecosystem.**
 
-[![npm version](https://img.shields.io/npm/v/@sun-ui/react?style=flat-square&color=ff6b35)](https://www.npmjs.com/package/@sun-ui/react)
-[![Bundle Size](https://img.shields.io/bundlephobia/minzip/@sun-ui/react?style=flat-square&color=4ecdc4)](https://bundlephobia.com/package/@sun-ui/react)
-[![Tests](https://img.shields.io/badge/tests-62%20passing-brightgreen?style=flat-square)](https://github.com/tahmidbintaslim/sun-ui/actions)
+[![npm version](https://img.shields.io/npm/v/@smug-ui/react?style=flat-square&color=ff6b35)](https://www.npmjs.com/package/@smug-ui/react)
+[![Bundle Size](https://img.shields.io/bundlephobia/minzip/@smug-ui/react?style=flat-square&color=4ecdc4)](https://bundlephobia.com/package/@smug-ui/react)
+[![Tests](https://img.shields.io/badge/tests-62%20passing-brightgreen?style=flat-square)](https://github.com/tahmidbintaslim/smug-ui/actions)
 [![TypeScript](https://img.shields.io/badge/TypeScript-100%25-blue?style=flat-square)](https://www.typescriptlang.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=flat-square)](LICENSE)
 
-[**Live Demo**](https://sun-ui.vercel.app) · [**Documentation**](https://sun-ui.vercel.app) · [**Storybook**](https://sun-ui.vercel.app)
+[**Live Demo**](https://smug-ui.vercel.app) · [**Documentation**](https://smug-ui.vercel.app) · [**Storybook**](https://smug-ui.vercel.app)
 
 <br />
 
@@ -32,18 +32,18 @@
 | 📚 Steep learning curve for teams                 | ✅ **Intuitive API** — same props across all components |
 | ♿ Accessibility as afterthought                  | ✅ **WCAG 2.1 AA compliant** by default                 |
 
-> **Sun UI is for teams who love MUI's power but want beautiful, opinionated defaults without starting from scratch.**
+> **Smug UI is for teams who love MUI's power but want beautiful, opinionated defaults without starting from scratch.**
 
 ---
 
 ## ⚡ Quick Start
 
 ```bash
-npm install @sun-ui/react @mui/material @emotion/react @emotion/styled
+npm install @smug-ui/react @mui/material @emotion/react @emotion/styled
 ```
 
 ```tsx
-import { Button } from '@sun-ui/react';
+import { Button } from '@smug-ui/react';
 
 // 7 variants × 7 colors × 5 sizes = Infinite possibilities
 <Button variant="solid" color="primary">Get Started</Button>
@@ -116,13 +116,13 @@ Every Sun UI component supports **7 design variants** for maximum flexibility:
 
 ## 📦 Packages
 
-| Package                             | Description                     | Install                |
-| ----------------------------------- | ------------------------------- | ---------------------- |
-| [`@sun-ui/react`](packages/react)   | React component library         | `npm i @sun-ui/react`  |
-| [`@sun-ui/theme`](packages/theme)   | MUI v5 theme configuration      | `npm i @sun-ui/theme`  |
-| [`@sun-ui/tokens`](packages/tokens) | Design tokens (colors, spacing) | `npm i @sun-ui/tokens` |
-| [`@sun-ui/icons`](packages/icons)   | Icon library (2000+ SVG)        | `npm i @sun-ui/icons`  |
-| [`@sun-ui/core`](packages/core)     | Headless primitives             | 🚧 Coming soon         |
+| Package                              | Description                     | Install                 |
+| ------------------------------------ | ------------------------------- | ----------------------- |
+| [`@smug-ui/react`](packages/react)   | React component library         | `npm i @smug-ui/react`  |
+| [`@smug-ui/theme`](packages/theme)   | MUI v5 theme configuration      | `npm i @smug-ui/theme`  |
+| [`@smug-ui/tokens`](packages/tokens) | Design tokens (colors, spacing) | `npm i @smug-ui/tokens` |
+| [`@smug-ui/icons`](packages/icons)   | Icon library (2000+ SVG)        | `npm i @smug-ui/icons`  |
+| [`@smug-ui/core`](packages/core)     | Headless primitives             | 🚧 Coming soon          |
 
 ---
 
@@ -178,8 +178,8 @@ Every Sun UI component supports **7 design variants** for maximum flexibility:
 ```tsx
 import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
-import { lightTheme } from '@sun-ui/theme';
-import { Button, TextField, Card, Alert } from '@sun-ui/react';
+import { lightTheme } from '@smug-ui/theme';
+import { Button, TextField, Card, Alert } from '@smug-ui/react';
 
 export default function App() {
   return (
@@ -206,13 +206,13 @@ export default function App() {
 
 ## 📖 Documentation
 
-| Resource                                  | Description                    |
-| ----------------------------------------- | ------------------------------ |
-| [📚 Documentation](DOCUMENTATION.md)      | Complete usage guide           |
-| [🎨 Storybook](https://sun-ui.vercel.app) | Interactive component explorer |
-| [🏗️ Architecture](API_ARCHITECTURE.md)    | Technical deep-dive            |
-| [🧪 Testing Guide](TESTING_GUIDE.md)      | Testing patterns               |
-| [🤝 Contributing](CONTRIBUTING.md)        | How to contribute              |
+| Resource                                   | Description                    |
+| ------------------------------------------ | ------------------------------ |
+| [📚 Documentation](DOCUMENTATION.md)       | Complete usage guide           |
+| [🎨 Storybook](https://smug-ui.vercel.app) | Interactive component explorer |
+| [🏗️ Architecture](API_ARCHITECTURE.md)     | Technical deep-dive            |
+| [🧪 Testing Guide](TESTING_GUIDE.md)       | Testing patterns               |
+| [🤝 Contributing](CONTRIBUTING.md)         | How to contribute              |
 
 ---
 
@@ -220,8 +220,8 @@ export default function App() {
 
 ```bash
 # Clone & install
-git clone https://github.com/tahmidbintaslim/sun-ui.git
-cd sun-ui && pnpm install
+git clone https://github.com/tahmidbintaslim/smug-ui.git
+cd smug-ui && pnpm install
 
 # Development
 pnpm dev              # Start Storybook
@@ -233,7 +233,7 @@ pnpm lint             # Lint code
 ### Project Structure
 
 ```
-sun-ui/
+smug-ui/
 ├── apps/docs/         → Storybook documentation
 ├── packages/
 │   ├── react/         → React components
@@ -265,7 +265,7 @@ sun-ui/
 
 ### 🔮 v2.0 — Headless (Q2 2026)
 
-- [ ] `@sun-ui/core` headless primitives
+- [ ] `@smug-ui/core` headless primitives
 - [ ] Framework-agnostic tokens
 - [ ] Animation library
 - [ ] Advanced theming system
@@ -330,8 +330,8 @@ Built with:
 
 **Made with ☀️ by the Sun UI team**
 
-[⭐ Star us on GitHub](https://github.com/tahmidbintaslim/sun-ui) — it means everything!
+[⭐ Star us on GitHub](https://github.com/tahmidbintaslim/smug-ui) — it means everything!
 
-[Report Bug](https://github.com/tahmidbintaslim/sun-ui/issues/new?template=bug_report.md) · [Request Feature](https://github.com/tahmidbintaslim/sun-ui/discussions/new?category=ideas) · [Contribute](CONTRIBUTING.md)
+[Report Bug](https://github.com/tahmidbintaslim/smug-ui/issues/new?template=bug_report.md) · [Request Feature](https://github.com/tahmidbintaslim/smug-ui/discussions/new?category=ideas) · [Contribute](CONTRIBUTING.md)
 
 </div>

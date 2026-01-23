@@ -19,8 +19,8 @@ A clear and concise description of what the bug is.
 <!-- Where does the bug occur? -->
 
 - Component: (e.g., Button, TextField, etc.)
-- Package: (e.g., @sun-ui/react, @sun-ui/theme)
-- Version: (run `npm list @sun-ui/react`)
+- Package: (e.g., @smug-ui/react, @smug-ui/theme)
+- Version: (run `npm list @smug-ui/react`)
 
 ---
 
@@ -75,7 +75,7 @@ Please provide your environment details:
 <!-- Provide a minimal code example that reproduces the bug -->
 
 ```tsx
-import { Button } from '@sun-ui/react';
+import { Button } from '@smug-ui/react';
 
 export function MyComponent() {
   return <Button>{/* Bug occurs here */}</Button>;

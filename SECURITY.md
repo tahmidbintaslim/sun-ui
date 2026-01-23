@@ -1,6 +1,6 @@
 # Security Policy
 
-Sun UI takes security very seriously. We appreciate your help in keeping Sun UI secure.
+Smug UI takes security very seriously. We appreciate your help in keeping Smug UI secure.
 
 ## Reporting a Vulnerability
 
@@ -10,7 +10,7 @@ Sun UI takes security very seriously. We appreciate your help in keeping Sun UI 
 
 Please report security vulnerabilities by email to:
 
-📧 **security@sun-ui.dev**
+📧 **security@smug-ui.dev**
 
 Please include:
 
@@ -111,12 +111,12 @@ Once patched, we'll announce via:
 
 ### For Users
 
-When using Sun UI, follow these practices:
+When using Smug UI, follow these practices:
 
 1. **Keep Updated** — Always use the latest version
 
    ```bash
-   pnpm up @sun-ui/react
+   pnpm up @smug-ui/react
    ```
 
 2. **Monitor Dependencies** — Check for vulnerabilities
@@ -127,7 +127,7 @@ When using Sun UI, follow these practices:
 
 3. **Report Vulnerabilities** — Found an issue? Report it privately
 
-4. **Follow Material-UI Guidance** — Sun UI wraps MUI, so follow their security practices
+4. **Follow Material-UI Guidance** — Smug UI wraps MUI, so follow their security practices
 
 5. **Validate Input** — Always validate user input
 
@@ -162,7 +162,7 @@ When using Sun UI, follow these practices:
 
 ### Using Secure Dependencies
 
-Sun UI's only runtime dependencies:
+Smug UI's only runtime dependencies:
 
 - **React** — Essential UI library
 - **Material-UI (MUI)** — Component base
@@ -190,7 +190,7 @@ pnpm audit --fix
 
 ### XSS (Cross-Site Scripting)
 
-Sun UI components escape user input by default:
+Smug UI components escape user input by default:
 
 ```tsx
 // Safe - XSS prevented
@@ -203,7 +203,7 @@ Sun UI components escape user input by default:
 
 ### CSRF (Cross-Site Request Forgery)
 
-Sun UI is a client-side library. CSRF prevention is backend responsibility:
+Smug UI is a client-side library. CSRF prevention is backend responsibility:
 
 ```typescript
 // Backend: Include CSRF token
@@ -234,7 +234,7 @@ Report any dependency vulnerabilities to the maintainers immediately.
 
 ## Security Headers
 
-For applications using Sun UI, implement these headers:
+For applications using Smug UI, implement these headers:
 
 ```
 # Prevent XSS
@@ -256,7 +256,7 @@ Permissions-Policy: geolocation=(), microphone=(), camera=()
 
 ## OWASP Top 10
 
-Sun UI addresses OWASP Top 10 vulnerabilities:
+Smug UI addresses OWASP Top 10 vulnerabilities:
 
 1. ✅ **Broken Access Control** — Type-safe props system
 2. ✅ **Cryptographic Failures** — Use HTTPS always
@@ -273,9 +273,9 @@ Sun UI addresses OWASP Top 10 vulnerabilities:
 
 ## Frequently Asked Questions
 
-### Is Sun UI secure for production?
+### Is Smug UI secure for production?
 
-Yes. Sun UI is production-ready with comprehensive testing, security reviews, and follows Material-UI's security practices.
+Yes. Smug UI is production-ready with comprehensive testing, security reviews, and follows Material-UI's security practices.
 
 ### What about third-party components?
 
@@ -289,9 +289,9 @@ All dependencies are carefully vetted. MUI is maintained by the MUI team and has
 
 ### What if I find a vulnerability?
 
-Report it privately at: **security@sun-ui.dev**
+Report it privately at: **security@smug-ui.dev**
 
-### Can I use Sun UI with Sensitive Data?
+### Can I use Smug UI with Sensitive Data?
 
 Yes, but implement proper backend security:
 
@@ -308,7 +308,7 @@ No known unpatched vulnerabilities. See releases for security updates.
 
 ## Security Acknowledgments
 
-We're grateful to security researchers who help keep Sun UI safe. Acknowledged researchers:
+We're grateful to security researchers who help keep Smug UI safe. Acknowledged researchers:
 
 - (None reported yet - help us out!)
 
@@ -365,14 +365,14 @@ localStorage.setItem('token', sensitiveToken);
 
 ## Contact
 
-- **Email**: security@sun-ui.dev
+- **Email**: security@smug-ui.dev
 - **GitHub**: [@tahmidbintaslim](https://github.com/tahmidbintaslim)
-- **Discussions**: [GitHub Discussions](https://github.com/tahmidbintaslim/sun-ui/discussions)
+- **Discussions**: [GitHub Discussions](https://github.com/tahmidbintaslim/smug-ui/discussions)
 
 ---
 
 <div align="center">
 
-**Thank you for helping keep Sun UI secure! 🔒**
+**Thank you for helping keep Smug UI secure! 🔒**
 
 </div>

@@ -47,7 +47,7 @@ Describe any alternative solutions or features you've considered:
 
 ```tsx
 // Example usage
-import { NewComponent } from '@sun-ui/react';
+import { NewComponent } from '@smug-ui/react';
 
 export function MyComponent() {
   return <NewComponent />;

@@ -1,11 +1,11 @@
 {
-  "name": "@sun-ui/icons",
+  "name": "@smug-ui/icons",
   "version": "1.0.0",
-  "description": "2000+ SVG icons for Sun UI. Tree-shakeable and optimized.",
-  "homepage": "https://sun-ui.vercel.app",
+  "description": "2000+ SVG icons for Smug UI. Tree-shakeable and optimized.",
+  "homepage": "https://smug-ui.vercel.app",
   "repository": {
     "type": "git",
-    "url": "https://github.com/tahmidbintaslim/sun-ui.git",
+    "url": "https://github.com/tahmidbintaslim/smug-ui.git",
     "directory": "packages/icons"
   },
   "keywords": [

@@ -1,5 +1,5 @@
 import { createTheme, ThemeOptions } from '@mui/material/styles';
-import { radiusScale, sunPalette } from '@sun-ui/tokens';
+import { radiusScale, sunPalette } from '@smug-ui/tokens';
 
 const themeOptions: ThemeOptions = {
   palette: {

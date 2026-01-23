@@ -1,8 +1,8 @@
-# 🌞 Sun UI — Architecture & API Reference
+# 😎 Smug UI — Architecture & API Reference
 
-> **Technical deep-dive into Sun UI's architecture, design patterns, and internal APIs.**
+> **Technical deep-dive into Smug UI's architecture, design patterns, and internal APIs.**
 
-Sun UI is a React component library that gives you **beautiful, opinionated defaults on top of Material-UI** — without locking you out of MUI's full ecosystem.
+Smug UI is a React component library that gives you **beautiful, opinionated defaults on top of Material-UI** — without locking you out of MUI's full ecosystem.
 
 ---
 
@@ -25,21 +25,21 @@ Sun UI is a React component library that gives you **beautiful, opinionated defa
 
 ### Monorepo Structure
 
-Sun UI is built as a monorepo using TurboRepo and pnpm workspaces:
+Smug UI is built as a monorepo using TurboRepo and pnpm workspaces:
 
 ```
 ┌─────────────────────────────────────┐
-│          @sun-ui/react              │  ← Main component library
+│          @smug-ui/react              │  ← Main component library
 │  (Button, TextField, Select, etc.)  │
 └──────────────────┬──────────────────┘
                    ↓
 ┌─────────────────────────────────────┐
-│         @sun-ui/theme               │  ← MUI theme configuration
+│         @smug-ui/theme               │  ← MUI theme configuration
 │  (lightTheme, darkTheme)            │
 └──────────────────┬──────────────────┘
                    ↓
 ┌──────────────────────────────────────┐
-│        @sun-ui/tokens               │  ← Design tokens
+│        @smug-ui/tokens               │  ← Design tokens
 │  (colors, spacing, radius)          │
 └──────────────────────────────────────┘
 ```
@@ -47,18 +47,18 @@ Sun UI is built as a monorepo using TurboRepo and pnpm workspaces:
 ### Package Dependencies
 
 ```
-@sun-ui/react
-  ├── @sun-ui/theme
-  │   └── @sun-ui/tokens
+@smug-ui/react
+  ├── @smug-ui/theme
+  │   └── @smug-ui/tokens
   ├── @emotion/react
   ├── @emotion/styled
   ├── @mui/material
   └── react
 
-@sun-ui/theme
-  └── @sun-ui/tokens
+@smug-ui/theme
+  └── @smug-ui/tokens
 
-@sun-ui/tokens
+@smug-ui/tokens
   └── (no dependencies)
 ```
 
@@ -383,7 +383,7 @@ export const darkTheme = createTheme({
 
 ```tsx
 import { ThemeProvider } from '@mui/material/styles';
-import { lightTheme } from '@sun-ui/theme';
+import { lightTheme } from '@smug-ui/theme';
 
 <ThemeProvider theme={lightTheme}>{/* Your app */}</ThemeProvider>;
 ```
@@ -395,7 +395,7 @@ import { lightTheme } from '@sun-ui/theme';
 ### Token Organization
 
 ```typescript
-// @sun-ui/tokens/src/index.ts
+// @smug-ui/tokens/src/index.ts
 export { sunPalette } from './palette';
 export { sunSpacing } from './spacing';
 export { sunRadius } from './radius';
@@ -475,7 +475,7 @@ export const sunRadius = {
 Each package provides a clear export surface:
 
 ```tsx
-// @sun-ui/react/src/index.ts
+// @smug-ui/react/src/index.ts
 export { Button } from './Button';
 export type { ButtonProps } from './Button';
 
@@ -505,11 +505,11 @@ All exports are tree-shakeable:
 
 ```tsx
 // ✅ Good: Specific imports
-import { Button } from '@sun-ui/react'; // Only Button is bundled
-import { TextField } from '@sun-ui/react'; // Only TextField is bundled
+import { Button } from '@smug-ui/react'; // Only Button is bundled
+import { TextField } from '@smug-ui/react'; // Only TextField is bundled
 
 // ❌ Avoid: Wildcard imports
-import * as SunUI from '@sun-ui/react'; // All components bundled
+import * as SunUI from '@smug-ui/react'; // All components bundled
 ```
 
 ### Barrel Exports
@@ -652,7 +652,7 @@ Lazy-load components when needed:
 ```tsx
 import { lazy, Suspense } from 'react';
 
-const Button = lazy(() => import('@sun-ui/react').then((m) => ({ default: m.Button })));
+const Button = lazy(() => import('@smug-ui/react').then((m) => ({ default: m.Button })));
 
 <Suspense fallback={<div>Loading...</div>}>
   <Button>Click me</Button>
@@ -684,7 +684,7 @@ Sun UI components are optimized for size:
 Button:        ~5KB (gzipped)
 TextField:     ~8KB (gzipped)
 Select:        ~12KB (gzipped)
-Total @sun-ui/react: ~150KB (all components, gzipped)
+Total @smug-ui/react: ~150KB (all components, gzipped)
 ```
 
 ---
@@ -696,7 +696,7 @@ Total @sun-ui/react: ~150KB (all components, gzipped)
 Create custom components by extending Sun UI:
 
 ```tsx
-import { Button, ButtonProps } from '@sun-ui/react';
+import { Button, ButtonProps } from '@smug-ui/react';
 import { styled } from '@mui/material/styles';
 
 const CustomStyledButton = styled(Button)(({ theme }) => ({
@@ -714,7 +714,7 @@ Extend the theme with custom colors:
 
 ```tsx
 import { createTheme } from '@mui/material/styles';
-import { lightTheme } from '@sun-ui/theme';
+import { lightTheme } from '@smug-ui/theme';
 
 const customTheme = createTheme(lightTheme, {
   palette: {
@@ -732,7 +732,7 @@ const customTheme = createTheme(lightTheme, {
 Add custom design tokens:
 
 ```tsx
-import { sunPalette } from '@sun-ui/tokens';
+import { sunPalette } from '@smug-ui/tokens';
 
 export const customTokens = {
   ...sunPalette,
@@ -750,7 +750,7 @@ Future versions will support plugin architecture:
 
 ```tsx
 // Coming in v2.0
-import { createPlugin } from '@sun-ui/core';
+import { createPlugin } from '@smug-ui/core';
 
 const customPlugin = createPlugin({
   name: 'custom-theme',
@@ -770,7 +770,7 @@ Access theme in components:
 
 ```tsx
 // Coming soon
-import { useTheme, usePalette, useBreakpoint } from '@sun-ui/theme';
+import { useTheme, usePalette, useBreakpoint } from '@smug-ui/theme';
 
 const MyComponent = () => {
   const theme = useTheme();
@@ -787,7 +787,7 @@ Custom hooks for component state:
 
 ```tsx
 // Coming soon
-import { useFormControl, useMenu, usePopper } from '@sun-ui/react';
+import { useFormControl, useMenu, usePopper } from '@smug-ui/react';
 
 const MyComponent = () => {
   const formControl = useFormControl();

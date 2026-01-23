@@ -1,6 +1,6 @@
 import { Button as MuiButton, ButtonProps as MuiButtonProps } from '@mui/material';
 import { keyframes, styled } from '@mui/material/styles';
-import { colors, componentSizes, radius, transitions } from '@sun-ui/tokens';
+import { colors, componentSizes, radius, transitions } from '@smug-ui/tokens';
 import * as React from 'react';
 
 // =============================================================================

@@ -1,11 +1,11 @@
 {
-  "name": "@sun-ui/core",
+  "name": "@smug-ui/core",
   "version": "1.0.0",
-  "description": "Headless primitives and utilities for Sun UI. Framework-agnostic foundation.",
-  "homepage": "https://sun-ui.vercel.app",
+  "description": "Headless primitives and utilities for Smug UI. Framework-agnostic foundation.",
+  "homepage": "https://smug-ui.vercel.app",
   "repository": {
     "type": "git",
-    "url": "https://github.com/tahmidbintaslim/sun-ui.git",
+    "url": "https://github.com/tahmidbintaslim/smug-ui.git",
     "directory": "packages/core"
   },
   "keywords": [
@@ -38,7 +38,7 @@
   },
   "dependencies": {
     "@storybook/react": "^10.1.4",
-    "@sun-ui/tokens": "workspace:*",
+    "@smug-ui/tokens": "workspace:*",
     "storybook": "^10.1.4"
   },
   "peerDependencies": {

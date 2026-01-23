@@ -8,7 +8,7 @@ import {
   Typography,
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import { colors, radius, typography, type ColorScale } from '@sun-ui/tokens';
+import { colors, radius, typography, type ColorScale } from '@smug-ui/tokens';
 import * as React from 'react';
 
 // =============================================================================

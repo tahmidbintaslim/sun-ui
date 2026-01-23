@@ -18,11 +18,11 @@
     "allowSyntheticDefaultImports": true,
     "baseUrl": ".",
     "paths": {
-      "@sun-ui/tokens": ["packages/tokens/src"],
-      "@sun-ui/theme": ["packages/theme/src"],
-      "@sun-ui/react": ["packages/react/src"],
-      "@sun-ui/icons": ["packages/icons/src"],
-      "@sun-ui/core": ["packages/core/src"]
+      "@smug-ui/tokens": ["packages/tokens/src"],
+      "@smug-ui/theme": ["packages/theme/src"],
+      "@smug-ui/react": ["packages/react/src"],
+      "@smug-ui/icons": ["packages/icons/src"],
+      "@smug-ui/core": ["packages/core/src"]
     }
   },
   "include": ["vitest.config.ts"]

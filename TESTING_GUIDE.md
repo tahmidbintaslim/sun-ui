@@ -29,8 +29,8 @@ Complete guide for testing, developing, and extending Sun UI.
 
 ```bash
 # Clone repository
-git clone https://github.com/tahmidbintaslim/sun-ui.git
-cd sun-ui
+git clone https://github.com/tahmidbintaslim/smug-ui.git
+cd smug-ui
 
 # Install dependencies
 pnpm install
@@ -99,7 +99,7 @@ pnpm clean
 ### Monorepo Structure
 
 ```
-sun-ui/
+smug-ui/
 ├── apps/
 │   └── docs/                    # Storybook application
 │       ├── .storybook/          # Storybook configuration
@@ -189,7 +189,7 @@ Test component interactions:
 ```tsx
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { TextField, Button } from '@sun-ui/react';
+import { TextField, Button } from '@smug-ui/react';
 
 describe('Form Integration', () => {
   it('submits form data', async () => {
@@ -277,7 +277,7 @@ This runs all package unit tests in non-watch mode, suitable for CI pipelines.
 ### Run Tests for Specific Package
 
 ```bash
-pnpm vitest --project=@sun-ui/react
+pnpm vitest --project=@smug-ui/react
 ```
 
 ### Run Single Test File
@@ -620,7 +620,7 @@ Runs on every push and pull request:
 ```yaml
 jobs:
   lint: # ESLint + TypeScript checks
-  unit-tests: # Component unit tests (@sun-ui/react)
+  unit-tests: # Component unit tests (@smug-ui/react)
   storybook-tests: # Interaction + accessibility tests
   visual-tests: # Chromatic visual regression
   build: # Verify packages compile
@@ -647,7 +647,7 @@ When a test fails in CI, the output includes a clickable link:
 ```
 ❌ FAIL  src/Button.stories.tsx > Button > Click Event
 
-   View in Storybook: https://sun-ui.vercel.app/?path=/story/atoms-button--click-event
+   View in Storybook: https://smug-ui.vercel.app/?path=/story/atoms-button--click-event
 ```
 
 This link points to your deployed Storybook (via `SB_URL` environment variable).
@@ -777,8 +777,8 @@ pnpm changeset version
 
 ```markdown
 ---
-'@sun-ui/react': minor
-'@sun-ui/theme': patch
+'@smug-ui/react': minor
+'@smug-ui/theme': patch
 ---
 
 Added new Avatar component with 5 variants.

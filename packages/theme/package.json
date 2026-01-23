@@ -1,11 +1,11 @@
 {
-  "name": "@sun-ui/theme",
+  "name": "@smug-ui/theme",
   "version": "1.0.0",
   "description": "Pre-configured MUI themes with beautiful defaults. Light and dark themes included.",
-  "homepage": "https://sun-ui.vercel.app",
+  "homepage": "https://smug-ui.vercel.app",
   "repository": {
     "type": "git",
-    "url": "https://github.com/tahmidbintaslim/sun-ui.git",
+    "url": "https://github.com/tahmidbintaslim/smug-ui.git",
     "directory": "packages/theme"
   },
   "keywords": [
@@ -42,7 +42,7 @@
   "dependencies": {
     "@mui/material": "^7.3.5",
     "@storybook/react": "^10.1.4",
-    "@sun-ui/tokens": "workspace:*",
+    "@smug-ui/tokens": "workspace:*",
     "storybook": "^10.1.4"
   },
   "peerDependencies": {

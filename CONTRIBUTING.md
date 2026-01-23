@@ -49,14 +49,14 @@ Instances of abusive, harassing, or otherwise unacceptable behavior may be repor
 
 ```bash
 # 1. Fork the repository on GitHub
-# Visit: https://github.com/tahmidbintaslim/sun-ui/fork
+# Visit: https://github.com/tahmidbintaslim/smug-ui/fork
 
 # 2. Clone your fork
-git clone https://github.com/YOUR_USERNAME/sun-ui.git
-cd sun-ui
+git clone https://github.com/YOUR_USERNAME/smug-ui.git
+cd smug-ui
 
 # 3. Add upstream remote
-git remote add upstream https://github.com/tahmidbintaslim/sun-ui.git
+git remote add upstream https://github.com/tahmidbintaslim/smug-ui.git
 
 # 4. Keep your fork updated
 git fetch upstream
@@ -394,7 +394,7 @@ Your changes will be:
 
 ### Report a Bug
 
-[Create bug report →](https://github.com/tahmidbintaslim/sun-ui/issues/new?template=bug_report.md)
+[Create bug report →](https://github.com/tahmidbintaslim/smug-ui/issues/new?template=bug_report.md)
 
 **Include:**
 
@@ -419,7 +419,7 @@ Your changes will be:
 
 ### Request a Feature
 
-[Start discussion →](https://github.com/tahmidbintaslim/sun-ui/discussions/new?category=ideas)
+[Start discussion →](https://github.com/tahmidbintaslim/smug-ui/discussions/new?category=ideas)
 
 **Describe:**
 
@@ -543,8 +543,8 @@ export const Loading: Story = {
 
 ## Questions?
 
-- **[GitHub Discussions](https://github.com/tahmidbintaslim/sun-ui/discussions)** — Ask questions
-- **[GitHub Issues](https://github.com/tahmidbintaslim/sun-ui/issues)** — Report problems
+- **[GitHub Discussions](https://github.com/tahmidbintaslim/smug-ui/discussions)** — Ask questions
+- **[GitHub Issues](https://github.com/tahmidbintaslim/smug-ui/issues)** — Report problems
 - **Email**: hello@tahmir.dev
 
 ---

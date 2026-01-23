@@ -1,11 +1,11 @@
 {
-  "name": "@sun-ui/react",
+  "name": "@smug-ui/react",
   "version": "1.0.0",
   "description": "Beautiful React components built on MUI. 7 design variants, zero config, 100% TypeScript.",
-  "homepage": "https://sun-ui.vercel.app",
+  "homepage": "https://smug-ui.vercel.app",
   "repository": {
     "type": "git",
-    "url": "https://github.com/tahmidbintaslim/sun-ui.git",
+    "url": "https://github.com/tahmidbintaslim/smug-ui.git",
     "directory": "packages/react"
   },
   "keywords": [
@@ -49,8 +49,8 @@
     "@mui/material": "^7.3.5",
     "@mui/x-date-pickers": "^8.0.0",
     "@storybook/react": "^10.1.4",
-    "@sun-ui/theme": "workspace:*",
-    "@sun-ui/tokens": "workspace:*",
+    "@smug-ui/theme": "workspace:*",
+    "@smug-ui/tokens": "workspace:*",
     "dayjs": "^1.11.13",
     "storybook": "^10.1.4"
   },
