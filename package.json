@@ -101,7 +101,7 @@
     "@smug-ui/react": "workspace:*",
     "@smug-ui/theme": "workspace:*",
     "@smug-ui/tokens": "workspace:*",
-    "pnpm": "^10.24.0",
+    "pnpm": "^10.27.0",
     "storybook": "^10.1.4"
   }
 }
