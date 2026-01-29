@@ -1,0 +1,35 @@
+{
+    "name": "web",
+    "version": "1.0.0",
+    "type": "module",
+    "private": true,
+    "scripts": {
+        "build": "vite build",
+        "dev": "vite",
+        "preview": "vite preview",
+        "lint": "eslint src",
+        "type-check": "tsc --noEmit",
+        "clean": "rm -rf dist"
+    },
+    "dependencies": {
+        "@emotion/react": "^11.14.0",
+        "@emotion/styled": "^11.14.1",
+        "@mui/icons-material": "^7.3.5",
+        "@mui/material": "^7.3.5",
+        "@smug-ui/core": "workspace:*",
+        "@smug-ui/react": "workspace:*",
+        "@smug-ui/theme": "workspace:*",
+        "@smug-ui/tokens": "workspace:*",
+        "react": "^19.2.0",
+        "react-dom": "^19.2.0",
+        "react-router-dom": "^6.28.0"
+    },
+    "devDependencies": {
+        "@types/react": "^19.2.9",
+        "@types/react-dom": "^19.2.3",
+        "@vitejs/plugin-react": "^4.3.3",
+        "eslint": "^9.39.2",
+        "typescript": "^5.9.3",
+        "vite": "^7.2.6"
+    }
+}

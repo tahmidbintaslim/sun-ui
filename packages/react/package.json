@@ -48,9 +48,10 @@
     "@mui/icons-material": "^7.3.5",
     "@mui/material": "^7.3.5",
     "@mui/x-date-pickers": "^8.0.0",
-    "@storybook/react": "^10.1.4",
+    "@smug-ui/core": "workspace:*",
     "@smug-ui/theme": "workspace:*",
     "@smug-ui/tokens": "workspace:*",
+    "@storybook/react": "^10.1.4",
     "dayjs": "^1.11.13",
     "storybook": "^10.1.4"
   },
