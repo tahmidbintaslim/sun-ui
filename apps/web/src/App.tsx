@@ -24,11 +24,11 @@ import {
 } from '@mui/icons-material';
 import { lightTheme, darkTheme } from '@smug-ui/theme';
 import {
-  Button as SmugButton,
-  Card as SmugCard,
+  Button as SunButton,
+  Card as SunCard,
   Badge,
-  Chip as SmugChip,
-  Avatar as SmugAvatar,
+  Chip as SunChip,
+  Avatar as SunAvatar,
   Alert,
   Progress,
   Rating,
@@ -105,8 +105,8 @@ function App() {
                     for Material UI
                   </Typography>
                   <Typography variant="h5" color="text.secondary" paragraph>
-                    26 React components built on Material UI v7, sharing one variant, color and
-                    size API, with design tokens and light and dark themes.
+                    26 React components built on Material UI v7, sharing one variant, color and size
+                    API, with design tokens and light and dark themes.
                   </Typography>
                   <Stack direction="row" spacing={2} sx={{ mt: 4 }}>
                     <Button
@@ -139,31 +139,31 @@ function App() {
                       gap: 2,
                     }}
                   >
-                    <SmugCard variant="outlined" sx={{ p: 3, width: '100%', maxWidth: 400 }}>
+                    <SunCard variant="outlined" sx={{ p: 3, width: '100%', maxWidth: 400 }}>
                       <Stack spacing={2}>
-                        <SmugButton variant="solid" color="primary" fullWidth>
+                        <SunButton variant="solid" color="primary" fullWidth>
                           Primary Button
-                        </SmugButton>
-                        <SmugButton variant="soft" color="success" fullWidth>
+                        </SunButton>
+                        <SunButton variant="soft" color="success" fullWidth>
                           Success Button
-                        </SmugButton>
-                        <SmugButton variant="outlined" color="warning" fullWidth>
+                        </SunButton>
+                        <SunButton variant="outlined" color="warning" fullWidth>
                           Warning Button
-                        </SmugButton>
+                        </SunButton>
                       </Stack>
-                    </SmugCard>
-                    <SmugCard
+                    </SunCard>
+                    <SunCard
                       variant="soft"
                       color="secondary"
                       sx={{ p: 3, width: '100%', maxWidth: 400 }}
                     >
                       <Stack direction="row" spacing={1} flexWrap="wrap">
-                        <SmugChip variant="solid" color="primary" label="React" />
-                        <SmugChip variant="soft" color="success" label="TypeScript" />
-                        <SmugChip variant="outlined" color="warning" label="MUI v7" />
-                        <SmugChip variant="ghost" color="info" label="Dark mode" />
+                        <SunChip variant="solid" color="primary" label="React" />
+                        <SunChip variant="soft" color="success" label="TypeScript" />
+                        <SunChip variant="outlined" color="warning" label="MUI v7" />
+                        <SunChip variant="ghost" color="info" label="Dark mode" />
                       </Stack>
-                    </SmugCard>
+                    </SunCard>
                   </Box>
                 </Grid>
               </Grid>
@@ -257,28 +257,28 @@ function App() {
               </Typography>
               <Grid container spacing={4}>
                 <Grid size={{ xs: 12, md: 6 }}>
-                  <SmugCard variant="outlined" sx={{ p: 3 }}>
+                  <SunCard variant="outlined" sx={{ p: 3 }}>
                     <Typography variant="h6" gutterBottom sx={{ fontWeight: 'bold' }}>
                       Buttons
                     </Typography>
                     <Stack direction="row" spacing={1} flexWrap="wrap">
-                      <SmugButton variant="solid" color="primary" size="sm">
+                      <SunButton variant="solid" color="primary" size="sm">
                         Solid
-                      </SmugButton>
-                      <SmugButton variant="soft" color="success" size="sm">
+                      </SunButton>
+                      <SunButton variant="soft" color="success" size="sm">
                         Soft
-                      </SmugButton>
-                      <SmugButton variant="outlined" color="warning" size="sm">
+                      </SunButton>
+                      <SunButton variant="outlined" color="warning" size="sm">
                         Outlined
-                      </SmugButton>
-                      <SmugButton variant="ghost" color="danger" size="sm">
+                      </SunButton>
+                      <SunButton variant="ghost" color="danger" size="sm">
                         Ghost
-                      </SmugButton>
+                      </SunButton>
                     </Stack>
-                  </SmugCard>
+                  </SunCard>
                 </Grid>
                 <Grid size={{ xs: 12, md: 6 }}>
-                  <SmugCard variant="soft" color="secondary" sx={{ p: 3 }}>
+                  <SunCard variant="soft" color="secondary" sx={{ p: 3 }}>
                     <Typography variant="h6" gutterBottom sx={{ fontWeight: 'bold' }}>
                       Form Elements
                     </Typography>
@@ -292,15 +292,15 @@ function App() {
                         This is an info alert
                       </Alert>
                     </Stack>
-                  </SmugCard>
+                  </SunCard>
                 </Grid>
                 <Grid size={{ xs: 12, md: 6 }}>
-                  <SmugCard variant="outlined" sx={{ p: 3 }}>
+                  <SunCard variant="outlined" sx={{ p: 3 }}>
                     <Typography variant="h6" gutterBottom sx={{ fontWeight: 'bold' }}>
                       Data Display
                     </Typography>
                     <Stack direction="row" spacing={2} alignItems="center">
-                      <SmugAvatar src="https://i.pravatar.cc/40" />
+                      <SunAvatar src="https://i.pravatar.cc/40" />
                       <Box>
                         <Typography variant="body2" sx={{ fontWeight: 'bold' }}>
                           John Doe
@@ -310,25 +310,25 @@ function App() {
                         </Typography>
                       </Box>
                       <Badge content="3" color="danger">
-                        <SmugButton variant="ghost" size="sm">
+                        <SunButton variant="ghost" size="sm">
                           Messages
-                        </SmugButton>
+                        </SunButton>
                       </Badge>
                     </Stack>
-                  </SmugCard>
+                  </SunCard>
                 </Grid>
                 <Grid size={{ xs: 12, md: 6 }}>
-                  <SmugCard variant="soft" color="primary" sx={{ p: 3 }}>
+                  <SunCard variant="soft" color="primary" sx={{ p: 3 }}>
                     <Typography variant="h6" gutterBottom sx={{ fontWeight: 'bold' }}>
                       Navigation
                     </Typography>
                     <Stack direction="row" spacing={1} flexWrap="wrap">
-                      <SmugChip variant="solid" color="primary" label="Home" />
-                      <SmugChip variant="outlined" color="secondary" label="About" />
-                      <SmugChip variant="soft" color="success" label="Contact" />
-                      <SmugChip variant="ghost" color="info" label="Blog" />
+                      <SunChip variant="solid" color="primary" label="Home" />
+                      <SunChip variant="outlined" color="secondary" label="About" />
+                      <SunChip variant="soft" color="success" label="Contact" />
+                      <SunChip variant="ghost" color="info" label="Blog" />
                     </Stack>
-                  </SmugCard>
+                  </SunCard>
                 </Grid>
               </Grid>
             </Container>
@@ -368,11 +368,7 @@ function App() {
                     Links
                   </Typography>
                   <Stack spacing={1}>
-                    <Button
-                      color="inherit"
-                      href="https://sun-ui-brown.vercel.app"
-                      target="_blank"
-                    >
+                    <Button color="inherit" href="https://sun-ui-brown.vercel.app" target="_blank">
                       Storybook
                     </Button>
                     <Button
