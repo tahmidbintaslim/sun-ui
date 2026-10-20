@@ -1,12 +1,15 @@
 # Sun UI - CI Pipeline
 #
-# This workflow runs on every push and PR to validate code quality:
-# - Unit tests for component logic
-# - Storybook component tests for UI behavior
-# - Linting and type checking
-# - Visual regression tests via Chromatic
+# Runs on every push and PR to main:
+# - Lint and type check
+# - Unit tests (Vitest + jsdom)
+# - Storybook component tests (Vitest browser mode, Chromium)
+# - Build of every package and app
+# - Visual review on Chromatic (skipped quietly when CHROMATIC_PROJECT_TOKEN is not set)
 #
-# For deployment-triggered tests with debugging links, see ui-tests.yml
+# pnpm/action-setup reads the pnpm version from "packageManager" in package.json.
+# Workspace packages resolve to their dist/ builds, so every job that imports them
+# builds the packages first.
 
 name: CI
 
@@ -21,10 +24,10 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
+permissions:
+  contents: read
+
 jobs:
-  # ============================================
-  # Job 1: Lint & Type Check
-  # ============================================
   lint:
     name: Lint & Type Check
     runs-on: ubuntu-latest
@@ -34,13 +37,11 @@ jobs:
 
       - name: Install pnpm
         uses: pnpm/action-setup@v4
-        with:
-          version: 10
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           cache: "pnpm"
 
       - name: Install Dependencies
@@ -49,12 +50,10 @@ jobs:
       - name: Run Lint
         run: pnpm lint
 
+      # turbo builds workspace dependencies first (type-check dependsOn ^build)
       - name: Run Type Check
         run: pnpm type-check
 
-  # ============================================
-  # Job 2: Unit Tests
-  # ============================================
   unit-tests:
     name: Unit Tests
     runs-on: ubuntu-latest
@@ -65,34 +64,22 @@ jobs:
 
       - name: Install pnpm
         uses: pnpm/action-setup@v4
-        with:
-          version: 10
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           cache: "pnpm"
 
       - name: Install Dependencies
         run: pnpm install --frozen-lockfile
 
-      # Run unit tests for React components
+      - name: Build Packages
+        run: pnpm build:packages
+
       - name: Run Unit Tests
-        run: pnpm test:unit
+        run: pnpm test:ci
 
-      # Upload coverage report
-      - name: Upload Coverage
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: unit-test-coverage
-          path: coverage/
-          retention-days: 7
-
-  # ============================================
-  # Job 3: Storybook Component Tests
-  # ============================================
   storybook-tests:
     name: Storybook Tests
     runs-on: ubuntu-latest
@@ -103,27 +90,26 @@ jobs:
 
       - name: Install pnpm
         uses: pnpm/action-setup@v4
-        with:
-          version: 10
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           cache: "pnpm"
 
       - name: Install Dependencies
         run: pnpm install --frozen-lockfile
 
-      # Install Playwright browsers for Storybook tests
+      - name: Build Packages
+        run: pnpm build:packages
+
       - name: Install Playwright Browsers
         run: pnpm exec playwright install chromium --with-deps
 
-      # Run Storybook component tests (interaction + accessibility)
+      # Runs every story as a test (render + play functions) in headless Chromium
       - name: Run Storybook Tests
-        run: pnpm test:storybook
+        run: pnpm test:storybook:ci
 
-      # Upload test results on failure
       - name: Upload Test Results
         if: failure()
         uses: actions/upload-artifact@v4
@@ -133,10 +119,8 @@ jobs:
             apps/docs/test-results/
             apps/docs/playwright-report/
           retention-days: 7
+          if-no-files-found: ignore
 
-  # ============================================
-  # Job 4: Visual Regression Tests (Chromatic)
-  # ============================================
   visual-tests:
     name: Visual Tests (Chromatic)
     runs-on: ubuntu-latest
@@ -151,25 +135,21 @@ jobs:
 
       - name: Install pnpm
         uses: pnpm/action-setup@v4
-        with:
-          version: 10
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           cache: "pnpm"
 
       - name: Install Dependencies
         run: pnpm install --frozen-lockfile
 
-      # Build Storybook for Chromatic
       - name: Build Storybook
-        run: pnpm storybook:build
+        run: pnpm turbo run build --filter=storybook
 
-      # Publish to Chromatic for visual review
       - name: Publish to Chromatic
-        uses: chromaui/action@latest
+        uses: chromaui/action@v11
         with:
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
           storybookBuildDir: ./apps/docs/storybook-static
@@ -178,9 +158,6 @@ jobs:
           exitOnceUploaded: true
         continue-on-error: true # Don't fail CI if Chromatic is not configured
 
-  # ============================================
-  # Job 5: Build Verification
-  # ============================================
   build:
     name: Build
     runs-on: ubuntu-latest
@@ -191,23 +168,19 @@ jobs:
 
       - name: Install pnpm
         uses: pnpm/action-setup@v4
-        with:
-          version: 10
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           cache: "pnpm"
 
       - name: Install Dependencies
         run: pnpm install --frozen-lockfile
 
-      # Build all packages to verify they compile
-      - name: Build Packages
+      - name: Build Packages and Apps
         run: pnpm build
 
-      # Upload build artifacts
       - name: Upload Build Artifacts
         uses: actions/upload-artifact@v4
         with:

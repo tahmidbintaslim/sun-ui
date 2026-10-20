@@ -56,10 +56,11 @@
   },
   "scripts": {
     "build": "turbo run build",
+    "build:packages": "turbo run build --filter=./packages/*",
     "test": "vitest",
     "test:unit": "vitest run",
-    "test:storybook": "vitest --project=storybook --config apps/docs/vitest.config.ts",
-    "test:storybook:ci": "vitest run --project=storybook --config apps/docs/vitest.config.ts",
+    "test:storybook": "pnpm --filter=storybook exec vitest --project=storybook",
+    "test:storybook:ci": "pnpm --filter=storybook exec vitest run --project=storybook",
     "test:ci": "vitest run",
     "lint": "turbo run lint",
     "type-check": "turbo run type-check",
@@ -92,6 +93,7 @@
     "jsdom": "^27.4.0",
     "playwright": "^1.57.0",
     "prettier": "^3.8.1",
+    "storybook": "^10.2.0",
     "turbo": "^2.7.5",
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.53.1",
@@ -102,8 +104,6 @@
     "@smug-ui/icons": "workspace:*",
     "@smug-ui/react": "workspace:*",
     "@smug-ui/theme": "workspace:*",
-    "@smug-ui/tokens": "workspace:*",
-    "pnpm": "^10.28.1",
-    "storybook": "^10.2.0"
+    "@smug-ui/tokens": "workspace:*"
   }
 }

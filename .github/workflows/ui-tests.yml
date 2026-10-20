@@ -19,10 +19,7 @@ jobs:
   test:
     name: Storybook Tests
     runs-on: ubuntu-latest
-    # Use Playwright's Docker image for pre-installed browsers
-    container:
-      image: mcr.microsoft.com/playwright:v1.52.0-noble
-    
+
     # Only run on successful deployments (not pending or failed)
     if: github.event_name == 'deployment_status' && github.event.deployment_status.state == 'success'
     
@@ -32,28 +29,30 @@ jobs:
 
       - name: Install pnpm
         uses: pnpm/action-setup@v4
-        with:
-          version: 10
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           cache: "pnpm"
 
       - name: Install Dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Build Packages
+        run: pnpm build:packages
+
+      # Installs the Chromium build that matches the locked Playwright version
+      - name: Install Playwright Browsers
+        run: pnpm exec playwright install chromium --with-deps
+
       # Run Storybook component tests
       # The SB_URL env var makes test failure links point to the deployed Storybook
       - name: Run Storybook Tests
-        run: pnpm test:storybook
+        run: pnpm test:storybook:ci
         env:
           # Pass the deployed Storybook URL for debugging test failures
           SB_URL: ${{ github.event.deployment_status.environment_url }}
-          # Ensure Playwright uses the container's browsers
-          PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: 1
-          HOME: /root
 
       # Upload test results as artifacts for debugging
       - name: Upload Test Results
@@ -65,3 +64,4 @@ jobs:
             apps/docs/test-results/
             apps/docs/playwright-report/
           retention-days: 7
+          if-no-files-found: ignore

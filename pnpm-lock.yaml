@@ -27,12 +27,6 @@ importers:
       '@smug-ui/tokens':
         specifier: workspace:*
         version: link:packages/tokens
-      pnpm:
-        specifier: ^10.28.1
-        version: 10.34.5
-      storybook:
-        specifier: ^10.2.0
-        version: 10.5.3(@types/react@19.2.17)(prettier@3.9.6)(react@19.2.8)
     devDependencies:
       '@changesets/cli':
         specifier: ^2.29.8
@@ -91,6 +85,9 @@ importers:
       prettier:
         specifier: ^3.8.1
         version: 3.9.6
+      storybook:
+        specifier: ^10.2.0
+        version: 10.5.3(@types/react@19.2.17)(prettier@3.9.6)(react@19.2.8)
       turbo:
         specifier: ^2.7.5
         version: 2.10.6
@@ -4044,11 +4041,6 @@ packages:
   pngjs@7.0.0:
     resolution: {integrity: sha512-LKWqWJRhstyYo9pGvgor/ivk2w94eSjE3RGVuzLGlr3NmD8bf7RcYGze1mNdEHRP6TRP6rMuDHk5t44hnTRyow==}
     engines: {node: '>=14.19.0'}
-
-  pnpm@10.34.5:
-    resolution: {integrity: sha512-pO4F8vc2WCVb1qiYWcBlpFwopX2u+uLIk6Fo7itzFow3uR6D5X6mdlStA/AwMXRkMOi84442LgQmBfuKvIAZLg==}
-    engines: {node: '>=18.12'}
-    hasBin: true
 
   postcss@8.5.22:
     resolution: {integrity: sha512-KBDEIpLrvpv16pp3K0Fw+UCoZfopFjjgeB+0tA/aaThfEE74kKDLrgg603YvOWJyg3+WYtyq3xYsQWsIyZlPqQ==}
@@ -8774,8 +8766,6 @@ snapshots:
       fsevents: 2.3.2
 
   pngjs@7.0.0: {}
-
-  pnpm@10.34.5: {}
 
   postcss@8.5.22:
     dependencies:

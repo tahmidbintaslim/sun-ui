@@ -1,43 +1,81 @@
+# Sun UI - Publish to npm
+#
+# Publishes only when the owner publishes a GitHub release (for example tag v0.1.0).
+# A push to any branch never publishes.
+#
+# Owner setup:
+# 1. Create the npm scope and an automation (or granular) token with publish rights.
+# 2. Save it as the repository secret NPM_TOKEN.
+# 3. Set the package versions (pnpm changeset version), merge to main, then publish a
+#    GitHub release whose tag is v<version>, for example v0.1.0.
+
 name: Release
 
 on:
-  push:
-    branches:
-      - main
+  release:
+    types: [published]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: release
+  cancel-in-progress: false
 
 jobs:
-  release:
-    name: Release
+  publish:
+    name: Publish to npm
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
-      pull-requests: write
     steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
+      - name: Checkout Code
+        uses: actions/checkout@v4
 
-      - uses: pnpm/action-setup@v2
-        with:
-          version: 10.19.0
-
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: pnpm
-
-      - run: pnpm install --frozen-lockfile
-
-      # Build before publishing to ensure artifacts exist
-      - name: Build
-        run: pnpm run build
-
-      - name: Create Release Pull Request or Publish to npm
-        id: changesets
-        uses: changesets/action@v1
-        with:
-          # This command handles versioning AND publishing automatically
-          publish: pnpm exec changeset publish
+      - name: Require NPM_TOKEN
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          if [ -z "$NPM_TOKEN" ]; then
+            echo "::error::The NPM_TOKEN repository secret is not set. Nothing was published."
+            exit 1
+          fi
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+          registry-url: https://registry.npmjs.org
+
+      - name: Install Dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Check release tag matches package versions
+        run: |
+          tag="${GITHUB_REF_NAME#v}"
+          for pkg in packages/*/package.json; do
+            private=$(node -p "require('./$pkg').private === true")
+            [ "$private" = "true" ] && continue
+            version=$(node -p "require('./$pkg').version")
+            if [ "$version" != "$tag" ]; then
+              echo "::error::$pkg is at $version but the release tag is $GITHUB_REF_NAME"
+              exit 1
+            fi
+          done
+
+      - name: Build Packages
+        run: pnpm build:packages
+
+      - name: Type Check
+        run: pnpm type-check
+
+      - name: Unit Tests
+        run: pnpm test:ci
+
+      # Publishes every non-private package under packages/ whose version is not on npm yet.
+      - name: Publish
+        run: pnpm -r --filter "./packages/*" publish --access public --no-git-checks
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

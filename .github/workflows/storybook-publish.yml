@@ -6,7 +6,7 @@
 # 1. Vercel (Primary) - Automatic via GitHub integration
 #    - Vercel is connected to this repo and auto-deploys on push
 #    - Preview URLs generated for PRs, Production for main branch
-#    - URL: https://smug-ui.vercel.app (or your custom domain)
+#    - URL: https://sun-ui-brown.vercel.app
 #
 # 2. Chromatic (Visual Testing) - Via this workflow
 #    - Publishes Storybook for visual regression testing
@@ -37,24 +37,19 @@ jobs:
 
       - name: Install pnpm
         uses: pnpm/action-setup@v4
-        with:
-          version: 10
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           cache: pnpm
 
       - name: Install Dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Install Playwright Browsers
-        run: pnpm exec playwright install chromium --with-deps
-
-      # Build Storybook static site
+      # Build Storybook static site (turbo builds the workspace packages first)
       - name: Build Storybook
-        run: pnpm --filter=storybook storybook:build
+        run: pnpm turbo run build --filter=storybook
 
       # Publish to Chromatic for visual testing review
       - name: Publish to Chromatic
