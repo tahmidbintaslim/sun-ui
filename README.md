@@ -1,337 +1,174 @@
-<div align="center">
+# Sun UI
 
-# 😎 Smug UI
+React components built on Material UI v7, with one `variant`, `color` and `size` API across 26 components, plus design tokens and light and dark themes.
 
-### MUI Components, Reimagined.
+**[Storybook](https://sun-ui-brown.vercel.app)** (working demo): every component with live controls, 372 stories in all.
 
-**7 design variants. Zero config. 100% TypeScript. Full MUI ecosystem.**
+**Status: in development.** Version 0.1.0 is not on npm yet. To try it today, run it from source (see [Development](#development)).
 
-[![npm version](https://img.shields.io/npm/v/@smug-ui/react?style=flat-square&color=ff6b35)](https://www.npmjs.com/package/@smug-ui/react)
-[![Bundle Size](https://img.shields.io/bundlephobia/minzip/@smug-ui/react?style=flat-square&color=4ecdc4)](https://bundlephobia.com/package/@smug-ui/react)
-[![Tests](https://img.shields.io/badge/tests-62%20passing-brightgreen?style=flat-square)](https://github.com/tahmidbintaslim/smug-ui/actions)
-[![TypeScript](https://img.shields.io/badge/TypeScript-100%25-blue?style=flat-square)](https://www.typescriptlang.org/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=flat-square)](LICENSE)
-
-[**Live Demo**](https://smug-ui.vercel.app) · [**Documentation**](https://smug-ui.vercel.app) · [**Storybook**](https://smug-ui.vercel.app)
-
-<br />
-
-</div>
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 ---
 
-## 🎯 The Problem We Solve
+## What it is
 
-**Building with Material-UI is powerful, but painful:**
+Sun UI wraps Material UI (MUI) v7 components with Emotion `styled()` and gives them a shared set of props:
 
-| Pain Point                                        | How Sun UI Fixes It                                     |
-| ------------------------------------------------- | ------------------------------------------------------- |
-| 😤 MUI's default variants are limited (3 options) | ✅ **7 beautiful variants** out of the box              |
-| 🎨 Spending hours on consistent styling           | ✅ **Production-ready design tokens** included          |
-| 🔧 Complex theme customization                    | ✅ **Beautiful defaults** that just work                |
-| 📚 Steep learning curve for teams                 | ✅ **Intuitive API** — same props across all components |
-| ♿ Accessibility as afterthought                  | ✅ **WCAG 2.1 AA compliant** by default                 |
+| Prop      | Values                                                                         |
+| --------- | ------------------------------------------------------------------------------ |
+| `variant` | `solid`, `soft`, `outlined`, `ghost`, `plain` (Button also has `dash`, `link`) |
+| `color`   | `primary`, `secondary`, `success`, `warning`, `danger`, `info`, `neutral`      |
+| `size`    | `xs`, `sm`, `md`, `lg`, `xl`                                                   |
 
-> **Smug UI is for teams who love MUI's power but want beautiful, opinionated defaults without starting from scratch.**
+Each component still takes the props of the MUI component it wraps, except the ones Sun UI replaces, so the `sx` prop and your MUI theme keep working.
 
----
+Sun UI is a good fit if you already use Material UI and MUI X and want soft, ghost and plain styles with one prop API. If you are not on MUI, a library built for your stack will serve you better.
 
-## ⚡ Quick Start
+## Packages
+
+The npm packages use the `@smug-ui` scope.
+
+| Package           | Contents                                                                                                       |
+| ----------------- | -------------------------------------------------------------------------------------------------------------- |
+| `@smug-ui/react`  | The 26 components                                                                                              |
+| `@smug-ui/theme`  | `lightTheme` and `darkTheme` (MUI `createTheme`) built from the tokens                                         |
+| `@smug-ui/tokens` | Colors (7 scales with alpha steps), spacing, radius, shadows, z-index, breakpoints, typography and animations  |
+| `@smug-ui/core`   | Shared types, variant presets, accessibility helpers and headless state helpers (Progress and Rating use them) |
+| `@smug-ui/icons`  | Empty placeholder. Private, not published                                                                      |
+
+Each published package ships ESM and CommonJS builds with TypeScript types, and `@smug-ui/react` starts with a `"use client"` directive.
+
+## Install
+
+Once 0.1.0 is published:
 
 ```bash
-npm install @smug-ui/react @mui/material @emotion/react @emotion/styled
+npm install @smug-ui/react @smug-ui/theme \
+  @mui/material @mui/icons-material @mui/x-date-pickers \
+  @emotion/react @emotion/styled dayjs
 ```
+
+Material UI, MUI X Date Pickers, Emotion and dayjs are peer dependencies, so your app keeps a single copy of each. `@smug-ui/react` needs React 19, Material UI 7 and MUI X Date Pickers 8. `@smug-ui/theme` works with React 18 or 19.
+
+## Usage
 
 ```tsx
-import { Button } from '@smug-ui/react';
-
-// 7 variants × 7 colors × 5 sizes = Infinite possibilities
-<Button variant="solid" color="primary">Get Started</Button>
-<Button variant="soft" color="success">Save Changes</Button>
-<Button variant="ghost" color="danger">Delete</Button>
-<Button variant="dash" color="info">Upload File</Button>
-```
-
-**That's it.** No theme setup required. Beautiful by default.
-
----
-
-## 🎨 7 Design Variants
-
-Every Sun UI component supports **7 design variants** for maximum flexibility:
-
-| Variant    | Use Case                   | Preview                            |
-| ---------- | -------------------------- | ---------------------------------- |
-| `solid`    | Primary actions, CTAs      | Filled background, high contrast   |
-| `soft`     | Secondary actions          | Subtle tinted background           |
-| `outlined` | Tertiary actions           | Border with transparent background |
-| `dash`     | Upload zones, placeholders | Dashed border style                |
-| `ghost`    | Minimal actions            | Shows color on hover               |
-| `plain`    | Text-only actions          | No background or border            |
-| `link`     | Inline links               | Underlined, hyperlink style        |
-
-```tsx
-<Button variant="solid">Solid</Button>
-<Button variant="soft">Soft</Button>
-<Button variant="outlined">Outlined</Button>
-<Button variant="dash">Dash</Button>
-<Button variant="ghost">Ghost</Button>
-<Button variant="plain">Plain</Button>
-<Button variant="link">Link</Button>
-```
-
----
-
-## 🆚 Why Sun UI Over Alternatives?
-
-| Feature             | Sun UI            | Raw MUI | Chakra UI | Mantine | daisyUI      |
-| ------------------- | ----------------- | ------- | --------- | ------- | ------------ |
-| **React Required**  | ✅                | ✅      | ✅        | ✅      | ❌           |
-| **Design Variants** | **7**             | 3       | 4         | 4       | 10+          |
-| **MUI Ecosystem**   | ✅ Full           | ✅ Full | ❌        | ❌      | ❌           |
-| **Design Tokens**   | ✅ Built-in       | Manual  | ✅        | ✅      | Via Tailwind |
-| **TypeScript**      | 100% Strict       | ✅      | ✅        | ✅      | N/A          |
-| **Zero Config**     | ✅                | ❌      | ✅        | ✅      | ✅           |
-| **Learning Curve**  | Low (if know MUI) | Medium  | Low       | Low     | Very Low     |
-
-### The Sweet Spot
-
-```
-┌─────────────────────────────────────────────────────────────────────┐
-│                                                                     │
-│   Raw MUI ←────────── Sun UI ──────────→ Opinionated Systems        │
-│   (Flexible           (Best of          (Chakra, Mantine —          │
-│    but verbose)        both worlds)       locked ecosystem)         │
-│                                                                     │
-└─────────────────────────────────────────────────────────────────────┘
-```
-
-**Sun UI gives you:**
-
-- 🎨 Beautiful defaults (like Chakra/Mantine)
-- 🔌 Full MUI ecosystem access (600+ components)
-- 🛠️ Complete customization (it's still MUI under the hood)
-
----
-
-## 📦 Packages
-
-| Package                              | Description                     | Install                 |
-| ------------------------------------ | ------------------------------- | ----------------------- |
-| [`@smug-ui/react`](packages/react)   | React component library         | `npm i @smug-ui/react`  |
-| [`@smug-ui/theme`](packages/theme)   | MUI v5 theme configuration      | `npm i @smug-ui/theme`  |
-| [`@smug-ui/tokens`](packages/tokens) | Design tokens (colors, spacing) | `npm i @smug-ui/tokens` |
-| [`@smug-ui/icons`](packages/icons)   | Icon library (2000+ SVG)        | `npm i @smug-ui/icons`  |
-| [`@smug-ui/core`](packages/core)     | Headless primitives             | 🚧 Coming soon          |
-
----
-
-## 🧩 Components
-
-### 14 Production-Ready Components
-
-#### Form Controls
-
-- ✨ **Button** — 7 variants, loading states, icons
-- 📝 **TextField** — Validation, multiline, icons
-- 🎯 **Select** — Single & multi-select
-- ☑️ **Checkbox** — Indeterminate support
-- 🔘 **Radio** — Radio groups
-- 🔘 **Switch** — Toggle switch
-
-#### Feedback
-
-- ⚠️ **Alert** — Notifications with actions
-- 🍞 **Snackbar** — Toast notifications
-- 💬 **Tooltip** — Helpful hints
-- 📦 **Dialog** — Modal dialogs
-- 📥 **Drawer** — Side panels
-- 🎈 **Popover** — Floating content
-
-#### Data Display
-
-- 👤 **Avatar** — User profiles
-- 🏷️ **Badge** — Status indicators
-- 💳 **Card** — Content containers
-- 🏷️ **Chip** — Tags & filters
-
----
-
-## ✨ Features
-
-| Feature                  | Description                                                 |
-| ------------------------ | ----------------------------------------------------------- |
-| 🎨 **7 Design Variants** | solid, soft, outlined, dash, ghost, plain, link             |
-| 🎯 **7 Color Schemes**   | primary, secondary, success, warning, danger, info, neutral |
-| 📐 **5 Sizes**           | xs, sm, md, lg, xl                                          |
-| 🌙 **Dark Mode**         | Automatic light/dark theme support                          |
-| ♿ **Accessible**        | WCAG 2.1 AA compliant, keyboard navigation                  |
-| 📦 **Tree-Shakeable**    | Import only what you use                                    |
-| 🔧 **TypeScript**        | 100% type-safe with strict mode                             |
-| 🧪 **Tested**            | 62 tests passing, real browser testing                      |
-| 📚 **Documented**        | Storybook with live examples                                |
-
----
-
-## 🚀 Full Example
-
-```tsx
-import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
+import { ThemeProvider } from '@mui/material/styles';
+import { Alert, Button, TextField } from '@smug-ui/react';
 import { lightTheme } from '@smug-ui/theme';
-import { Button, TextField, Card, Alert } from '@smug-ui/react';
 
-export default function App() {
+export function App() {
   return (
     <ThemeProvider theme={lightTheme}>
       <CssBaseline />
-
-      <Card variant="soft">
-        <Alert variant="solid" color="success">
-          Welcome to Sun UI!
-        </Alert>
-
-        <TextField variant="outlined" label="Email" fullWidth />
-
-        <Button variant="solid" color="primary" fullWidth>
-          Get Started
-        </Button>
-      </Card>
+      <Alert variant="soft" color="success">
+        Changes saved
+      </Alert>
+      <TextField variant="outlined" label="Email" />
+      <Button variant="solid" color="primary">
+        Continue
+      </Button>
+      <Button variant="dash" color="info">
+        Upload file
+      </Button>
     </ThemeProvider>
   );
 }
 ```
 
----
+Use `darkTheme` for dark mode. More examples are in [DOCUMENTATION.md](DOCUMENTATION.md) and in the [Storybook](https://sun-ui-brown.vercel.app).
 
-## 📖 Documentation
+## Components
 
-| Resource                                   | Description                    |
-| ------------------------------------------ | ------------------------------ |
-| [📚 Documentation](DOCUMENTATION.md)       | Complete usage guide           |
-| [🎨 Storybook](https://smug-ui.vercel.app) | Interactive component explorer |
-| [🏗️ Architecture](API_ARCHITECTURE.md)     | Technical deep-dive            |
-| [🧪 Testing Guide](TESTING_GUIDE.md)       | Testing patterns               |
-| [🤝 Contributing](CONTRIBUTING.md)         | How to contribute              |
+All components take the 7 colors and the 5 sizes above. Autocomplete and DatePicker name the red color `error` instead of `danger`.
 
----
+| Component         | `variant` values                                | Notes                                                           |
+| ----------------- | ----------------------------------------------- | --------------------------------------------------------------- |
+| Alert             | solid, soft, outlined, ghost, plain             |                                                                 |
+| Autocomplete      | solid, soft, outlined, ghost, plain             | Uses `error` instead of `danger`                                |
+| Avatar            | solid, soft, outlined, ghost, plain             | Optional `status` dot                                           |
+| Badge             | solid, soft, outlined, ghost, plain             |                                                                 |
+| Breadcrumbs       | solid, soft, outlined, ghost, plain             |                                                                 |
+| Button            | solid, soft, outlined, dash, ghost, plain, link | `loading`, `shape`, start and end icons                         |
+| Card              | solid, soft, outlined, ghost, plain             |                                                                 |
+| Checkbox          | solid, soft, outlined, ghost, plain             | `label` prop                                                    |
+| Chip              | solid, soft, outlined, ghost, plain             |                                                                 |
+| DatePicker        | solid, soft, outlined, ghost, plain             | MUI X Date Pickers with dayjs; uses `error`; re-exports `dayjs` |
+| Dialog            | solid, soft, outlined, ghost, plain             | Also exports DialogTitle, DialogContent, DialogActions          |
+| Drawer            | solid, soft, outlined, ghost, plain             |                                                                 |
+| Pagination        | solid, soft, outlined, ghost, plain             |                                                                 |
+| Popover           | solid, soft, outlined, ghost, plain             |                                                                 |
+| Progress          | solid, soft, outlined, ghost, plain             | Linear and circular                                             |
+| Radio             | solid, soft, outlined, ghost, plain             | `label` prop                                                    |
+| Rating            | solid, soft, outlined, ghost, plain             |                                                                 |
+| Select            | solid, soft, outlined, ghost, plain             | Also exports MenuItem                                           |
+| Slider            | solid, soft, outlined, ghost, plain             |                                                                 |
+| Snackbar          | solid, soft, outlined, ghost, plain             | Also exports SnackbarContent                                    |
+| Switch            | solid, soft, outlined, ghost, plain             |                                                                 |
+| Table             | solid, soft, outlined, ghost, plain             | Sorting, row selection, pagination, sticky header               |
+| Tabs              | solid, soft, outlined, ghost, plain             | Horizontal or vertical, optional panels                         |
+| TextField         | solid, soft, outlined, ghost, plain             |                                                                 |
+| ToggleButtonGroup | solid, soft, outlined, ghost, plain             | Also exports ToggleButton                                       |
+| Tooltip           | solid, soft, outlined, ghost, plain             |                                                                 |
 
-## 🛠️ Development
+## Accessibility
 
-```bash
-# Clone & install
-git clone https://github.com/tahmidbintaslim/smug-ui.git
-cd smug-ui && pnpm install
+- In the light theme, each color's tokens reach 4.5:1 text contrast (the WCAG 2.1 AA level for normal text) in the resting state of the solid, soft, outlined, plain and link variants. A unit test in `packages/tokens` checks those pairs.
+- Some hover and pressed states fall short: ghost and plain variants put `main` text on an 8% or 16% tint, which drops below 4.5:1 for some colors (danger and neutral on hover).
+- Dark mode does not reach 4.5:1 yet: outlined, plain and link variants use the same `main` color as text on dark surfaces.
+- Components rely on the keyboard and ARIA behavior of the MUI components they wrap. Six component test files run jest-axe, and Storybook includes the a11y addon, but the library has not had a full accessibility audit.
 
-# Development
-pnpm dev              # Start Storybook
-pnpm build            # Build all packages
-pnpm test             # Run tests
-pnpm lint             # Lint code
-```
+## Tests
 
-### Project Structure
+- 417 unit tests in 27 files (Vitest, Testing Library, jsdom): 376 for the components and 41 contrast checks for the tokens.
+- 372 Storybook stories, each run as a test in headless Chromium through Vitest browser mode, including 128 interaction (`play`) functions.
+- CI runs lint, type-check, both test suites and a full build on every push and pull request to `main`.
 
-```
-smug-ui/
-├── apps/docs/         → Storybook documentation
-├── packages/
-│   ├── react/         → React components
-│   ├── theme/         → MUI theme configuration
-│   ├── tokens/        → Design tokens
-│   ├── icons/         → Icon library
-│   └── core/          → Headless primitives
-└── ...
-```
+## Development
 
----
-
-## 🗺️ Roadmap
-
-### ✅ v1.0 — Foundation (Current)
-
-- [x] 14 core components with 7 variants
-- [x] Comprehensive test suite (124 tests)
-- [x] Full TypeScript support
-- [x] Dark mode
-- [x] Storybook documentation
-
-### 🚧 v1.1 — Expansion (Q1 2026)
-
-- [ ] 5 additional components (Table, Tabs, Accordion, Stepper, Menu)
-- [ ] Theme builder UI
-- [ ] Figma design kit
-- [ ] CLI scaffolding tool
-
-### 🔮 v2.0 — Headless (Q2 2026)
-
-- [ ] `@smug-ui/core` headless primitives
-- [ ] Framework-agnostic tokens
-- [ ] Animation library
-- [ ] Advanced theming system
-
----
-
-## 🤝 Contributing
-
-We welcome contributions! See our [Contributing Guide](CONTRIBUTING.md).
+Requires Node 22 and pnpm (run `corepack enable` once; the pnpm version comes from `packageManager`).
 
 ```bash
-# Quick contribution workflow
-git checkout -b feat/your-feature
-pnpm test && pnpm lint
-git commit -m "feat: add awesome feature"
-git push origin feat/your-feature
+git clone https://github.com/tahmidbintaslim/sun-ui.git
+cd sun-ui
+pnpm install
+
+pnpm build:packages      # build tokens, theme, core and react (tsup)
+pnpm storybook:dev       # Storybook on http://localhost:6006
+pnpm test:ci             # unit tests
+pnpm test:storybook:ci   # Storybook tests (first run: pnpm exec playwright install chromium)
+pnpm lint
+pnpm type-check
+pnpm build               # packages, Storybook and the web demo
 ```
 
----
+```
+sun-ui/
+├── apps/
+│   ├── docs/        Storybook (deployed to Vercel)
+│   └── web/         Landing page demo (not deployed)
+└── packages/
+    ├── react/       Components, tests and stories
+    ├── theme/       MUI themes
+    ├── tokens/      Design tokens and the contrast test
+    ├── core/        Shared types and helpers
+    └── icons/       Empty placeholder
+```
 
-## 📊 Stats
+## Known gaps
 
-<div align="center">
+- Not published to npm yet.
+- Dark-mode text contrast for outlined, plain and link variants, and some hover and pressed states (see [Accessibility](#accessibility)).
+- `@smug-ui/icons` is empty.
+- The packed packages have been imported and server-rendered from Node (ESM and CommonJS), but not yet tested inside a Next.js or Vite app.
 
-| 📦 Components | 🎨 Variants | 🧪 Tests | ♿ Accessibility | 📚 Stories |
-| :-----------: | :---------: | :------: | :--------------: | :--------: |
-|    **14**     |    **7**    |  **62**  | **WCAG 2.1 AA**  |   **82**   |
+## Contributing
 
-</div>
+See [CONTRIBUTING.md](CONTRIBUTING.md). Bugs and ideas go in [GitHub issues](https://github.com/tahmidbintaslim/sun-ui/issues). For security problems, follow [SECURITY.md](SECURITY.md).
 
----
+## License
 
-## 🙏 Credits
+[MIT](LICENSE). Copyright 2026 Tahmid Bin Taslim Rafi ([@tahmidbintaslim](https://github.com/tahmidbintaslim)) and Sun UI contributors.
 
-Built with:
-
-- [Material-UI (MUI)](https://mui.com) — Component foundation
-- [React 19](https://react.dev) — UI library
-- [TypeScript 5](https://www.typescriptlang.org) — Type safety
-- [Vitest](https://vitest.dev) — Testing
-- [Storybook 10](https://storybook.js.org) — Documentation
-- [TurboRepo](https://turbo.build) — Monorepo management
-
----
-
-## 👨‍💻 Author
-
-**Tahmid Bin Taslim**
-
-- GitHub: [@tahmidbintaslim](https://github.com/tahmidbintaslim)
-- Portfolio: [tahmir.dev](https://tahmir.dev)
-
----
-
-## 📄 License
-
-[MIT](LICENSE) © 2026 Tahmid Bin Taslim
-
----
-
-<div align="center">
-
-**Made with ☀️ by the Sun UI team**
-
-[⭐ Star us on GitHub](https://github.com/tahmidbintaslim/smug-ui) — it means everything!
-
-[Report Bug](https://github.com/tahmidbintaslim/smug-ui/issues/new?template=bug_report.md) · [Request Feature](https://github.com/tahmidbintaslim/smug-ui/discussions/new?category=ideas) · [Contribute](CONTRIBUTING.md)
-
-</div>
+Sun UI is not affiliated with or endorsed by MUI (Material UI SAS).

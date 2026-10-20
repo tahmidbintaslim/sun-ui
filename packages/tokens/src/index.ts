@@ -1,8 +1,8 @@
 /**
  * Sun UI Design Tokens
  *
- * A comprehensive design token system for building consistent,
- * accessible, and beautiful user interfaces.
+ * Colors, sizing, typography and animation tokens used by the Sun UI
+ * components and themes.
  */
 
 // Legacy palette (for backwards compatibility)

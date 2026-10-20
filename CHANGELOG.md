@@ -1,171 +1,36 @@
 # Changelog
 
-All notable changes to Sun UI will be documented in this file.
+All notable changes to Sun UI are recorded here. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and versions follow [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
-and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+Once releases start, Changesets also writes a `CHANGELOG.md` inside each published package.
 
----
+## [0.1.0] - Unreleased
 
-## [Unreleased]
+Nothing has been published to npm yet. This is the first planned release.
 
-### Planned for v1.1
+### Added
 
-- [ ] Additional components (Table, Tabs, Accordion, Stepper, Menu)
-- [ ] Theme builder UI
-- [ ] Design token customization
-- [ ] Figma design kit
-- [ ] CLI scaffolding tool
+- `@smug-ui/react`: 26 components built on Material UI v7: Alert, Autocomplete, Avatar, Badge, Breadcrumbs, Button, Card, Checkbox, Chip, DatePicker, Dialog, Drawer, Pagination, Popover, Progress, Radio, Rating, Select, Slider, Snackbar, Switch, Table, Tabs, TextField, ToggleButtonGroup and Tooltip.
+- A shared `variant` / `color` / `size` API: 5 variants (solid, soft, outlined, ghost, plain) on every component, plus dash and link on Button; 7 colors; 5 sizes.
+- `@smug-ui/theme`: `lightTheme` and `darkTheme` for the MUI `ThemeProvider`.
+- `@smug-ui/tokens`: color scales, spacing, radius, shadows, z-index, breakpoints, typography and animation tokens.
+- `@smug-ui/core`: shared types, variant presets, accessibility helpers and headless state helpers.
+- Storybook with 372 stories, deployed at https://sun-ui-brown.vercel.app.
+- 417 unit tests and 372 Storybook tests.
 
----
+### Changed
 
-## [1.0.0] - 2026-01-01
+- Packages build with tsup to ESM and CommonJS with type definitions, and declare `"sideEffects": false`. `@smug-ui/react` carries a `"use client"` directive.
+- Material UI, MUI X Date Pickers, Emotion and dayjs are peer dependencies of `@smug-ui/react`. `@smug-ui/theme` accepts React 18 or 19.
+- Color tokens: each color's `main` and `dark` now reach 4.5:1 contrast against white and against their text color, and warning uses white text. Solid fills and outlined, plain and link text are darker than before.
 
-### Added - Initial Release 🎉
+### Removed
 
-#### Components (14 Total)
+- The `@smug-ui/tokens/css` export, which pointed at a file the build never produced.
+- Storybook from the runtime dependencies of every package.
 
-- ✨ **Button** — 7 variants (solid, soft, outlined, dash, ghost, plain, link)
-- 📝 **TextField** — Text input with validation states
-- 🎯 **Select** — Dropdown with multi-select support
-- ☑️ **Checkbox** — Form control with states
-- 🔘 **Radio** — Radio groups
-- 🔘 **Switch** — Toggle switch
-- ⚠️ **Alert** — System notifications
-- 👤 **Avatar** — User profiles
-- 🏷️ **Badge** — Status indicators
-- 💳 **Card** — Content containers
-- 🏷️ **Chip** — Compact elements
-- 📦 **Dialog** — Modal dialogs
-- 📥 **Drawer** — Side panels
-- 💬 **Tooltip** — Helpful hints
-- 🎈 **Popover** — Floating content
-- 🍞 **Snackbar** — Toast notifications
+### Known issues
 
-#### Packages
-
-- `@smug-ui/react` — React component library
-- `@smug-ui/theme` — MUI v7 theme configuration
-- `@smug-ui/tokens` — Design tokens (colors, spacing, radius)
-- `@smug-ui/icons` — Icon library (2000+ SVG icons)
-- `@smug-ui/core` — Headless primitives (foundation)
-
-#### Testing
-
-- 62/62 unit tests passing (100% success rate)
-- Unit tests with Vitest + React Testing Library
-- Interaction tests with Storybook
-- Accessibility tests (WCAG 2.1 AA)
-- Real browser testing with Playwright
-
-#### Documentation
-
-- 82 Storybook stories
-- Component API documentation
-- Theming & customization guides
-- Testing guide with patterns
-- Interactive playground
-
-#### Developer Experience
-
-- TypeScript with strict mode
-- 7 design variants per component
-- Dark mode support
-- Tree-shakeable modules
-- Comprehensive prop types
-- Full keyboard navigation
-
-#### Infrastructure
-
-- TurboRepo for monorepo management
-- pnpm workspace
-- GitHub Actions CI/CD
-- Automated testing on push
-- Automated publishing to npm
-- Changesets for versioning
-
-#### Features
-
-- ✅ Production-ready
-- ✅ WCAG 2.1 AA compliant
-- ✅ Type-safe React components
-- ✅ Zero external dependencies (peer deps only)
-- ✅ Modern dark mode support
-- ✅ Customizable design tokens
-- ✅ Comprehensive test coverage
-
----
-
-## Version Guide
-
-### What's New?
-
-New features, components, and improvements.
-
-### What's Fixed?
-
-Bug fixes and stability improvements.
-
-### What's Changed?
-
-Breaking changes and migration guides.
-
-### What's Deprecated?
-
-APIs that will be removed in future versions.
-
-### Security
-
-Security updates and vulnerability fixes.
-
----
-
-## Upgrade Guide
-
-### From v1.0 to v1.1
-
-No breaking changes. Installation upgrade only:
-
-```bash
-pnpm up @smug-ui/react@latest
-```
-
----
-
-## Support
-
-- **Current**: v1.0.0 — Fully supported
-- **Maintenance**: Updates and fixes provided
-- **EOL**: Support ends when v2.0.0 released
-
----
-
-## Release Checklist
-
-When releasing a new version:
-
-- [ ] Update version in `package.json`
-- [ ] Update `CHANGELOG.md`
-- [ ] Create GitHub release
-- [ ] Update documentation
-- [ ] Announce on social media
-- [ ] Update roadmap if needed
-
----
-
-## Previous Versions
-
-### Beta Phase (Pre-Release)
-
-- Multiple iterations and refinements
-- Community feedback incorporated
-- Testing infrastructure established
-- Documentation completed
-
----
-
-<div align="center">
-
-**See [Releases](https://github.com/tahmidbintaslim/smug-ui/releases) for all versions**
-
-</div>
+- Dark mode: outlined, plain and link text does not reach 4.5:1 contrast yet.
+- Light theme: ghost and plain hover and pressed tints drop below 4.5:1 for some colors.
+- `@smug-ui/icons` is an empty placeholder and is not published.

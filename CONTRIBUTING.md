@@ -1,10 +1,8 @@
 # 🌞 Contributing to Sun UI
 
-> **Thank you for helping make Sun UI better!** Every contribution, from bug reports to new components, helps teams ship beautiful products faster.
+Thank you for helping with Sun UI, a set of React components built on Material UI v7. Bug reports, tests, docs and new components are all welcome.
 
-Sun UI is **MUI components, reimagined** — and we need your help to make it the best React component library for MUI users.
-
-This document provides guidelines and instructions for contributing to Sun UI.
+This document explains how to set up the repo, make a change and open a pull request.
 
 ## 📋 Table of Contents
 
@@ -208,7 +206,7 @@ Create interactive stories in Storybook:
 ```typescript
 // MyComponent.stories.tsx
 import { Meta, StoryObj } from '@storybook/react-vite';
-import { expect, fn, userEvent } from '@storybook/test';
+import { expect, fn, userEvent } from 'storybook/test';
 import { MyComponent } from './MyComponent';
 
 const meta = {

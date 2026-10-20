@@ -5,7 +5,7 @@
 # - Unit tests (Vitest + jsdom)
 # - Storybook component tests (Vitest browser mode, Chromium)
 # - Build of every package and app
-# - Visual review on Chromatic (skipped quietly when CHROMATIC_PROJECT_TOKEN is not set)
+# - Visual review on Chromatic (does not fail the run when CHROMATIC_PROJECT_TOKEN is not set)
 #
 # pnpm/action-setup reads the pnpm version from "packageManager" in package.json.
 # Workspace packages resolve to their dist/ builds, so every job that imports them
