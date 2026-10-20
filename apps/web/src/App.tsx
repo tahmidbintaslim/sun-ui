@@ -21,7 +21,6 @@ import {
   Code as CodeIcon,
   Palette as PaletteIcon,
   Speed as SpeedIcon,
-  Accessibility as AccessibilityIcon,
 } from '@mui/icons-material';
 import { lightTheme, darkTheme } from '@smug-ui/theme';
 import {
@@ -63,15 +62,15 @@ function App() {
           >
             <Toolbar>
               <Typography variant="h6" component="div" sx={{ flexGrow: 1, fontWeight: 'bold' }}>
-                Smug UI
+                Sun UI
               </Typography>
               <Stack direction="row" spacing={2} alignItems="center">
-                <Button color="inherit" href="https://storybook.smug-ui.vercel.app" target="_blank">
+                <Button color="inherit" href="https://sun-ui-brown.vercel.app" target="_blank">
                   Storybook
                 </Button>
                 <IconButton
                   color="inherit"
-                  href="https://github.com/tahmidbintaslim/smug-ui"
+                  href="https://github.com/tahmidbintaslim/sun-ui"
                   target="_blank"
                 >
                   <GitHubIcon />
@@ -101,19 +100,19 @@ function App() {
                     gutterBottom
                     sx={{ fontWeight: 'bold' }}
                   >
-                    MUI Components,
+                    One variant API
                     <br />
-                    Reimagined
+                    for Material UI
                   </Typography>
                   <Typography variant="h5" color="text.secondary" paragraph>
-                    7 design variants. Zero config. 100% TypeScript. Beautiful, accessible React
-                    components built on Material-UI.
+                    26 React components built on Material UI v7, sharing one variant, color and
+                    size API, with design tokens and light and dark themes.
                   </Typography>
                   <Stack direction="row" spacing={2} sx={{ mt: 4 }}>
                     <Button
                       variant="contained"
                       color="primary"
-                      href="https://storybook.smug-ui.vercel.app"
+                      href="https://sun-ui-brown.vercel.app"
                       target="_blank"
                       sx={{ borderRadius: 2, px: 3, py: 1.5 }}
                     >
@@ -122,7 +121,7 @@ function App() {
                     <Button
                       variant="outlined"
                       color="primary"
-                      href="https://github.com/tahmidbintaslim/smug-ui"
+                      href="https://github.com/tahmidbintaslim/sun-ui"
                       target="_blank"
                       startIcon={<GitHubIcon />}
                       sx={{ borderRadius: 2, px: 3, py: 1.5 }}
@@ -162,7 +161,7 @@ function App() {
                         <SmugChip variant="solid" color="primary" label="React" />
                         <SmugChip variant="soft" color="success" label="TypeScript" />
                         <SmugChip variant="outlined" color="warning" label="MUI v7" />
-                        <SmugChip variant="ghost" color="info" label="Accessible" />
+                        <SmugChip variant="ghost" color="info" label="Dark mode" />
                       </Stack>
                     </SmugCard>
                   </Box>
@@ -182,33 +181,33 @@ function App() {
                 gutterBottom
                 sx={{ fontWeight: 'bold', mb: 6 }}
               >
-                Why Smug UI?
+                Why Sun UI?
               </Typography>
               <Grid container spacing={4}>
                 {[
                   {
                     icon: <PaletteIcon sx={{ fontSize: 40 }} />,
-                    title: '7 Design Variants',
+                    title: 'Shared variants',
                     description:
-                      'Solid, soft, outlined, ghost, plain, and more. Customize every component to match your design system.',
+                      'Solid, soft, outlined, ghost and plain on every component. Button adds dash and link.',
                   },
                   {
                     icon: <CodeIcon sx={{ fontSize: 40 }} />,
-                    title: 'Zero Config',
+                    title: 'Still Material UI',
                     description:
-                      'Drop-in replacement for MUI components. No complex setup or configuration required.',
+                      'Each component wraps its MUI counterpart, so MUI props, the sx prop and your theme keep working.',
                   },
                   {
                     icon: <SpeedIcon sx={{ fontSize: 40 }} />,
-                    title: 'TypeScript First',
+                    title: 'TypeScript',
                     description:
-                      '100% TypeScript with full type safety. IntelliSense support and compile-time error checking.',
+                      'Written in strict TypeScript, with exported prop types for every component.',
                   },
                   {
-                    icon: <AccessibilityIcon sx={{ fontSize: 40 }} />,
-                    title: 'Accessible',
+                    icon: <DarkIcon sx={{ fontSize: 40 }} />,
+                    title: 'Light and dark themes',
                     description:
-                      'Built with accessibility in mind. WCAG compliant components with proper ARIA attributes.',
+                      'lightTheme and darkTheme for the MUI ThemeProvider, built from the Sun UI tokens.',
                   },
                 ].map((feature, index) => (
                   <Grid size={{ xs: 12, sm: 6, md: 3 }} key={index}>
@@ -341,21 +340,25 @@ function App() {
               <Grid container spacing={4}>
                 <Grid size={{ xs: 12, md: 6 }}>
                   <Typography variant="h6" gutterBottom sx={{ fontWeight: 'bold' }}>
-                    Smug UI
+                    Sun UI
                   </Typography>
                   <Typography variant="body2" color="text.secondary" paragraph>
-                    Beautiful, accessible React components built on Material-UI. Open source and
-                    free to use.
+                    React components built on Material UI v7. Open source under the MIT license.
                   </Typography>
                   <Stack direction="row" spacing={1}>
                     <IconButton
                       color="inherit"
-                      href="https://github.com/tahmidbintaslim/smug-ui"
+                      href="https://github.com/tahmidbintaslim/sun-ui"
                       target="_blank"
                     >
                       <GitHubIcon />
                     </IconButton>
-                    <IconButton color="inherit">
+                    <IconButton
+                      color="inherit"
+                      href="https://github.com/tahmidbintaslim/sun-ui/stargazers"
+                      target="_blank"
+                      aria-label="Star Sun UI on GitHub"
+                    >
                       <StarIcon />
                     </IconButton>
                   </Stack>
@@ -367,35 +370,31 @@ function App() {
                   <Stack spacing={1}>
                     <Button
                       color="inherit"
-                      href="https://storybook.smug-ui.vercel.app"
+                      href="https://sun-ui-brown.vercel.app"
                       target="_blank"
                     >
                       Storybook
                     </Button>
                     <Button
                       color="inherit"
-                      href="https://github.com/tahmidbintaslim/smug-ui"
+                      href="https://github.com/tahmidbintaslim/sun-ui"
                       target="_blank"
                     >
                       GitHub
                     </Button>
-                    <Button color="inherit">Documentation</Button>
-                  </Stack>
-                </Grid>
-                <Grid size={{ xs: 12, md: 3 }}>
-                  <Typography variant="h6" gutterBottom sx={{ fontWeight: 'bold' }}>
-                    Community
-                  </Typography>
-                  <Stack spacing={1}>
-                    <Button color="inherit">Discord</Button>
-                    <Button color="inherit">Twitter</Button>
-                    <Button color="inherit">Blog</Button>
+                    <Button
+                      color="inherit"
+                      href="https://github.com/tahmidbintaslim/sun-ui/blob/main/DOCUMENTATION.md"
+                      target="_blank"
+                    >
+                      Documentation
+                    </Button>
                   </Stack>
                 </Grid>
               </Grid>
               <Box sx={{ mt: 4, pt: 4, borderTop: 1, borderColor: 'divider' }}>
                 <Typography variant="body2" color="text.secondary" align="center">
-                  © 2024 Smug UI. Built with ❤️ using React and Material-UI.
+                  © 2026 Tahmid Bin Taslim Rafi and Sun UI contributors. MIT license.
                 </Typography>
               </Box>
             </Container>

@@ -1,11 +1,14 @@
 {
-  "name": "smug-ui",
+  "name": "sun-ui",
   "version": "1.0.0",
   "description": "MUI components, reimagined. 7 design variants. Zero config. 100% TypeScript.",
-  "homepage": "https://smug-ui.vercel.app",
+  "homepage": "https://github.com/tahmidbintaslim/sun-ui#readme",
   "repository": {
     "type": "git",
-    "url": "https://github.com/tahmidbintaslim/smug-ui.git"
+    "url": "git+https://github.com/tahmidbintaslim/sun-ui.git"
+  },
+  "bugs": {
+    "url": "https://github.com/tahmidbintaslim/sun-ui/issues"
   },
   "keywords": [
     "react",
@@ -18,7 +21,7 @@
     "accessible",
     "dark-mode"
   ],
-  "author": "Tahmid Bin Taslim <hello@tahmir.dev>",
+  "author": "Tahmid Bin Taslim Rafi (https://github.com/tahmidbintaslim)",
   "type": "module",
   "private": true,
   "packageManager": "pnpm@10.24.0",

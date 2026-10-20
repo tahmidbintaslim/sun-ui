@@ -2,11 +2,14 @@
   "name": "@smug-ui/react",
   "version": "1.0.0",
   "description": "Beautiful React components built on MUI. 7 design variants, zero config, 100% TypeScript.",
-  "homepage": "https://smug-ui.vercel.app",
+  "homepage": "https://github.com/tahmidbintaslim/sun-ui#readme",
   "repository": {
     "type": "git",
-    "url": "https://github.com/tahmidbintaslim/smug-ui.git",
+    "url": "git+https://github.com/tahmidbintaslim/sun-ui.git",
     "directory": "packages/react"
+  },
+  "bugs": {
+    "url": "https://github.com/tahmidbintaslim/sun-ui/issues"
   },
   "keywords": [
     "react",
@@ -19,7 +22,7 @@
     "form",
     "accessible"
   ],
-  "author": "Tahmid Bin Taslim <hello@tahmir.dev>",
+  "author": "Tahmid Bin Taslim Rafi (https://github.com/tahmidbintaslim)",
   "license": "MIT",
   "type": "module",
   "main": "./dist/index.cjs",

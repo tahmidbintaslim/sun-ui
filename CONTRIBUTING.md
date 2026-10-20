@@ -41,22 +41,22 @@ Instances of abusive, harassing, or otherwise unacceptable behavior may be repor
 
 ### Prerequisites
 
-- **Node.js**: v20 or higher
-- **pnpm**: v10 or higher
-- **Git**: Latest version
+- **Node.js**: 22 (see `.nvmrc`)
+- **pnpm**: the version pinned in `packageManager` (run `corepack enable` once and pnpm picks it up)
+- **Git**
 
 ### Fork & Clone
 
 ```bash
 # 1. Fork the repository on GitHub
-# Visit: https://github.com/tahmidbintaslim/smug-ui/fork
+# Visit: https://github.com/tahmidbintaslim/sun-ui/fork
 
 # 2. Clone your fork
-git clone https://github.com/YOUR_USERNAME/smug-ui.git
-cd smug-ui
+git clone https://github.com/YOUR_USERNAME/sun-ui.git
+cd sun-ui
 
 # 3. Add upstream remote
-git remote add upstream https://github.com/tahmidbintaslim/smug-ui.git
+git remote add upstream https://github.com/tahmidbintaslim/sun-ui.git
 
 # 4. Keep your fork updated
 git fetch upstream
@@ -74,19 +74,21 @@ pnpm install
 
 ### Build Packages
 
+Workspace packages import each other from their `dist/` builds, so build them before running tests or Storybook:
+
 ```bash
-pnpm build
+pnpm build:packages   # tokens, theme, core, react (tsup)
+pnpm build            # packages plus Storybook and the web demo
 ```
 
 ### Start Development
 
 ```bash
-# Start Storybook in watch mode
-pnpm dev
+# Start Storybook only
+pnpm storybook:dev
 
-# Or manually:
-cd apps/docs
-pnpm storybook
+# Or Storybook and the web demo together
+pnpm dev
 ```
 
 Visit: **http://localhost:6006**
@@ -94,14 +96,18 @@ Visit: **http://localhost:6006**
 ### Run Tests
 
 ```bash
-# Run all tests
+# Unit tests in watch mode
 pnpm test
 
-# Watch mode
-pnpm test:watch
+# Unit tests once (what CI runs)
+pnpm test:ci
 
-# Watch specific package
-pnpm test packages/react --watch
+# One file
+pnpm vitest packages/react/src/Button.test.tsx
+
+# Storybook tests: every story runs in headless Chromium
+pnpm exec playwright install chromium   # first time only
+pnpm test:storybook:ci
 ```
 
 ---
@@ -166,8 +172,8 @@ git checkout -b docs/what-you-improved
 1. Make your changes
 2. Update related tests
 3. Update TypeScript types if needed
-4. Run tests: `pnpm test`
-5. Check Storybook: `pnpm dev`
+4. Run tests: `pnpm test:ci`
+5. Check Storybook: `pnpm storybook:dev`
 
 #### Adding Tests
 
@@ -296,7 +302,7 @@ git commit -m "test(select): add dropdown interaction tests"
 2. **Run tests**
 
    ```bash
-   pnpm test
+   pnpm test:ci
    ```
 
 3. **Check TypeScript**
@@ -375,11 +381,7 @@ git commit -m "test(select): add dropdown interaction tests"
 
 ### After Merge
 
-Your changes will be:
-
-1. Included in the next release
-2. Added to CHANGELOG.md
-3. Published to npm
+Your changes ship in the next release. The maintainer versions the packages with Changesets and publishes them to npm by creating a GitHub release; a merge or push never publishes on its own.
 
 ---
 
@@ -394,7 +396,7 @@ Your changes will be:
 
 ### Report a Bug
 
-[Create bug report →](https://github.com/tahmidbintaslim/smug-ui/issues/new?template=bug_report.md)
+[Create bug report →](https://github.com/tahmidbintaslim/sun-ui/issues/new?template=bug_report.md)
 
 **Include:**
 
@@ -419,7 +421,7 @@ Your changes will be:
 
 ### Request a Feature
 
-[Start discussion →](https://github.com/tahmidbintaslim/smug-ui/discussions/new?category=ideas)
+[Open a feature request →](https://github.com/tahmidbintaslim/sun-ui/issues/new?template=feature_request.md)
 
 **Describe:**
 
@@ -543,9 +545,8 @@ export const Loading: Story = {
 
 ## Questions?
 
-- **[GitHub Discussions](https://github.com/tahmidbintaslim/smug-ui/discussions)** — Ask questions
-- **[GitHub Issues](https://github.com/tahmidbintaslim/smug-ui/issues)** — Report problems
-- **Email**: hello@tahmir.dev
+- **[GitHub Issues](https://github.com/tahmidbintaslim/sun-ui/issues)**: questions, bugs and ideas
+- **Security problems**: see [SECURITY.md](SECURITY.md) (private reporting, not issues)
 
 ---
 

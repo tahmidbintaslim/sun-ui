@@ -3,11 +3,14 @@
   "version": "1.0.0",
   "private": true,
   "description": "2000+ SVG icons for Smug UI. Tree-shakeable and optimized.",
-  "homepage": "https://smug-ui.vercel.app",
+  "homepage": "https://github.com/tahmidbintaslim/sun-ui#readme",
   "repository": {
     "type": "git",
-    "url": "https://github.com/tahmidbintaslim/smug-ui.git",
+    "url": "git+https://github.com/tahmidbintaslim/sun-ui.git",
     "directory": "packages/icons"
+  },
+  "bugs": {
+    "url": "https://github.com/tahmidbintaslim/sun-ui/issues"
   },
   "keywords": [
     "icons",
@@ -15,7 +18,7 @@
     "react-icons",
     "ui-icons"
   ],
-  "author": "Tahmid Bin Taslim <hello@tahmir.dev>",
+  "author": "Tahmid Bin Taslim Rafi (https://github.com/tahmidbintaslim)",
   "license": "MIT",
   "type": "module",
   "main": "./dist/index.cjs",
