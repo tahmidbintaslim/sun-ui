@@ -17,17 +17,24 @@
   ],
   "author": "Tahmid Bin Taslim <hello@tahmir.dev>",
   "license": "MIT",
-  "main": "./dist/index.js",
+  "type": "module",
+  "main": "./dist/index.cjs",
   "module": "./dist/index.js",
-  "types": "./dist/index.d.ts",
+  "types": "./dist/index.d.cts",
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.js",
-      "require": "./dist/index.js"
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
     },
-    "./css": "./dist/tokens.css"
+    "./package.json": "./package.json"
   },
+  "sideEffects": false,
   "files": [
     "dist"
   ],
@@ -35,14 +42,10 @@
     "access": "public"
   },
   "scripts": {
-    "build": "tsc",
+    "build": "tsup",
     "type-check": "tsc --noEmit",
     "lint": "eslint src",
     "clean": "rm -rf dist"
-  },
-  "dependencies": {
-    "@storybook/react": "^10.1.4",
-    "storybook": "^10.1.4"
   },
   "devDependencies": {
     "@storybook/addon-docs": "^10.1.4",

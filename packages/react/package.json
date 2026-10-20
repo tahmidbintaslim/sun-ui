@@ -21,16 +21,24 @@
   ],
   "author": "Tahmid Bin Taslim <hello@tahmir.dev>",
   "license": "MIT",
-  "main": "./dist/index.js",
+  "type": "module",
+  "main": "./dist/index.cjs",
   "module": "./dist/index.js",
-  "types": "./dist/index.d.ts",
+  "types": "./dist/index.d.cts",
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.js",
-      "require": "./dist/index.js"
-    }
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
+    },
+    "./package.json": "./package.json"
   },
+  "sideEffects": false,
   "files": [
     "dist"
   ],
@@ -38,28 +46,33 @@
     "access": "public"
   },
   "scripts": {
-    "build": "tsc",
+    "build": "tsup",
     "test": "vitest",
     "type-check": "tsc --noEmit",
     "lint": "eslint src",
     "clean": "rm -rf dist"
   },
   "dependencies": {
+    "@smug-ui/core": "workspace:*",
+    "@smug-ui/theme": "workspace:*",
+    "@smug-ui/tokens": "workspace:*"
+  },
+  "peerDependencies": {
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.0",
     "@mui/icons-material": "^7.3.5",
     "@mui/material": "^7.3.5",
     "@mui/x-date-pickers": "^8.0.0",
-    "@smug-ui/core": "workspace:*",
-    "@smug-ui/theme": "workspace:*",
-    "@smug-ui/tokens": "workspace:*",
-    "@storybook/react": "^10.1.4",
     "dayjs": "^1.11.13",
-    "storybook": "^10.1.4"
-  },
-  "peerDependencies": {
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },
   "devDependencies": {
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.1",
+    "@mui/icons-material": "^7.3.5",
+    "@mui/material": "^7.3.5",
+    "@mui/x-date-pickers": "^8.0.0",
     "@storybook/addon-docs": "^10.1.4",
     "@storybook/addon-links": "^10.1.4",
     "@storybook/react-vite": "^10.1.2",
@@ -69,6 +82,7 @@
     "@testing-library/react": "^16.3.0",
     "@testing-library/user-event": "^14.6.1",
     "@types/react": "^19.2.7",
+    "dayjs": "^1.11.13",
     "eslint-plugin-storybook": "^10.1.4",
     "jest-axe": "^9.0.0",
     "typescript": "^5.9.3",
