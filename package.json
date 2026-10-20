@@ -62,8 +62,8 @@
     "build:packages": "turbo run build --filter=./packages/*",
     "test": "vitest",
     "test:unit": "vitest run",
-    "test:storybook": "pnpm --filter=storybook exec vitest --project=storybook",
-    "test:storybook:ci": "pnpm --filter=storybook exec vitest run --project=storybook",
+    "test:storybook": "pnpm --filter=docs exec vitest --project=storybook",
+    "test:storybook:ci": "pnpm --filter=docs exec vitest run --project=storybook",
     "test:ci": "vitest run",
     "lint": "turbo run lint",
     "type-check": "turbo run type-check",
@@ -72,8 +72,8 @@
     "dev": "turbo run dev --parallel",
     "web:build": "pnpm --filter=web build",
     "web:dev": "pnpm --filter=web dev",
-    "storybook:build": "pnpm --filter=storybook storybook:build",
-    "storybook:dev": "pnpm --filter=storybook storybook",
+    "storybook:build": "pnpm --filter=docs storybook:build",
+    "storybook:dev": "pnpm --filter=docs storybook",
     "clean": "turbo run clean && rm -rf node_modules pnpm-lock.yaml"
   },
   "devDependencies": {

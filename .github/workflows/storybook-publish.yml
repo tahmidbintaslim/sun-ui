@@ -49,7 +49,7 @@ jobs:
 
       # Build Storybook static site (turbo builds the workspace packages first)
       - name: Build Storybook
-        run: pnpm turbo run build --filter=storybook
+        run: pnpm turbo run build --filter=docs
 
       # Publish to Chromatic for visual testing review
       - name: Publish to Chromatic

@@ -146,7 +146,7 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Build Storybook
-        run: pnpm turbo run build --filter=storybook
+        run: pnpm turbo run build --filter=docs
 
       - name: Publish to Chromatic
         uses: chromaui/action@v11
