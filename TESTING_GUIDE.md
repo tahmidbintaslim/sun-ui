@@ -39,7 +39,7 @@ pnpm build:packages   # workspace packages import each other from dist/
 ### Unit tests
 
 - Vitest with Testing Library in jsdom, configured per package (`packages/react/vitest.config.ts`, `packages/tokens/vitest.config.ts`) and run together from the root `vitest.config.ts`.
-- 417 tests in 27 files: one file per component in `packages/react/src` (376 tests) and `packages/tokens/src/contrast.test.ts` (41 tests).
+- 422 tests in 28 files: one file per component in `packages/react/src` (376 tests), `packages/react/src/cjs-build.test.ts` (5 tests that `require()` the built CommonJS bundle; skipped until `pnpm build:packages` has run) and `packages/tokens/src/contrast.test.ts` (41 tests).
 - Six component test files also run jest-axe.
 
 ```bash

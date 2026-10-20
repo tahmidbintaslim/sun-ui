@@ -121,7 +121,7 @@ All components take the 7 colors and the 5 sizes above. Autocomplete and DatePic
 
 ## Tests
 
-- 417 unit tests in 27 files (Vitest, Testing Library, jsdom): 376 for the components and 41 contrast checks for the tokens.
+- 422 unit tests in 28 files (Vitest, Testing Library, jsdom): 376 for the components, 5 that load the built CommonJS bundle with `require()`, and 41 contrast checks for the tokens.
 - 372 Storybook stories, each run as a test in headless Chromium through Vitest browser mode, including 128 interaction (`play`) functions.
 - CI runs lint, type-check, both test suites and a full build on every push and pull request to `main`.
 

@@ -16,7 +16,7 @@ Nothing has been published to npm yet. This is the first planned release.
 - `@smug-ui/tokens`: color scales, spacing, radius, shadows, z-index, breakpoints, typography and animation tokens.
 - `@smug-ui/core`: shared types, variant presets, accessibility helpers and headless state helpers.
 - Storybook with 372 stories, deployed at https://sun-ui-brown.vercel.app.
-- 417 unit tests and 372 Storybook tests.
+- 422 unit tests and 372 Storybook tests.
 
 ### Changed
 

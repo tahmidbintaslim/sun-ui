@@ -36,7 +36,7 @@ react, react-dom, @mui/material, @mui/icons-material, @mui/x-date-pickers,
 Each package builds with [tsup](https://tsup.egoist.dev) (`packages/*/tsup.config.ts`):
 
 - one entry, `src/index.ts`
-- ESM (`dist/index.js`) and CommonJS (`dist/index.cjs`), each with its own type file (`index.d.ts`, `index.d.cts`) and a source map
+- ESM and CommonJS, each with its own type file and a source map. Tokens, theme and core are `"type": "module"` packages (`index.js` is ESM, `index.cjs` is CommonJS). `@smug-ui/react` is `"type": "commonjs"` (`index.mjs` is ESM, `index.js` is CommonJS), because its components default-import MUI subpaths such as `@mui/material/Box`, and under `"type": "module"` esbuild compiles those imports so that `require()` returns the module object instead of the component. `packages/react/src/cjs-build.test.ts` guards this.
 - dependencies and peer dependencies stay external
 - `@smug-ui/react` starts with a `"use client"` banner, because every component uses MUI `styled()` and React hooks
 
