@@ -41,7 +41,7 @@ Rating allows users to provide feedback by selecting a value from a range. Sun U
     },
     color: {
       control: 'select',
-      options: ['primary', 'secondary', 'success', 'warning', 'error', 'info', 'neutral'],
+      options: ['primary', 'secondary', 'success', 'warning', 'danger', 'info', 'neutral'],
       description: 'Color theme',
       table: { defaultValue: { summary: 'primary' } },
     },
@@ -127,7 +127,7 @@ export const AllColors: Story = {
       'secondary',
       'success',
       'warning',
-      'error',
+      'danger',
       'info',
       'neutral',
     ];
@@ -316,7 +316,7 @@ export const CustomIcons: Story = {
           </Typography>
           <Rating
             defaultValue={3}
-            color="error"
+            color="danger"
             icon={<FavoriteIcon fontSize="inherit" />}
             emptyIcon={<FavoriteBorderIcon fontSize="inherit" />}
           />
@@ -340,7 +340,7 @@ export const VariantShowcase: Story = {
   name: 'Variant × Color Matrix',
   render: () => {
     const variants: RatingVariant[] = ['solid', 'soft', 'outlined', 'ghost', 'plain'];
-    const colors: RatingColor[] = ['primary', 'secondary', 'success', 'error'];
+    const colors: RatingColor[] = ['primary', 'secondary', 'success', 'danger'];
 
     return (
       <Stack spacing={4}>

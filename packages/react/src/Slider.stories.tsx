@@ -40,7 +40,7 @@ Sliders allow users to select values from a continuous or discrete range. Sun UI
     },
     color: {
       control: 'select',
-      options: ['primary', 'secondary', 'success', 'warning', 'error', 'info', 'neutral'],
+      options: ['primary', 'secondary', 'success', 'warning', 'danger', 'info', 'neutral'],
       description: 'Color theme',
       table: { defaultValue: { summary: 'primary' } },
     },
@@ -125,7 +125,7 @@ export const AllColors: Story = {
       'secondary',
       'success',
       'warning',
-      'error',
+      'danger',
       'info',
       'neutral',
     ];
@@ -365,7 +365,7 @@ export const VariantShowcase: Story = {
   name: 'Variant × Color Matrix',
   render: () => {
     const variants: SliderVariant[] = ['solid', 'soft', 'outlined', 'ghost', 'plain'];
-    const colors: SliderColor[] = ['primary', 'secondary', 'success', 'error'];
+    const colors: SliderColor[] = ['primary', 'secondary', 'success', 'danger'];
 
     return (
       <Stack spacing={4}>
@@ -414,7 +414,7 @@ export const InteractiveDemo: Story = {
             value={volume}
             onChange={(_, value) => setVolume(value as number)}
             showValue
-            color={volume > 80 ? 'error' : volume > 50 ? 'warning' : 'primary'}
+            color={volume > 80 ? 'danger' : volume > 50 ? 'warning' : 'primary'}
           />
           <VolumeUp />
         </Stack>

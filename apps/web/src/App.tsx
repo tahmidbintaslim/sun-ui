@@ -93,7 +93,7 @@ function App() {
           >
             <Container maxWidth="lg">
               <Grid container spacing={4} alignItems="center">
-                <Grid item xs={12} md={6}>
+                <Grid size={{ xs: 12, md: 6 }}>
                   <Typography
                     component="h1"
                     variant="h2"
@@ -131,7 +131,7 @@ function App() {
                     </Button>
                   </Stack>
                 </Grid>
-                <Grid item xs={12} md={6}>
+                <Grid size={{ xs: 12, md: 6 }}>
                   <Box
                     sx={{
                       display: 'flex',
@@ -211,7 +211,7 @@ function App() {
                       'Built with accessibility in mind. WCAG compliant components with proper ARIA attributes.',
                   },
                 ].map((feature, index) => (
-                  <Grid item xs={12} sm={6} md={3} key={index}>
+                  <Grid size={{ xs: 12, sm: 6, md: 3 }} key={index}>
                     <Card
                       sx={{
                         height: '100%',
@@ -257,7 +257,7 @@ function App() {
                 Component Showcase
               </Typography>
               <Grid container spacing={4}>
-                <Grid item xs={12} md={6}>
+                <Grid size={{ xs: 12, md: 6 }}>
                   <SmugCard variant="outlined" sx={{ p: 3 }}>
                     <Typography variant="h6" gutterBottom sx={{ fontWeight: 'bold' }}>
                       Buttons
@@ -278,7 +278,7 @@ function App() {
                     </Stack>
                   </SmugCard>
                 </Grid>
-                <Grid item xs={12} md={6}>
+                <Grid size={{ xs: 12, md: 6 }}>
                   <SmugCard variant="soft" color="secondary" sx={{ p: 3 }}>
                     <Typography variant="h6" gutterBottom sx={{ fontWeight: 'bold' }}>
                       Form Elements
@@ -295,7 +295,7 @@ function App() {
                     </Stack>
                   </SmugCard>
                 </Grid>
-                <Grid item xs={12} md={6}>
+                <Grid size={{ xs: 12, md: 6 }}>
                   <SmugCard variant="outlined" sx={{ p: 3 }}>
                     <Typography variant="h6" gutterBottom sx={{ fontWeight: 'bold' }}>
                       Data Display
@@ -318,7 +318,7 @@ function App() {
                     </Stack>
                   </SmugCard>
                 </Grid>
-                <Grid item xs={12} md={6}>
+                <Grid size={{ xs: 12, md: 6 }}>
                   <SmugCard variant="soft" color="primary" sx={{ p: 3 }}>
                     <Typography variant="h6" gutterBottom sx={{ fontWeight: 'bold' }}>
                       Navigation
@@ -339,7 +339,7 @@ function App() {
           <Box sx={{ py: 6, bgcolor: 'background.default' }}>
             <Container maxWidth="lg">
               <Grid container spacing={4}>
-                <Grid item xs={12} md={6}>
+                <Grid size={{ xs: 12, md: 6 }}>
                   <Typography variant="h6" gutterBottom sx={{ fontWeight: 'bold' }}>
                     Smug UI
                   </Typography>
@@ -360,7 +360,7 @@ function App() {
                     </IconButton>
                   </Stack>
                 </Grid>
-                <Grid item xs={12} md={3}>
+                <Grid size={{ xs: 12, md: 3 }}>
                   <Typography variant="h6" gutterBottom sx={{ fontWeight: 'bold' }}>
                     Links
                   </Typography>
@@ -382,7 +382,7 @@ function App() {
                     <Button color="inherit">Documentation</Button>
                   </Stack>
                 </Grid>
-                <Grid item xs={12} md={3}>
+                <Grid size={{ xs: 12, md: 3 }}>
                   <Typography variant="h6" gutterBottom sx={{ fontWeight: 'bold' }}>
                     Community
                   </Typography>
