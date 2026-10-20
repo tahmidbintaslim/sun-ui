@@ -1,7 +1,7 @@
 {
   "name": "@smug-ui/react",
-  "version": "1.0.0",
-  "description": "Beautiful React components built on MUI. 7 design variants, zero config, 100% TypeScript.",
+  "version": "0.1.0",
+  "description": "React components built on Material UI v7 with one variant, color and size API.",
   "homepage": "https://github.com/tahmidbintaslim/sun-ui#readme",
   "repository": {
     "type": "git",
@@ -19,8 +19,7 @@
     "material-ui",
     "mui",
     "button",
-    "form",
-    "accessible"
+    "form"
   ],
   "author": "Tahmid Bin Taslim Rafi (https://github.com/tahmidbintaslim)",
   "license": "MIT",

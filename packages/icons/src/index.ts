@@ -1,2 +1,2 @@
-// Icon library stub - 2000+ SVG icons to be added
+// Placeholder package: it has no icons yet, is private and is not published.
 export const icons = {};

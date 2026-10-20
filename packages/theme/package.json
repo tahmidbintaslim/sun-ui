@@ -1,7 +1,7 @@
 {
   "name": "@smug-ui/theme",
-  "version": "1.0.0",
-  "description": "Pre-configured MUI themes with beautiful defaults. Light and dark themes included.",
+  "version": "0.1.0",
+  "description": "Light and dark Material UI themes built from the Sun UI tokens.",
   "homepage": "https://github.com/tahmidbintaslim/sun-ui#readme",
   "repository": {
     "type": "git",

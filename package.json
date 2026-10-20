@@ -1,7 +1,7 @@
 {
   "name": "sun-ui",
-  "version": "1.0.0",
-  "description": "MUI components, reimagined. 7 design variants. Zero config. 100% TypeScript.",
+  "version": "0.1.0",
+  "description": "Sun UI: React components on Material UI v7 with one variant, color and size API.",
   "homepage": "https://github.com/tahmidbintaslim/sun-ui#readme",
   "repository": {
     "type": "git",
@@ -18,7 +18,6 @@
     "material-ui",
     "mui",
     "typescript",
-    "accessible",
     "dark-mode"
   ],
   "author": "Tahmid Bin Taslim Rafi (https://github.com/tahmidbintaslim)",

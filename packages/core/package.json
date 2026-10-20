@@ -1,7 +1,7 @@
 {
   "name": "@smug-ui/core",
-  "version": "1.0.0",
-  "description": "Headless primitives and utilities for Smug UI. Framework-agnostic foundation.",
+  "version": "0.1.0",
+  "description": "Shared types, variant presets, accessibility helpers and headless state helpers for Sun UI.",
   "homepage": "https://github.com/tahmidbintaslim/sun-ui#readme",
   "repository": {
     "type": "git",

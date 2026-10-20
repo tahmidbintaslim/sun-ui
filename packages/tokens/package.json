@@ -1,7 +1,7 @@
 {
   "name": "@smug-ui/tokens",
-  "version": "1.0.0",
-  "description": "Design tokens for Smug UI. Colors, spacing, typography, and animations.",
+  "version": "0.1.0",
+  "description": "Design tokens for Sun UI: colors, sizing, typography and animations.",
   "homepage": "https://github.com/tahmidbintaslim/sun-ui#readme",
   "repository": {
     "type": "git",
