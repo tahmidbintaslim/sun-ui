@@ -39,7 +39,7 @@ pnpm build:packages   # workspace packages import each other from dist/
 ### Unit tests
 
 - Vitest with Testing Library in jsdom, configured per package (`packages/react/vitest.config.ts`, `packages/tokens/vitest.config.ts`) and run together from the root `vitest.config.ts`.
-- 474 tests in 29 files: one file per component in `packages/react/src` (376 tests), `packages/react/src/dark-mode.test.tsx` (7 tests that render components in light and dark mode and check their text color), `packages/react/src/cjs-build.test.ts` (5 tests that `require()` the built CommonJS bundle; skipped until `pnpm build:packages` has run) and `packages/tokens/src/contrast.test.ts` (86 tests).
+- 484 tests in 29 files: one file per component in `packages/react/src` (376 tests), `packages/react/src/dark-mode.test.tsx` (17 tests that render components in light and dark mode and check their text, background and status-dot colors, and call the `@smug-ui/core` variant helpers in both modes), `packages/react/src/cjs-build.test.ts` (5 tests that `require()` the built CommonJS bundle; skipped until `pnpm build:packages` has run) and `packages/tokens/src/contrast.test.ts` (86 tests).
 - Six component test files also run jest-axe.
 
 ```bash
@@ -62,7 +62,7 @@ For dark mode it requires 4.5:1 for `main` text on the dark page (every color ex
 
 ### Storybook tests
 
-`apps/docs/vitest.config.ts` uses the Storybook Vitest plugin to turn every story in `packages/react/src/*.stories.tsx` into a test that renders it in headless Chromium and runs its `play` function. There are 372 stories and 128 `play` functions. No running Storybook server is needed.
+`apps/docs/vitest.config.ts` uses the Storybook Vitest plugin to turn every story in `packages/react/src/*.stories.tsx` into a test that renders it in headless Chromium and runs its `play` function. There are 372 stories, 54 of them with a `play` function. No running Storybook server is needed.
 
 ```bash
 pnpm exec playwright install chromium   # first time only
@@ -113,7 +113,9 @@ Only the maintainer releases, and a push never publishes anything.
 3. The maintainer publishes a GitHub release whose tag is `v<version>` (for example `v0.1.0`).
 4. `publish.yml` checks that the tag matches every public package version, builds and tests, then publishes to npm with the `NPM_TOKEN` repository secret. It stops before publishing if the secret is missing.
 
-The public packages already sit at 0.1.0, so the first release skips steps 1 and 2: publish a release tagged `v0.1.0`.
+The public packages were numbered 1.0.0 before anything was published; the readiness pass lowered them to 0.1.0. So the first release skips steps 1 and 2: publish a release tagged `v0.1.0`.
+
+Before the first publish, the `@smug-ui` scope has to exist on npm: it is not registered yet (the registry answers "Scope not found"), so create an npm org named `smug-ui` and use an `NPM_TOKEN` from one of its members. The `@sun-ui` scope is already registered by another account (`https://registry.npmjs.org/-/org/sun-ui/package` returns 200), so it is not an option unless you own it.
 
 Private packages (`@smug-ui/icons`, `docs`, `web`) are never versioned or published.
 

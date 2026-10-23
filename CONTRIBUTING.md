@@ -477,6 +477,11 @@ export function Button(props: any) {
 }
 ```
 
+### Colors
+
+- Take variant colors from `colorScaleForMode(color, theme.palette.mode === 'dark')` in `@smug-ui/tokens`. Do not read `colors.<name>.main`, `.dark` or `.contrastText` directly: those are the light-theme shades, which are too dark to read on dark surfaces.
+- Add a case to `packages/react/src/dark-mode.test.tsx` when a component reads `main` or `dark` in a new place.
+
 ### Testing
 
 - Write meaningful test descriptions

@@ -1,8 +1,8 @@
 # Sun UI documentation
 
-Sun UI is a set of 26 React components built on Material UI (MUI) v7. Every component takes the same `variant`, `color` and `size` props, and still accepts the props of the MUI component it wraps. The [Storybook](https://sun-ui-brown.vercel.app) shows every component with live controls.
+Sun UI is a set of 26 React components built on Material UI (MUI) v7. Every component takes the same `variant` and `size` props and, with the three exceptions listed under [`color`](#color), the same `color` prop. Each still accepts the props of the MUI component it wraps. The [Storybook](https://sun-ui-brown.vercel.app) shows every component with live controls.
 
-Sun UI is in development. Version 0.1.0 has not been published to npm yet.
+Sun UI is in development and nothing has been published to npm. The packages were numbered 1.0.0 before any release; they now start at 0.1.0, which is unreleased.
 
 ## Contents
 
@@ -86,7 +86,11 @@ Components read their colors from `@smug-ui/tokens` and read the theme to choose
 
 ### `color`
 
-`primary`, `secondary`, `success`, `warning`, `danger`, `info` and `neutral`. Autocomplete and DatePicker call the red color `error` instead of `danger`, and their `color` prop has no visible effect yet (they render in MUI's default blue).
+`primary`, `secondary`, `success`, `warning`, `danger`, `info` and `neutral`. Three components differ:
+
+- Autocomplete calls the red color `error` instead of `danger`. Its input field ignores `color` and renders in MUI's default blue, but its multi-select tags pass `color` to MUI `Chip` and follow the theme palette.
+- DatePicker calls the red color `error` and ignores `color` (MUI's default blue).
+- Drawer accepts `color` but never reads it.
 
 ### `size`
 
@@ -235,6 +239,15 @@ import { colorScaleForMode } from '@smug-ui/tokens';
 
 colorScaleForMode('primary', false).main; // '#0369a1'
 colorScaleForMode('primary', true).main; // '#0ea5e9'
+```
+
+The variant helpers in `@smug-ui/core` (`getColorScale`, `getVariantStyles`, `getVariantCss`) return the light-theme shades unless you pass `true` as their last argument in dark mode:
+
+```ts
+import { getVariantStyles } from '@smug-ui/core';
+
+getVariantStyles('outlined', 'primary').color; // '#0369a1'
+getVariantStyles('outlined', 'primary', true).color; // '#0ea5e9'
 ```
 
 ## Themes and dark mode

@@ -4,7 +4,7 @@ How the packages fit together and how a component is put together. For usage, se
 
 ## Packages
 
-Sun UI is a pnpm workspace run with Turborepo. The npm packages use the `@smug-ui` scope.
+Sun UI is a pnpm workspace run with Turborepo. The npm packages use the `@smug-ui` scope, which is not registered on npm yet (an npm org named `smug-ui` has to be created before the first publish). The `@sun-ui` scope is already registered by another account.
 
 | Package           | Source            | What it holds                                                                                                         |
 | ----------------- | ----------------- | --------------------------------------------------------------------------------------------------------------------- |
@@ -66,7 +66,7 @@ Every component in `packages/react/src` follows the same shape:
 
 2. A `styled()` wrapper around the MUI component. The Sun UI props travel as styled-only props (for example `$variant` and `$color`, or `sunVariant` and `sunColor`) that `shouldForwardProp` keeps off the DOM.
 
-3. Styles that take the variant colors from `@smug-ui/tokens` with `colorScaleForMode(color, theme.palette.mode === 'dark')` and read `theme.palette.mode` to pick light or dark values. Progress, Rating, Slider and ToggleButtonGroup read numbered shades (`colors[color][500]`) instead. Changing `palette.primary` in your MUI theme does not change them.
+3. Styles that take the variant colors from `@smug-ui/tokens` with `colorScaleForMode(color, theme.palette.mode === 'dark')` and read `theme.palette.mode` to pick light or dark values. Progress, Rating, Slider and ToggleButtonGroup read numbered shades (`colors[color][500]`) instead. Tooltip takes its color scale from the theme mode like the rest, but picks its neutral surfaces from a `data-theme="dark"` ancestor. Drawer reads no variant color at all. Changing `palette.primary` in your MUI theme does not change them.
 
 4. A `React.forwardRef` export with a `displayName`.
 
@@ -76,7 +76,7 @@ Each component has a `*.test.tsx` file (Vitest, Testing Library, jsdom) and a `*
 
 `@smug-ui/tokens` exports each color as a scale (`50` to `900`) with `main`, `light`, `dark`, `contrastText` and alpha steps (`alpha8` to `alpha40`). Components use `main` both as a solid background under `contrastText` and as text on light surfaces, so `main` and `dark` are chosen to reach 4.5:1 against white and against `contrastText`.
 
-No single shade reaches 4.5:1 on both white and near-black, so dark mode has its own scales: `darkModeColorPalette` uses the 500 shade as `main`. `colorScaleForMode(color, isDark)` returns the right one. `src/contrast.test.ts` checks the light pairs, the dark-mode text and border pairs it can meet, and fails the unit test run if a change breaks one.
+No single shade reaches 4.5:1 on both white and near-black, so dark mode has its own scales: `darkModeColorPalette` uses the 500 shade as `main`. `colorScaleForMode(color, isDark)` returns the right one, and the `@smug-ui/core` helpers `getColorScale`, `getVariantStyles` and `getVariantCss` take the same `isDark` flag as an optional last argument. `src/contrast.test.ts` checks the light pairs, the dark-mode text and border pairs it can meet, and fails the unit test run if a change breaks one.
 
 `sunPalette` is a second, smaller palette that feeds `@smug-ui/theme`. The themes set MUI's `primary`, `secondary`, `success`, `warning` and `error` from it, which affects plain MUI components rendered inside the provider.
 
@@ -89,6 +89,7 @@ No single shade reaches 4.5:1 on both white and near-black, so dark mode has its
 ## Known limits
 
 - Dark mode: solid fills (white on the 500 shades) are below 4.5:1 for most colors, and so are neutral text and secondary, danger and neutral text on the paper surface.
-- Autocomplete and DatePicker style themselves with `--sun-color-*` CSS variables that nothing defines, so their `color` prop has no visible effect.
+- Autocomplete's input field and DatePicker style themselves with `--sun-color-*` CSS variables that nothing defines, so `color` has no visible effect on them. Autocomplete's multi-select tags pass `color` to MUI `Chip` and do follow it.
+- Drawer accepts `color` but never reads it.
 - In the light theme, ghost and plain hover and pressed tints drop below 4.5:1 for some colors.
 - Each component declares its own copy of the variant, color and size unions instead of importing them from `@smug-ui/core`, except Progress, Rating, Slider and ToggleButtonGroup.
