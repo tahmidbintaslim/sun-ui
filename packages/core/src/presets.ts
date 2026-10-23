@@ -5,14 +5,17 @@
  * This ensures visual consistency across all components.
  */
 
-import { colors, type ColorScale } from '@smug-ui/tokens';
+import { colors, colorScaleForMode, type ColorScale } from '@smug-ui/tokens';
 import type { SunColor, SunVariant } from './types';
 
 /**
- * Get color scale for a semantic color
+ * Get color scale for a semantic color.
+ *
+ * Pass `isDark` in dark mode. The light-theme `main` and `dark` shades are too dark
+ * to read on dark surfaces, so dark mode uses the lighter scale the components use.
  */
-export const getColorScale = (color: SunColor): ColorScale => {
-  return colors[color];
+export const getColorScale = (color: SunColor, isDark = false): ColorScale => {
+  return colorScaleForMode(color, isDark);
 };
 
 /**
@@ -37,13 +40,15 @@ export interface VariantStyles {
 }
 
 /**
- * Get variant styles for a given variant and color combination
+ * Get variant styles for a given variant and color combination. Pass `isDark` in
+ * dark mode (see `getColorScale`).
  */
 export const getVariantStyles = (
   variant: SunVariant,
-  color: SunColor = 'primary'
+  color: SunColor = 'primary',
+  isDark = false
 ): VariantStyles => {
-  const colorScale = getColorScale(color);
+  const colorScale = getColorScale(color, isDark);
   const neutralScale = colors.neutral;
 
   const baseStyles: Record<SunVariant, VariantStyles> = {
@@ -138,10 +143,11 @@ export const getVariantStyles = (
 };
 
 /**
- * Get CSS object for variant styles (for use with styled-components or emotion)
+ * Get CSS object for variant styles (for use with styled-components or emotion). Pass
+ * `isDark` in dark mode (see `getColorScale`).
  */
-export const getVariantCss = (variant: SunVariant, color: SunColor = 'primary') => {
-  const styles = getVariantStyles(variant, color);
+export const getVariantCss = (variant: SunVariant, color: SunColor = 'primary', isDark = false) => {
+  const styles = getVariantStyles(variant, color, isDark);
 
   return {
     backgroundColor: styles.backgroundColor,

@@ -3,8 +3,15 @@ import {
   Tooltip as MuiTooltip,
   TooltipProps as MuiTooltipProps,
 } from '@mui/material';
-import { styled } from '@mui/material/styles';
-import { animations, colors, colorScaleForMode, sizing, typography } from '@smug-ui/tokens';
+import { styled, useTheme } from '@mui/material/styles';
+import {
+  animations,
+  colors,
+  colorScaleForMode,
+  sizing,
+  typography,
+  type ColorScale,
+} from '@smug-ui/tokens';
 import * as React from 'react';
 
 // =============================================================================
@@ -33,8 +40,6 @@ export interface TooltipProps extends Omit<MuiTooltipProps, 'variant'> {
 // =============================================================================
 // STYLE UTILITIES
 // =============================================================================
-
-const getColorScale = (color: SunColor, isDark: boolean) => colorScaleForMode(color, isDark);
 
 const sizeConfig = {
   xs: {
@@ -69,8 +74,9 @@ const sizeConfig = {
   },
 };
 
-const getVariantStyles = (variant: SunVariant, color: SunColor, isDark: boolean) => {
-  const colorScale = getColorScale(color, isDark);
+// `colorScale` comes from the MUI theme mode, like every other component. `isDark`
+// picks the neutral surfaces and follows the `data-theme="dark"` attribute.
+const getVariantStyles = (variant: SunVariant, colorScale: ColorScale, isDark: boolean) => {
   const neutralScale = colors.semantic.neutral;
 
   const variants: Record<SunVariant, object> = {
@@ -106,8 +112,7 @@ const getVariantStyles = (variant: SunVariant, color: SunColor, isDark: boolean)
   return variants[variant];
 };
 
-const getArrowStyles = (variant: SunVariant, color: SunColor, isDark: boolean) => {
-  const colorScale = getColorScale(color, isDark);
+const getArrowStyles = (variant: SunVariant, colorScale: ColorScale, isDark: boolean) => {
   const neutralScale = colors.semantic.neutral;
 
   const arrowColors: Record<SunVariant, string> = {
@@ -152,6 +157,9 @@ export const Tooltip = React.forwardRef<HTMLDivElement, TooltipProps>(
     ref
   ) => {
     const sizeStyles = sizeConfig[size];
+    const theme = useTheme();
+    const colorScale = colorScaleForMode(color, theme.palette.mode === 'dark');
+    const darkColorScale = colorScaleForMode(color, true);
 
     // Render loading content if loading
     const renderTitle = () => {
@@ -192,8 +200,8 @@ export const Tooltip = React.forwardRef<HTMLDivElement, TooltipProps>(
               borderRadius: sizeStyles.borderRadius,
               maxWidth: sizeStyles.maxWidth,
               transition: disableAnimation ? 'none' : animations.transitions.smooth,
-              ...getVariantStyles(variant, color, false),
-              '[data-theme="dark"] &': getVariantStyles(variant, color, true),
+              ...getVariantStyles(variant, colorScale, false),
+              '[data-theme="dark"] &': getVariantStyles(variant, darkColorScale, true),
               ...(typeof slotProps?.tooltip === 'object' &&
               slotProps.tooltip &&
               'sx' in slotProps.tooltip
@@ -204,8 +212,8 @@ export const Tooltip = React.forwardRef<HTMLDivElement, TooltipProps>(
           arrow: {
             ...slotProps?.arrow,
             sx: {
-              ...getArrowStyles(variant, color, false),
-              '[data-theme="dark"] &': getArrowStyles(variant, color, true),
+              ...getArrowStyles(variant, colorScale, false),
+              '[data-theme="dark"] &': getArrowStyles(variant, darkColorScale, true),
               ...(typeof slotProps?.arrow === 'object' && slotProps.arrow && 'sx' in slotProps.arrow
                 ? ((slotProps.arrow as { sx?: object }).sx as object)
                 : {}),
