@@ -1,6 +1,6 @@
 import { CircularProgress, Badge as MuiBadge, BadgeProps as MuiBadgeProps } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import { animations, colors, typography } from '@smug-ui/tokens';
+import { animations, colors, colorScaleForMode, typography } from '@smug-ui/tokens';
 import * as React from 'react';
 
 // =============================================================================
@@ -30,7 +30,7 @@ export interface BadgeProps extends Omit<MuiBadgeProps, 'variant' | 'color'> {
 // STYLE UTILITIES
 // =============================================================================
 
-const getColorScale = (color: SunColor) => colors.semantic[color];
+const getColorScale = (color: SunColor, isDark: boolean) => colorScaleForMode(color, isDark);
 
 const sizeConfig = {
   xs: { minWidth: 14, height: 14, fontSize: 9, paddingX: 4 },
@@ -56,7 +56,7 @@ const StyledBadge = styled(MuiBadge, {
   shouldForwardProp: (prop) =>
     !['sunVariant', 'sunColor', 'sunSize', '$pulse', '$disableAnimation'].includes(prop as string),
 })<StyledProps>(({ theme, sunVariant, sunColor, sunSize, $pulse, $disableAnimation }) => {
-  const colorScale = getColorScale(sunColor);
+  const colorScale = getColorScale(sunColor, theme.palette.mode === 'dark');
   const sizeStyles = sizeConfig[sunSize];
   const isDark = theme.palette.mode === 'dark';
 

@@ -1,6 +1,6 @@
 import { CircularProgress, Chip as MuiChip, ChipProps as MuiChipProps } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import { animations, colors, typography } from '@smug-ui/tokens';
+import { animations, colors, colorScaleForMode, typography } from '@smug-ui/tokens';
 import * as React from 'react';
 
 // =============================================================================
@@ -28,7 +28,7 @@ export interface ChipProps extends Omit<MuiChipProps, 'variant' | 'size' | 'colo
 // STYLE UTILITIES
 // =============================================================================
 
-const getColorScale = (color: SunColor) => colors.semantic[color];
+const getColorScale = (color: SunColor, isDark: boolean) => colorScaleForMode(color, isDark);
 
 const sizeConfig = {
   xs: { height: 20, paddingX: 6, fontSize: 11, iconSize: 12, borderRadius: 10 },
@@ -56,7 +56,7 @@ const StyledChip = styled(MuiChip, {
       prop as string
     ),
 })<StyledProps>(({ theme, sunVariant, sunColor, sunSize, $loading, $disableAnimation }) => {
-  const colorScale = getColorScale(sunColor);
+  const colorScale = getColorScale(sunColor, theme.palette.mode === 'dark');
   const sizeStyles = sizeConfig[sunSize];
   const isDark = theme.palette.mode === 'dark';
 

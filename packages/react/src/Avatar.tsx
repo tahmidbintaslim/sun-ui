@@ -4,7 +4,7 @@ import {
   AvatarProps as MuiAvatarProps,
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import { animations, colors, typography } from '@smug-ui/tokens';
+import { animations, colors, colorScaleForMode, typography } from '@smug-ui/tokens';
 import * as React from 'react';
 
 // =============================================================================
@@ -34,7 +34,7 @@ export interface AvatarProps extends Omit<MuiAvatarProps, 'variant'> {
 // STYLE UTILITIES
 // =============================================================================
 
-const getColorScale = (color: SunColor) => colors.semantic[color];
+const getColorScale = (color: SunColor, isDark: boolean) => colorScaleForMode(color, isDark);
 
 const sizeConfig = {
   xs: { size: 24, fontSize: typography.fontSize.xs, iconSize: 12, statusSize: 6 },
@@ -66,7 +66,7 @@ const StyledAvatar = styled(MuiAvatar, {
   shouldForwardProp: (prop) =>
     !['sunVariant', 'sunColor', 'sunSize', '$disableAnimation'].includes(prop as string),
 })<StyledProps>(({ theme, sunVariant, sunColor, sunSize, $disableAnimation }) => {
-  const colorScale = getColorScale(sunColor);
+  const colorScale = getColorScale(sunColor, theme.palette.mode === 'dark');
   const sizeStyles = sizeConfig[sunSize];
   const isDark = theme.palette.mode === 'dark';
 

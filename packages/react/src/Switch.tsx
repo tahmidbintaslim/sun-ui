@@ -6,7 +6,7 @@ import {
   SwitchProps as MuiSwitchProps,
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import { animations, colors, sizing, typography } from '@smug-ui/tokens';
+import { animations, colors, colorScaleForMode, sizing, typography } from '@smug-ui/tokens';
 import * as React from 'react';
 
 // =============================================================================
@@ -34,7 +34,7 @@ export interface SwitchProps extends Omit<MuiSwitchProps, 'size' | 'color'> {
 // STYLE UTILITIES
 // =============================================================================
 
-const getColorScale = (color: SunColor) => colors.semantic[color];
+const getColorScale = (color: SunColor, isDark: boolean) => colorScaleForMode(color, isDark);
 
 const sizeConfig = {
   xs: { width: 32, height: 18, thumb: 14, translate: 14, label: typography.fontSize.xs },
@@ -56,8 +56,8 @@ interface StyledProps {
 
 const StyledSwitch = styled(MuiSwitch, {
   shouldForwardProp: (prop) => !['sunVariant', 'sunColor', 'sunSize'].includes(prop as string),
-})<StyledProps>(({ sunVariant, sunColor, sunSize }) => {
-  const colorScale = getColorScale(sunColor);
+})<StyledProps>(({ theme, sunVariant, sunColor, sunSize }) => {
+  const colorScale = getColorScale(sunColor, theme.palette.mode === 'dark');
   const sizeStyles = sizeConfig[sunSize];
   const padding = (sizeStyles.height - sizeStyles.thumb) / 2;
 

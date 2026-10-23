@@ -218,6 +218,64 @@ export const colorPalette = {
   } as ColorScale,
 };
 
+/**
+ * The scales components use in dark mode.
+ *
+ * The light-theme `main` and `dark` above are dark enough to read on white, which
+ * makes them too dark to read on the near-black dark-mode surfaces: no single shade
+ * reaches 4.5:1 on both. Dark mode keeps the lighter shades it used before the
+ * light-theme contrast fix (`main` is the 500 shade), so text, borders and icons stay
+ * readable on dark surfaces. Solid fills in dark mode are a known gap: white on most
+ * 500 shades is below 4.5:1.
+ */
+export const darkModeColorPalette: Record<SemanticColor, ColorScale> = {
+  primary: {
+    ...colorPalette.primary,
+    main: colorPalette.primary[500],
+    dark: colorPalette.primary[600],
+  },
+  secondary: {
+    ...colorPalette.secondary,
+    main: colorPalette.secondary[500],
+    dark: colorPalette.secondary[700],
+  },
+  success: {
+    ...colorPalette.success,
+    main: colorPalette.success[500],
+    dark: colorPalette.success[700],
+  },
+  warning: {
+    ...colorPalette.warning,
+    main: colorPalette.warning[500],
+    dark: colorPalette.warning[700],
+    contrastText: '#000000',
+  },
+  danger: {
+    ...colorPalette.danger,
+    main: colorPalette.danger[500],
+    dark: colorPalette.danger[700],
+  },
+  info: {
+    ...colorPalette.info,
+    main: colorPalette.info[500],
+    dark: colorPalette.info[700],
+  },
+  neutral: {
+    ...colorPalette.neutral,
+    main: colorPalette.neutral[500],
+    dark: colorPalette.neutral[700],
+  },
+};
+
+/**
+ * Returns the scale for a color in the current mode. Components call it with
+ * `theme.palette.mode === 'dark'`. An unknown color falls back to primary.
+ */
+export function colorScaleForMode(color: SemanticColor, isDark: boolean): ColorScale {
+  const palette: Record<SemanticColor, ColorScale> = isDark ? darkModeColorPalette : colorPalette;
+  return palette[color] ?? palette.primary;
+}
+
 // Common background colors
 export const backgrounds = {
   light: {

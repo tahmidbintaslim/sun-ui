@@ -4,8 +4,7 @@ import {
   PaginationProps as MuiPaginationProps,
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import { colors, typography } from '@smug-ui/tokens';
-import type { ColorScale } from '@smug-ui/tokens';
+import { colors, colorScaleForMode, typography } from '@smug-ui/tokens';
 import * as React from 'react';
 
 // =============================================================================
@@ -72,7 +71,7 @@ interface StyledProps {
 const StyledPagination = styled(MuiPagination, {
   shouldForwardProp: (prop) => !['$variant', '$color', '$size'].includes(prop as string),
 })<StyledProps>(({ theme, $variant, $color, $size }) => {
-  const colorScale = (colors[$color as keyof typeof colors] || colors.primary) as ColorScale;
+  const colorScale = colorScaleForMode($color, theme.palette.mode === 'dark');
   const neutralScale = colors.neutral;
   const isDark = theme.palette.mode === 'dark';
   const size = sizeConfig[$size];

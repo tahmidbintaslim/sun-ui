@@ -1,6 +1,6 @@
 import { Box, Tab as MuiTab, Tabs as MuiTabs, TabsProps as MuiTabsProps } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import { colors, radius, transitions, typography, type ColorScale } from '@smug-ui/tokens';
+import { colors, colorScaleForMode, radius, transitions, typography } from '@smug-ui/tokens';
 import * as React from 'react';
 
 // =============================================================================
@@ -84,7 +84,7 @@ const StyledTabs = styled(MuiTabs, {
   shouldForwardProp: (prop) =>
     !['$variant', '$color', '$size', '$showIndicator'].includes(prop as string),
 })<StyledProps>(({ theme, $variant, $color, $size, $showIndicator, orientation }) => {
-  const colorScale = (colors[$color as keyof typeof colors] || colors.primary) as ColorScale;
+  const colorScale = colorScaleForMode($color, theme.palette.mode === 'dark');
   const neutralScale = colors.neutral;
   const isDark = theme.palette.mode === 'dark';
   const size = sizeConfig[$size];
@@ -174,7 +174,7 @@ const StyledTabs = styled(MuiTabs, {
 const StyledTab = styled(MuiTab, {
   shouldForwardProp: (prop) => !['$variant', '$color', '$size'].includes(prop as string),
 })<StyledProps>(({ theme, $variant, $color, $size }) => {
-  const colorScale = (colors[$color as keyof typeof colors] || colors.primary) as ColorScale;
+  const colorScale = colorScaleForMode($color, theme.palette.mode === 'dark');
   const neutralScale = colors.neutral;
   const isDark = theme.palette.mode === 'dark';
   const size = sizeConfig[$size];

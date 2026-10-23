@@ -14,7 +14,7 @@ import {
   Typography,
 } from '@mui/material';
 import { keyframes, styled } from '@mui/material/styles';
-import { colors, radius, typography, type ColorScale } from '@smug-ui/tokens';
+import { colors, colorScaleForMode, radius, typography } from '@smug-ui/tokens';
 import * as React from 'react';
 
 // =============================================================================
@@ -133,7 +133,7 @@ const StyledTableContainer = styled(MuiTableContainer, {
   shouldForwardProp: (prop) =>
     !['$variant', '$color', '$size', '$striped', '$hoverable', '$loading'].includes(prop as string),
 })<StyledProps & { $maxHeight?: string | number }>(({ theme, $variant, $color, $maxHeight }) => {
-  const colorScale = (colors[$color as keyof typeof colors] || colors.primary) as ColorScale;
+  const colorScale = colorScaleForMode($color, theme.palette.mode === 'dark');
   const isDark = theme.palette.mode === 'dark';
 
   const variantStyles = {
@@ -172,7 +172,7 @@ const StyledTable = styled(MuiTable)({
 const StyledTableHead = styled(MuiTableHead, {
   shouldForwardProp: (prop) => !['$variant', '$color', '$size'].includes(prop as string),
 })<StyledProps>(({ theme, $variant, $color, $size }) => {
-  const colorScale = (colors[$color as keyof typeof colors] || colors.primary) as ColorScale;
+  const colorScale = colorScaleForMode($color, theme.palette.mode === 'dark');
   const isDark = theme.palette.mode === 'dark';
   const size = sizeConfig[$size];
 
@@ -237,7 +237,7 @@ const StyledTableBody = styled(MuiTableBody, {
   shouldForwardProp: (prop) =>
     !['$variant', '$color', '$size', '$striped', '$hoverable', '$loading'].includes(prop as string),
 })<StyledProps>(({ theme, $variant: _$variant, $color, $size, $striped, $hoverable, $loading }) => {
-  const colorScale = (colors[$color as keyof typeof colors] || colors.primary) as ColorScale;
+  const colorScale = colorScaleForMode($color, theme.palette.mode === 'dark');
   const isDark = theme.palette.mode === 'dark';
   const size = sizeConfig[$size];
 

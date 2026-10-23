@@ -4,7 +4,7 @@ import {
   TooltipProps as MuiTooltipProps,
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import { animations, colors, sizing, typography } from '@smug-ui/tokens';
+import { animations, colors, colorScaleForMode, sizing, typography } from '@smug-ui/tokens';
 import * as React from 'react';
 
 // =============================================================================
@@ -34,7 +34,7 @@ export interface TooltipProps extends Omit<MuiTooltipProps, 'variant'> {
 // STYLE UTILITIES
 // =============================================================================
 
-const getColorScale = (color: SunColor) => colors.semantic[color];
+const getColorScale = (color: SunColor, isDark: boolean) => colorScaleForMode(color, isDark);
 
 const sizeConfig = {
   xs: {
@@ -70,7 +70,7 @@ const sizeConfig = {
 };
 
 const getVariantStyles = (variant: SunVariant, color: SunColor, isDark: boolean) => {
-  const colorScale = getColorScale(color);
+  const colorScale = getColorScale(color, isDark);
   const neutralScale = colors.semantic.neutral;
 
   const variants: Record<SunVariant, object> = {
@@ -107,7 +107,7 @@ const getVariantStyles = (variant: SunVariant, color: SunColor, isDark: boolean)
 };
 
 const getArrowStyles = (variant: SunVariant, color: SunColor, isDark: boolean) => {
-  const colorScale = getColorScale(color);
+  const colorScale = getColorScale(color, isDark);
   const neutralScale = colors.semantic.neutral;
 
   const arrowColors: Record<SunVariant, string> = {

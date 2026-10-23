@@ -6,7 +6,7 @@ import {
   SnackbarProps as MuiSnackbarProps,
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import { animations, colors, sizing, typography } from '@smug-ui/tokens';
+import { animations, colors, colorScaleForMode, sizing, typography } from '@smug-ui/tokens';
 import * as React from 'react';
 
 // =============================================================================
@@ -45,7 +45,7 @@ export interface SnackbarContentProps extends Omit<MuiSnackbarContentProps, 'var
 // STYLE UTILITIES
 // =============================================================================
 
-const getColorScale = (color: SunColor) => colors.semantic[color];
+const getColorScale = (color: SunColor, isDark: boolean) => colorScaleForMode(color, isDark);
 
 const sizeConfig = {
   xs: {
@@ -93,7 +93,7 @@ interface StyledContentProps {
 const StyledSnackbarContent = styled(MuiSnackbarContent, {
   shouldForwardProp: (prop) => !['sunVariant', 'sunColor', 'sunSize'].includes(prop as string),
 })<StyledContentProps>(({ theme, sunVariant, sunColor, sunSize }) => {
-  const colorScale = getColorScale(sunColor);
+  const colorScale = getColorScale(sunColor, theme.palette.mode === 'dark');
   const sizeStyles = sizeConfig[sunSize];
   const isDark = theme.palette.mode === 'dark';
 

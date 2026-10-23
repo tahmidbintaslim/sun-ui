@@ -1,6 +1,13 @@
 import { describe, expect, it } from 'vitest';
 
-import { colorPalette, type ColorScale, type SemanticColor } from './colors';
+import {
+  backgrounds,
+  colorPalette,
+  colorScaleForMode,
+  darkModeColorPalette,
+  type ColorScale,
+  type SemanticColor,
+} from './colors';
 import { sunPalette } from './palette';
 
 // WCAG 2.x relative luminance and contrast ratio.
@@ -63,9 +70,8 @@ describe('contrast helper', () => {
   });
 });
 
-// These pairs cover the light theme (white page). Dark-mode text contrast for
-// outlined, plain and link variants is not covered yet: those variants use `main`
-// as text on dark surfaces too, and no single shade reaches 4.5:1 on both.
+// These pairs cover the light theme (white page). No single shade reaches 4.5:1 on
+// both white and near-black, so dark mode uses its own scale (tested below).
 describe.each(semanticColors)('%s tokens on a white page (WCAG AA text)', (name) => {
   const scale: ColorScale = colorPalette[name];
 
@@ -90,6 +96,65 @@ describe.each(semanticColors)('%s tokens on a white page (WCAG AA text)', (name)
     expect(contrast(scale.dark, scale.alpha20)).toBeGreaterThanOrEqual(AA_TEXT);
   });
 });
+
+// Dark mode. Components switch to darkModeColorPalette through colorScaleForMode.
+// Known gaps, not asserted here: solid fills (white on most 500 shades is below
+// 4.5:1), neutral `main` as text (3.75:1 on the page), and `main` as text on the
+// lighter paper surface for secondary, danger and neutral.
+const DARK_PAGE = backgrounds.dark.default;
+const DARK_PAPER = backgrounds.dark.paper;
+
+describe('colorScaleForMode', () => {
+  it.each(semanticColors)('returns the light-theme scale for %s outside dark mode', (name) => {
+    expect(colorScaleForMode(name, false)).toBe(colorPalette[name]);
+  });
+
+  it.each(semanticColors)('returns the dark-mode scale for %s in dark mode', (name) => {
+    expect(colorScaleForMode(name, true)).toBe(darkModeColorPalette[name]);
+  });
+});
+
+describe.each(semanticColors)('%s tokens on a dark page', (name) => {
+  const scale: ColorScale = darkModeColorPalette[name];
+
+  it('outlined borders and icons: main reaches 3:1 on the page and on paper', () => {
+    expect(contrast(scale.main, DARK_PAGE, DARK_PAGE)).toBeGreaterThanOrEqual(3);
+    expect(contrast(scale.main, DARK_PAPER, DARK_PAPER)).toBeGreaterThanOrEqual(3);
+  });
+
+  it('soft: light on the alpha20 tint', () => {
+    expect(contrast(scale.light, scale.alpha20, DARK_PAGE)).toBeGreaterThanOrEqual(AA_TEXT);
+  });
+
+  it('is lighter than the light-theme main, so text on dark surfaces gains contrast', () => {
+    expect(contrast(scale.main, DARK_PAGE, DARK_PAGE)).toBeGreaterThanOrEqual(
+      contrast(colorPalette[name].main, DARK_PAGE, DARK_PAGE)
+    );
+  });
+});
+
+describe.each(semanticColors.filter((name) => name !== 'neutral'))(
+  '%s main as text on the dark page (WCAG AA text)',
+  (name) => {
+    it('reaches 4.5:1', () => {
+      expect(
+        contrast(darkModeColorPalette[name].main, DARK_PAGE, DARK_PAGE)
+      ).toBeGreaterThanOrEqual(AA_TEXT);
+    });
+  }
+);
+
+// darkTheme in @smug-ui/theme sets MUI's primary, success, warning and error `main`
+// to these 500 shades.
+describe.each(['primary', 'success', 'warning', 'danger'] as const)(
+  'MUI dark theme palette %s on the dark default background',
+  (name) => {
+    it('500 shade reaches 4.5:1', () => {
+      const page = sunPalette.neutral[900];
+      expect(contrast(sunPalette[name][500], page, page)).toBeGreaterThanOrEqual(AA_TEXT);
+    });
+  }
+);
 
 // sunPalette feeds the MUI theme (lightTheme/darkTheme), where MUI uses `main` as
 // text for outlined and text buttons, links and focused labels.

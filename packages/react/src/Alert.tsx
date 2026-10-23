@@ -6,7 +6,7 @@ import {
   AlertProps as MuiAlertProps,
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import { animations, colors, sizing, typography } from '@smug-ui/tokens';
+import { animations, colorScaleForMode, sizing, typography } from '@smug-ui/tokens';
 import * as React from 'react';
 
 // =============================================================================
@@ -36,7 +36,7 @@ export interface AlertProps extends Omit<MuiAlertProps, 'variant' | 'color' | 's
 // STYLE UTILITIES
 // =============================================================================
 
-const getColorScale = (color: SunColor) => colors.semantic[color];
+const getColorScale = (color: SunColor, isDark: boolean) => colorScaleForMode(color, isDark);
 
 const sizeConfig = {
   xs: {
@@ -89,7 +89,7 @@ const StyledAlert = styled(MuiAlert, {
       prop as string
     ),
 })<StyledProps>(({ theme, sunVariant, sunColor, sunSize, $loading, $disableAnimation }) => {
-  const colorScale = getColorScale(sunColor);
+  const colorScale = getColorScale(sunColor, theme.palette.mode === 'dark');
   const sizeStyles = sizeConfig[sunSize];
   const isDark = theme.palette.mode === 'dark';
 

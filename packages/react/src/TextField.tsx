@@ -5,7 +5,7 @@ import {
   TextFieldProps as MuiTextFieldProps,
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import { animations, colors, sizing, typography } from '@smug-ui/tokens';
+import { animations, colors, colorScaleForMode, sizing, typography } from '@smug-ui/tokens';
 import * as React from 'react';
 
 // =============================================================================
@@ -35,7 +35,7 @@ export interface TextFieldProps extends Omit<MuiTextFieldProps, 'variant' | 'siz
 // STYLE UTILITIES
 // =============================================================================
 
-const getColorScale = (color: SunColor) => colors.semantic[color];
+const getColorScale = (color: SunColor, isDark: boolean) => colorScaleForMode(color, isDark);
 
 const sizeConfig = {
   xs: {
@@ -88,7 +88,7 @@ interface StyledProps {
 const StyledTextField = styled(MuiTextField, {
   shouldForwardProp: (prop) => !['sunVariant', 'sunColor', 'sunSize'].includes(prop as string),
 })<StyledProps>(({ theme, sunVariant, sunColor, sunSize }) => {
-  const colorScale = getColorScale(sunColor);
+  const colorScale = getColorScale(sunColor, theme.palette.mode === 'dark');
   const sizeStyles = sizeConfig[sunSize];
   const isDark = theme.palette.mode === 'dark';
 
@@ -111,7 +111,7 @@ const StyledTextField = styled(MuiTextField, {
         color: colorScale.main,
       },
       '&.Mui-error': {
-        color: colors.semantic.danger.main,
+        color: colorScaleForMode('danger', isDark).main,
       },
     },
     '& .MuiFormHelperText-root': {
@@ -147,7 +147,7 @@ const StyledTextField = styled(MuiTextField, {
         '&.Mui-error': {
           backgroundColor: colors.semantic.danger.alpha12,
           '& fieldset': {
-            borderColor: colors.semantic.danger.main,
+            borderColor: colorScaleForMode('danger', isDark).main,
           },
         },
       },
@@ -173,7 +173,7 @@ const StyledTextField = styled(MuiTextField, {
         },
         '&.Mui-error': {
           '& fieldset': {
-            borderColor: colors.semantic.danger.main,
+            borderColor: colorScaleForMode('danger', isDark).main,
           },
         },
       },
@@ -197,7 +197,7 @@ const StyledTextField = styled(MuiTextField, {
         },
         '&.Mui-error': {
           '& fieldset': {
-            borderColor: colors.semantic.danger.main,
+            borderColor: colorScaleForMode('danger', isDark).main,
           },
         },
       },
@@ -220,7 +220,7 @@ const StyledTextField = styled(MuiTextField, {
         },
         '&.Mui-error': {
           '& fieldset': {
-            borderColor: colors.semantic.danger.main,
+            borderColor: colorScaleForMode('danger', isDark).main,
           },
         },
       },
@@ -239,7 +239,7 @@ const StyledTextField = styled(MuiTextField, {
           borderBottom: `2px solid ${colorScale.main}`,
         },
         '&.Mui-error:after': {
-          borderBottom: `2px solid ${colors.semantic.danger.main}`,
+          borderBottom: `2px solid ${colorScaleForMode('danger', isDark).main}`,
         },
       },
       '& .MuiInputLabel-root': {
