@@ -1,12 +1,15 @@
 {
   "name": "@smug-ui/react",
-  "version": "1.0.0",
-  "description": "Beautiful React components built on MUI. 7 design variants, zero config, 100% TypeScript.",
-  "homepage": "https://smug-ui.vercel.app",
+  "version": "0.1.0",
+  "description": "React components built on Material UI v7 with one variant, color and size API.",
+  "homepage": "https://github.com/tahmidbintaslim/sun-ui#readme",
   "repository": {
     "type": "git",
-    "url": "https://github.com/tahmidbintaslim/smug-ui.git",
+    "url": "git+https://github.com/tahmidbintaslim/sun-ui.git",
     "directory": "packages/react"
+  },
+  "bugs": {
+    "url": "https://github.com/tahmidbintaslim/sun-ui/issues"
   },
   "keywords": [
     "react",
@@ -16,21 +19,28 @@
     "material-ui",
     "mui",
     "button",
-    "form",
-    "accessible"
+    "form"
   ],
-  "author": "Tahmid Bin Taslim <hello@tahmir.dev>",
+  "author": "Tahmid Bin Taslim Rafi (https://github.com/tahmidbintaslim)",
   "license": "MIT",
+  "type": "commonjs",
   "main": "./dist/index.js",
-  "module": "./dist/index.js",
+  "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.js",
-      "require": "./dist/index.js"
-    }
+      "import": {
+        "types": "./dist/index.d.mts",
+        "default": "./dist/index.mjs"
+      },
+      "require": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      }
+    },
+    "./package.json": "./package.json"
   },
+  "sideEffects": false,
   "files": [
     "dist"
   ],
@@ -38,38 +48,44 @@
     "access": "public"
   },
   "scripts": {
-    "build": "tsc",
+    "build": "tsup",
     "test": "vitest",
     "type-check": "tsc --noEmit",
     "lint": "eslint src",
     "clean": "rm -rf dist"
   },
   "dependencies": {
+    "@smug-ui/core": "workspace:*",
+    "@smug-ui/theme": "workspace:*",
+    "@smug-ui/tokens": "workspace:*"
+  },
+  "peerDependencies": {
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.0",
     "@mui/icons-material": "^7.3.5",
     "@mui/material": "^7.3.5",
     "@mui/x-date-pickers": "^8.0.0",
-    "@smug-ui/core": "workspace:*",
-    "@smug-ui/theme": "workspace:*",
-    "@smug-ui/tokens": "workspace:*",
-    "@storybook/react": "^10.1.4",
     "dayjs": "^1.11.13",
-    "storybook": "^10.1.4"
-  },
-  "peerDependencies": {
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },
   "devDependencies": {
-    "@storybook/addon-docs": "^10.1.4",
-    "@storybook/addon-links": "^10.1.4",
-    "@storybook/react-vite": "^10.1.2",
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.1",
+    "@mui/icons-material": "^7.3.5",
+    "@mui/material": "^7.3.5",
+    "@mui/x-date-pickers": "^8.0.0",
+    "@storybook/addon-docs": "^10.6.3",
+    "@storybook/addon-links": "^10.6.3",
+    "@storybook/react-vite": "^10.6.3",
     "@storybook/test": "^8.6.14",
     "@storybook/test-runner": "^0.24.2",
     "@testing-library/jest-dom": "^6.1.5",
     "@testing-library/react": "^16.3.0",
     "@testing-library/user-event": "^14.6.1",
     "@types/react": "^19.2.7",
-    "eslint-plugin-storybook": "^10.1.4",
+    "dayjs": "^1.11.13",
+    "eslint-plugin-storybook": "^10.6.3",
     "jest-axe": "^9.0.0",
     "typescript": "^5.9.3",
     "vitest": "^4.0.0"

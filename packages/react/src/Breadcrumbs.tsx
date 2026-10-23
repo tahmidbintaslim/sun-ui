@@ -8,7 +8,7 @@ import {
   Typography,
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import { colors, radius, typography, type ColorScale } from '@smug-ui/tokens';
+import { colors, colorScaleForMode, radius, typography } from '@smug-ui/tokens';
 import * as React from 'react';
 
 // =============================================================================
@@ -82,7 +82,7 @@ interface StyledProps {
 const StyledBreadcrumbs = styled(MuiBreadcrumbs, {
   shouldForwardProp: (prop) => !['$variant', '$color', '$size'].includes(prop as string),
 })<StyledProps>(({ theme, $variant, $color, $size }) => {
-  const colorScale = (colors[$color as keyof typeof colors] || colors.primary) as ColorScale;
+  const colorScale = colorScaleForMode($color, theme.palette.mode === 'dark');
   const neutralScale = colors.neutral;
   const isDark = theme.palette.mode === 'dark';
   const size = sizeConfig[$size];
@@ -132,7 +132,7 @@ const StyledBreadcrumbs = styled(MuiBreadcrumbs, {
 const BreadcrumbLink = styled(Link, {
   shouldForwardProp: (prop) => !['$variant', '$color', '$size', '$isLast'].includes(prop as string),
 })<StyledProps & { $isLast?: boolean }>(({ theme, $variant, $color, $size, $isLast }) => {
-  const colorScale = (colors[$color as keyof typeof colors] || colors.primary) as ColorScale;
+  const colorScale = colorScaleForMode($color, theme.palette.mode === 'dark');
   const neutralScale = colors.neutral;
   const isDark = theme.palette.mode === 'dark';
   const size = sizeConfig[$size];
@@ -220,7 +220,7 @@ const BreadcrumbLink = styled(Link, {
 const EllipsisButton = styled(IconButton, {
   shouldForwardProp: (prop) => !['$variant', '$color', '$size'].includes(prop as string),
 })<StyledProps>(({ theme, $color, $size }) => {
-  const colorScale = (colors[$color as keyof typeof colors] || colors.primary) as ColorScale;
+  const colorScale = colorScaleForMode($color, theme.palette.mode === 'dark');
   const neutralScale = colors.neutral;
   const isDark = theme.palette.mode === 'dark';
   const size = sizeConfig[$size];

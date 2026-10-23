@@ -1,30 +1,24 @@
-# Smug UI Landing Page
+# Sun UI landing page
 
-This is the landing page for Smug UI, built with React, Vite, and Material-UI.
+A one-page demo of Sun UI components, built with React, Vite and Material UI. It is not deployed.
 
 ## Development
 
 ```bash
-# Install dependencies
+# Install dependencies (from the repo root)
 pnpm install
 
-# Start development server
+# Build the workspace packages it imports
+pnpm build:packages
+
+# Start the dev server on http://localhost:3000
 pnpm web:dev
 
-# Build for production
+# Production build into apps/web/dist
 pnpm web:build
 ```
 
-The landing page will be available at `http://localhost:3000`.
+## What it shows
 
-## Features
-
-- Modern React application with TypeScript
-- Beautiful landing page with hero section, features, and component showcase
-- Dark/light theme toggle
-- Responsive design
-- Built with Smug UI components
-
-## Deployment
-
-The landing page is configured for deployment on Vercel. The build output is in the `dist/` directory.
+- Hero, feature cards and a component showcase built with Sun UI components
+- A light and dark theme toggle using `lightTheme` and `darkTheme` from `@smug-ui/theme`

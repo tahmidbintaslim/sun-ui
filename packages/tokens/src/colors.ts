@@ -43,6 +43,10 @@ export type SemanticColor =
 /**
  * Sun UI Brand Colors
  * Primary: Sky Blue (Sun-inspired warmth meets modern tech)
+ *
+ * Components use `main` both as a solid background (with `contrastText`) and as
+ * text on light surfaces, so `main` and `dark` must each reach 4.5:1 against
+ * white and against `contrastText`. src/contrast.test.ts enforces this.
  */
 export const colorPalette = {
   // Brand Primary - Sky Blue
@@ -57,9 +61,9 @@ export const colorPalette = {
     700: '#0369a1',
     800: '#075985',
     900: '#0c4a6e',
-    main: '#0ea5e9',
+    main: '#0369a1',
     light: '#7dd3fc',
-    dark: '#0284c7',
+    dark: '#075985',
     contrastText: '#ffffff',
     alpha8: 'rgba(14, 165, 233, 0.08)',
     alpha12: 'rgba(14, 165, 233, 0.12)',
@@ -81,7 +85,7 @@ export const colorPalette = {
     700: '#7e22ce',
     800: '#6b21a8',
     900: '#581c87',
-    main: '#a855f7',
+    main: '#9333ea',
     light: '#d8b4fe',
     dark: '#7e22ce',
     contrastText: '#ffffff',
@@ -105,9 +109,9 @@ export const colorPalette = {
     700: '#047857',
     800: '#065f46',
     900: '#064e3b',
-    main: '#10b981',
+    main: '#047857',
     light: '#6ee7b7',
-    dark: '#047857',
+    dark: '#065f46',
     contrastText: '#ffffff',
     alpha8: 'rgba(16, 185, 129, 0.08)',
     alpha12: 'rgba(16, 185, 129, 0.12)',
@@ -129,10 +133,10 @@ export const colorPalette = {
     700: '#b45309',
     800: '#92400e',
     900: '#78350f',
-    main: '#f59e0b',
+    main: '#b45309',
     light: '#fcd34d',
-    dark: '#b45309',
-    contrastText: '#000000',
+    dark: '#92400e',
+    contrastText: '#ffffff',
     alpha8: 'rgba(245, 158, 11, 0.08)',
     alpha12: 'rgba(245, 158, 11, 0.12)',
     alpha16: 'rgba(245, 158, 11, 0.16)',
@@ -153,7 +157,7 @@ export const colorPalette = {
     700: '#be123c',
     800: '#9f1239',
     900: '#881337',
-    main: '#f43f5e',
+    main: '#e11d48',
     light: '#fda4af',
     dark: '#be123c',
     contrastText: '#ffffff',
@@ -177,9 +181,9 @@ export const colorPalette = {
     700: '#0e7490',
     800: '#155e75',
     900: '#164e63',
-    main: '#06b6d4',
+    main: '#0e7490',
     light: '#67e8f9',
-    dark: '#0e7490',
+    dark: '#155e75',
     contrastText: '#ffffff',
     alpha8: 'rgba(6, 182, 212, 0.08)',
     alpha12: 'rgba(6, 182, 212, 0.12)',
@@ -213,6 +217,64 @@ export const colorPalette = {
     alpha40: 'rgba(100, 116, 139, 0.40)',
   } as ColorScale,
 };
+
+/**
+ * The scales components use in dark mode.
+ *
+ * The light-theme `main` and `dark` above are dark enough to read on white, which
+ * makes them too dark to read on the near-black dark-mode surfaces: no single shade
+ * reaches 4.5:1 on both. Dark mode keeps the lighter shades it used before the
+ * light-theme contrast fix (`main` is the 500 shade), so text, borders and icons stay
+ * readable on dark surfaces. Solid fills in dark mode are a known gap: white on most
+ * 500 shades is below 4.5:1.
+ */
+export const darkModeColorPalette: Record<SemanticColor, ColorScale> = {
+  primary: {
+    ...colorPalette.primary,
+    main: colorPalette.primary[500],
+    dark: colorPalette.primary[600],
+  },
+  secondary: {
+    ...colorPalette.secondary,
+    main: colorPalette.secondary[500],
+    dark: colorPalette.secondary[700],
+  },
+  success: {
+    ...colorPalette.success,
+    main: colorPalette.success[500],
+    dark: colorPalette.success[700],
+  },
+  warning: {
+    ...colorPalette.warning,
+    main: colorPalette.warning[500],
+    dark: colorPalette.warning[700],
+    contrastText: '#000000',
+  },
+  danger: {
+    ...colorPalette.danger,
+    main: colorPalette.danger[500],
+    dark: colorPalette.danger[700],
+  },
+  info: {
+    ...colorPalette.info,
+    main: colorPalette.info[500],
+    dark: colorPalette.info[700],
+  },
+  neutral: {
+    ...colorPalette.neutral,
+    main: colorPalette.neutral[500],
+    dark: colorPalette.neutral[700],
+  },
+};
+
+/**
+ * Returns the scale for a color in the current mode. Components call it with
+ * `theme.palette.mode === 'dark'`. An unknown color falls back to primary.
+ */
+export function colorScaleForMode(color: SemanticColor, isDark: boolean): ColorScale {
+  const palette: Record<SemanticColor, ColorScale> = isDark ? darkModeColorPalette : colorPalette;
+  return palette[color] ?? palette.primary;
+}
 
 // Common background colors
 export const backgrounds = {

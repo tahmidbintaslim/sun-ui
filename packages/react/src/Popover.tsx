@@ -5,7 +5,7 @@ import {
   PopoverProps as MuiPopoverProps,
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import { animations, colors, sizing, typography } from '@smug-ui/tokens';
+import { animations, colors, colorScaleForMode, sizing, typography } from '@smug-ui/tokens';
 import * as React from 'react';
 
 // =============================================================================
@@ -33,7 +33,7 @@ export interface PopoverProps extends Omit<MuiPopoverProps, 'variant'> {
 // STYLE UTILITIES
 // =============================================================================
 
-const getColorScale = (color: SunColor) => colors.semantic[color];
+const getColorScale = (color: SunColor, isDark: boolean) => colorScaleForMode(color, isDark);
 
 const sizeConfig = {
   xs: { padding: sizing.spacing[2], borderRadius: sizing.radius.sm, maxWidth: 200 },
@@ -61,7 +61,7 @@ const StyledPopover = styled(MuiPopover, {
       prop as string
     ),
 })<StyledProps>(({ theme, sunVariant, sunColor, sunSize, $loading, $disableAnimation }) => {
-  const colorScale = getColorScale(sunColor);
+  const colorScale = getColorScale(sunColor, theme.palette.mode === 'dark');
   const sizeStyles = sizeConfig[sunSize];
   const isDark = theme.palette.mode === 'dark';
 

@@ -1,948 +1,126 @@
-# Testing & Development Guide
+# Testing and development guide
 
-Complete guide for testing, developing, and extending Sun UI.
+How to set up the repo, run the checks, add a component and cut a release. For the package layout and component pattern, see [API_ARCHITECTURE.md](API_ARCHITECTURE.md).
 
-## Table of Contents
+## Setup
 
-1. [Getting Started with Development](#getting-started-with-development)
-2. [Development Setup](#development-setup)
-3. [Project Structure](#project-structure)
-4. [Testing](#testing)
-5. [Running Tests](#running-tests)
-6. [Creating Components](#creating-components)
-7. [Component Guidelines](#component-guidelines)
-8. [Storybook](#storybook)
-9. [CI/CD Pipeline](#cicd-pipeline)
-10. [Publishing](#publishing)
+Requirements:
 
----
-
-## Getting Started with Development
-
-### Prerequisites
-
-- **Node.js** v20+
-- **pnpm** v10+
-- **Git** latest version
-
-### Initial Setup
+- Node 22 (see `.nvmrc`)
+- pnpm, at the version pinned in `packageManager` (run `corepack enable` once)
 
 ```bash
-# Clone repository
-git clone https://github.com/tahmidbintaslim/smug-ui.git
-cd smug-ui
-
-# Install dependencies
+git clone https://github.com/tahmidbintaslim/sun-ui.git
+cd sun-ui
 pnpm install
-
-# Build all packages
-pnpm build
-
-# Run tests
-pnpm test
-
-# Start development
-pnpm dev
+pnpm build:packages   # workspace packages import each other from dist/
 ```
 
----
+## Scripts
 
-## Development Setup
+| Command                  | What it does                                                                 |
+| ------------------------ | ---------------------------------------------------------------------------- |
+| `pnpm build:packages`    | Build tokens, theme, core, icons and react with tsup                         |
+| `pnpm build`             | Build the packages, Storybook and the web demo                               |
+| `pnpm lint`              | ESLint in every package and app                                              |
+| `pnpm type-check`        | `tsc --noEmit` in every package and the web demo (builds dependencies first) |
+| `pnpm test`              | Unit tests in watch mode                                                     |
+| `pnpm test:ci`           | Unit tests once (`pnpm test:unit` is the same)                               |
+| `pnpm test:storybook:ci` | Every Storybook story as a test in headless Chromium                         |
+| `pnpm check:all`         | `lint`, `type-check` and `test:ci`                                           |
+| `pnpm storybook:dev`     | Storybook on http://localhost:6006                                           |
+| `pnpm storybook:build`   | Static Storybook in `apps/docs/storybook-static`                             |
+| `pnpm format`            | Prettier over TS, TSX, JSON and Markdown files                               |
 
-### Environment
+`pnpm clean` deletes each package's build output, the root `node_modules` and also `pnpm-lock.yaml`. Do not commit a regenerated lockfile unless you meant to change dependencies.
 
-Sun UI uses a monorepo structure with TurboRepo and pnpm workspaces.
+## Test suites
 
-### Scripts Available
+### Unit tests
+
+- Vitest with Testing Library in jsdom, configured per package (`packages/react/vitest.config.ts`, `packages/tokens/vitest.config.ts`) and run together from the root `vitest.config.ts`.
+- 484 tests in 29 files: one file per component in `packages/react/src` (376 tests), `packages/react/src/dark-mode.test.tsx` (17 tests that render components in light and dark mode and check their text, background and status-dot colors, and call the `@smug-ui/core` variant helpers in both modes), `packages/react/src/cjs-build.test.ts` (5 tests that `require()` the built CommonJS bundle; skipped until `pnpm build:packages` has run) and `packages/tokens/src/contrast.test.ts` (86 tests).
+- Six component test files also run jest-axe.
 
 ```bash
-# Build all packages
-pnpm build
+pnpm test:ci                                      # everything, once
+pnpm vitest run packages/react/src/Button.test.tsx  # one file
+pnpm vitest run --project=@smug-ui/react          # one project (or --project=tokens)
+pnpm vitest run --coverage                        # with a v8 coverage report in coverage/
+```
 
-# Run tests (watch mode)
-pnpm test
+### Contrast test
 
-# Run unit tests (CI mode, non-watch)
-pnpm test:unit
+`packages/tokens/src/contrast.test.ts` computes WCAG 2.x contrast ratios for the color tokens and requires 4.5:1 for:
 
-# Run Storybook component tests (requires Storybook running)
-pnpm test:storybook
+- `contrastText` on `main` and on `dark` (solid fill and its hover)
+- `main` and `dark` on white (outlined, plain and link text)
+- `dark` on the `alpha12` and `alpha20` tints (soft)
+- the MUI theme palette `main` colors on white
 
-# Run Storybook tests in CI mode
+For dark mode it requires 4.5:1 for `main` text on the dark page (every color except neutral), `light` on the soft tint, and the dark MUI theme's primary, success, warning and error; and 3:1 for `main` borders and icons on the page and on paper. Dark-mode solid fills, neutral text, secondary, danger and neutral text on paper, and the light-theme ghost and plain hover tints are known gaps.
+
+### Storybook tests
+
+`apps/docs/vitest.config.ts` uses the Storybook Vitest plugin to turn every story in `packages/react/src/*.stories.tsx` into a test that renders it in headless Chromium and runs its `play` function. There are 372 stories, 54 of them with a `play` function. No running Storybook server is needed.
+
+```bash
+pnpm exec playwright install chromium   # first time only
+pnpm build:packages
 pnpm test:storybook:ci
+```
 
-# Run all tests for CI (non-watch)
-pnpm test:ci
+When `SB_URL` is set, failure messages link to that deployed Storybook instead of `http://localhost:6006`.
 
-# Run all checks (lint + type-check + test:ci)
-pnpm check:all
+## Adding a component
 
-# Lint code
+1. Create `packages/react/src/MyComponent.tsx`. Copy the structure of an existing component such as `Chip.tsx`: extend the MUI props, replace `variant`, `color` and `size` with the Sun UI unions, style with `styled()` and the tokens, and export with `React.forwardRef` and a `displayName`.
+2. Add `MyComponent.test.tsx` next to it: render, each variant, keyboard and ARIA behavior, and a jest-axe check.
+3. Add `MyComponent.stories.tsx` with a `play` function for the main interaction. Import test helpers from `storybook/test`.
+4. Export the component and its prop types from `packages/react/src/index.ts`.
+5. Add a row to the component table in `README.md`.
+6. Add a changeset: `pnpm changeset`.
+
+## CI
+
+| Workflow                | Trigger                         | Jobs                                                                          |
+| ----------------------- | ------------------------------- | ----------------------------------------------------------------------------- |
+| `test.yml`              | Push and pull request to `main` | lint and type-check, unit tests, Storybook tests, build, Chromatic (optional) |
+| `storybook-publish.yml` | Push and pull request to `main` | Build Storybook and publish it to Chromatic (optional)                        |
+| `ui-tests.yml`          | Successful deployment status    | Storybook tests with links to the deployed Storybook                          |
+| `publish.yml`           | A published GitHub release      | Build, type-check, unit tests, then `pnpm publish` of the public packages     |
+
+Every job installs with `pnpm install --frozen-lockfile` on Node 22, and builds the packages before it runs tests. The Chromatic steps do not fail the run when the `CHROMATIC_PROJECT_TOKEN` secret is not set.
+
+To run the same checks locally:
+
+```bash
+pnpm install --frozen-lockfile
 pnpm lint
-
-# Type check
 pnpm type-check
-
-# Format code
-pnpm format
-
-# Start Storybook
-pnpm storybook:dev
-
-# Build Storybook
-pnpm storybook:build
-
-# Clean everything
-pnpm clean
-```
-
-### Monorepo Structure
-
-```
-smug-ui/
-├── apps/
-│   └── docs/                    # Storybook application
-│       ├── .storybook/          # Storybook configuration
-│       ├── storybook-static/    # Built Storybook
-│       └── vitest.config.ts     # Vitest configuration
-│
-├── packages/
-│   ├── core/                    # Headless primitives (future)
-│   ├── icons/                   # Icon library (2000+ SVG)
-│   ├── react/                   # React components
-│   │   ├── src/
-│   │   │   ├── Alert.tsx
-│   │   │   ├── Alert.test.tsx
-│   │   │   ├── Alert.stories.tsx
-│   │   │   └── index.ts
-│   │   ├── dist/
-│   │   ├── package.json
-│   │   ├── tsconfig.json
-│   │   └── vitest.config.ts
-│   ├── theme/                   # MUI theme configuration
-│   ├── tokens/                  # Design tokens
-│   └── package.json
-│
-├── .github/
-│   ├── workflows/
-│   │   ├── test.yml             # Test on push
-│   │   ├── storybook-publish.yml # Publish Storybook to Chromatic
-│   │   └── publish.yml          # Publish to npm
-│   └── ISSUE_TEMPLATE/
-│
-├── package.json                 # Root package
-├── pnpm-workspace.yaml          # Workspace configuration
-├── turbo.json                   # TurboRepo configuration
-├── tsconfig.json                # TypeScript configuration
-├── vitest.config.ts             # Vitest configuration
-└── eslint.config.js             # ESLint configuration
-```
-
----
-
-## Testing
-
-### Test Stack
-
-- **Framework**: Vitest
-- **Library**: React Testing Library
-- **Browser**: Playwright (for integration tests)
-- **Accessibility**: Axe-core
-
-### Test Types
-
-#### Unit Tests
-
-Test individual components in isolation:
-
-```tsx
-// Button.test.tsx
-import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
-import { Button } from './Button';
-
-describe('Button', () => {
-  it('renders with solid variant', () => {
-    render(<Button variant="solid">Click me</Button>);
-    const button = screen.getByRole('button', { name: /click me/i });
-    expect(button).toBeInTheDocument();
-  });
-
-  it('handles click events', async () => {
-    const handleClick = vi.fn();
-    render(<Button onClick={handleClick}>Click</Button>);
-    await userEvent.click(screen.getByRole('button'));
-    expect(handleClick).toHaveBeenCalledOnce();
-  });
-
-  it('supports disabled state', () => {
-    render(<Button disabled>Disabled</Button>);
-    expect(screen.getByRole('button')).toBeDisabled();
-  });
-});
-```
-
-#### Integration Tests
-
-Test component interactions:
-
-```tsx
-import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
-import { TextField, Button } from '@smug-ui/react';
-
-describe('Form Integration', () => {
-  it('submits form data', async () => {
-    const handleSubmit = vi.fn();
-    render(
-      <form onSubmit={handleSubmit}>
-        <TextField label="Name" name="name" />
-        <Button type="submit">Submit</Button>
-      </form>
-    );
-
-    await userEvent.type(screen.getByLabelText('Name'), 'John');
-    await userEvent.click(screen.getByRole('button', { name: /submit/i }));
-    expect(handleSubmit).toHaveBeenCalled();
-  });
-});
-```
-
-#### Accessibility Tests
-
-Test for WCAG compliance:
-
-```tsx
-import { render } from '@testing-library/react';
-import { axe, toHaveNoViolations } from 'jest-axe';
-import { Button } from './Button';
-
-expect.extend(toHaveNoViolations);
-
-describe('Button Accessibility', () => {
-  it('has no accessibility violations', async () => {
-    const { container } = render(<Button>Click me</Button>);
-    const results = await axe(container);
-    expect(results).toHaveNoViolations();
-  });
-});
-```
-
-#### Snapshot Tests
-
-Document UI changes:
-
-```tsx
-import { render } from '@testing-library/react';
-import { Button } from './Button';
-
-describe('Button Snapshots', () => {
-  it('matches snapshot', () => {
-    const { container } = render(<Button>Click me</Button>);
-    expect(container).toMatchSnapshot();
-  });
-});
-```
-
-### Test Coverage
-
-Run tests with coverage report:
-
-```bash
-# Run all tests with coverage
-pnpm test:coverage
-
-# Watch specific file
-pnpm test packages/react/src/Button.test.tsx --watch
-```
-
----
-
-## Running Tests
-
-### Run All Tests (Watch Mode)
-
-```bash
-pnpm test
-```
-
-### Run Unit Tests (CI Mode)
-
-```bash
-pnpm test:unit
-```
-
-This runs all package unit tests in non-watch mode, suitable for CI pipelines.
-
-### Run Tests for Specific Package
-
-```bash
-pnpm vitest --project=@smug-ui/react
-```
-
-### Run Single Test File
-
-```bash
-pnpm vitest packages/react/src/Button.test.tsx
-```
-
-### Run Storybook Component Tests
-
-Storybook tests require a running Storybook server:
-
-```bash
-# Terminal 1: Start Storybook
-pnpm storybook:dev
-
-# Terminal 2: Run Storybook tests (watch mode)
-pnpm test:storybook
-
-# Or run in CI mode (non-watch)
-pnpm test:storybook:ci
-```
-
-### Run All CI Checks
-
-```bash
-# Runs: lint + type-check + test:ci
-pnpm check:all
-```
-
----
-
-## Creating Components
-
-### Component Template
-
-Follow this structure for all new components:
-
-```tsx
-// components/MyComponent/MyComponent.tsx
-import * as React from 'react';
-import { MuiComponent, MuiComponentProps } from '@mui/material';
-import { styled } from '@mui/material/styles';
-
-export interface MyComponentProps extends MuiComponentProps {
-  variant?: 'solid' | 'soft' | 'outlined' | 'ghost' | 'plain';
-}
-
-const StyledComponent = styled(MuiComponent, {
-  shouldForwardProp: (prop) => !['variant'].includes(prop as string),
-})<MyComponentProps>(({ theme, variant = 'solid' }) => {
-  const baseStyles = {
-    // Common styles
-  };
-
-  const variantStyles = {
-    solid: {
-      // Solid variant styles
-    },
-    soft: {
-      // Soft variant styles
-    },
-    outlined: {
-      // Outlined variant styles
-    },
-    ghost: {
-      // Ghost variant styles
-    },
-    plain: {
-      // Plain variant styles
-    },
-  };
-
-  return {
-    ...baseStyles,
-    ...variantStyles[variant],
-  };
-});
-
-export const MyComponent = React.forwardRef<HTMLElement, MyComponentProps>(
-  ({ variant = 'solid', ...props }, ref) => <StyledComponent ref={ref} {...props} />
-);
-
-MyComponent.displayName = 'MyComponent';
-```
-
-### Component Test Template
-
-```tsx
-// components/MyComponent/MyComponent.test.tsx
-import { render, screen } from '@testing-library/react';
-import { MyComponent } from './MyComponent';
-
-describe('MyComponent', () => {
-  it('renders', () => {
-    render(<MyComponent />);
-    // Add assertions
-  });
-
-  it('supports all variants', () => {
-    const variants = ['solid', 'soft', 'outlined', 'ghost', 'plain'] as const;
-    variants.forEach((variant) => {
-      render(<MyComponent variant={variant} />);
-      // Add variant-specific assertions
-    });
-  });
-
-  it('forwards ref', () => {
-    const ref = React.createRef<HTMLElement>();
-    render(<MyComponent ref={ref} />);
-    expect(ref.current).toBeInTheDocument();
-  });
-});
-```
-
-### Component Story Template
-
-```tsx
-// components/MyComponent/MyComponent.stories.tsx
-import { Meta, StoryObj } from '@storybook/react-vite';
-import { MyComponent } from './MyComponent';
-
-const meta = {
-  title: 'Atoms/MyComponent',
-  component: MyComponent,
-  tags: ['autodocs'],
-  argTypes: {
-    variant: {
-      control: { type: 'select' },
-      options: ['solid', 'soft', 'outlined', 'ghost', 'plain'],
-    },
-  },
-} satisfies Meta<typeof MyComponent>;
-
-export default meta;
-type Story = StoryObj<typeof meta>;
-
-export const Solid: Story = {
-  args: {
-    variant: 'solid',
-  },
-};
-
-export const Soft: Story = {
-  args: {
-    variant: 'soft',
-  },
-};
-
-export const AllVariants: Story = {
-  render: () => (
-    <div style={{ display: 'flex', gap: '1rem' }}>
-      <MyComponent variant="solid" />
-      <MyComponent variant="soft" />
-      <MyComponent variant="outlined" />
-      <MyComponent variant="ghost" />
-      <MyComponent variant="plain" />
-    </div>
-  ),
-};
-```
-
-### Steps to Create a Component
-
-1. **Create the component file** with TypeScript
-2. **Write unit tests** (.test.tsx)
-3. **Create Storybook stories** (.stories.tsx)
-4. **Test accessibility** with axe-core
-5. **Document the component** in DOCUMENTATION.md
-6. **Export from index.ts** for tree-shaking
-7. **Update CHANGELOG.md** with the new component
-
----
-
-## Component Guidelines
-
-### Variant System
-
-All components must support 5 variants:
-
-1. **Solid** — Primary action, highest importance
-2. **Soft** — Secondary action, medium importance
-3. **Outlined** — Tertiary action, medium-low importance
-4. **Ghost** — Low-priority action
-5. **Plain** — Minimal action, text-only
-
-### TypeScript
-
-- Use strict TypeScript mode
-- Export interfaces for public props
-- Use `forwardRef` for ref support
-- Set `displayName` for debugging
-
-### Styling
-
-- Use `styled()` from MUI for consistency
-- Use `shouldForwardProp` to exclude custom props
-- Support `sx` prop for customization
-- Ensure dark mode compatibility
-
-### Accessibility
-
-- Use semantic HTML elements
-- Support keyboard navigation
-- Include ARIA attributes
-- Ensure sufficient color contrast
-- Test with screen readers
-
-### Performance
-
-- Memoize components if needed
-- Avoid inline function creation
-- Use CSS-in-JS efficiently
-- Tree-shake unused code
-
----
-
-## Storybook
-
-### Start Storybook
-
-```bash
-pnpm storybook:dev
-```
-
-Visit: http://localhost:6006
-
-### Build Storybook
-
-```bash
-pnpm storybook:build
-```
-
-### Story Organization
-
-Stories are organized by component category:
-
-- **Atoms** — Base components (Button, TextField, etc.)
-- **Molecules** — Component combinations
-- **Organisms** — Complex component groups
-- **Pages** — Full page templates
-- **Documentation** — Usage guides
-
-### Story Examples
-
-```tsx
-// Basic story
-export const Solid: Story = {
-  args: {
-    variant: 'solid',
-  },
-};
-
-// Story with render function
-export const Interactive: Story = {
-  render: (args) => {
-    const [value, setValue] = useState('');
-    return <Input {...args} value={value} onChange={(e) => setValue(e.target.value)} />;
-  },
-};
-
-// Story with decorators
-export const InCard: Story = {
-  decorators: [
-    (Story) => (
-      <Card>
-        <CardContent>
-          <Story />
-        </CardContent>
-      </Card>
-    ),
-  ],
-};
-```
-
-### Storybook Features
-
-- **Docs** — Auto-generated documentation
-- **Controls** — Interactive prop editing
-- **Interactions** — User interaction testing
-- **Accessibility** — A11y testing addon
-- **Visual tests** — Chromatic integration
-
----
-
-## CI/CD Pipeline
-
-### Overview
-
-Sun UI uses GitHub Actions for continuous integration with multiple test layers:
-
-| Workflow                | Trigger           | Purpose                                      |
-| ----------------------- | ----------------- | -------------------------------------------- |
-| `test.yml`              | Push/PR           | Unit tests, Storybook tests, linting, builds |
-| `ui-tests.yml`          | Vercel deployment | Run tests against deployed Storybook         |
-| `storybook-publish.yml` | Push to main      | Visual regression tests via Chromatic        |
-| `publish.yml`           | Release           | Publish packages to npm                      |
-
-### Test Scripts
-
-```bash
-# Run tests in watch mode
-pnpm test
-
-# Run unit tests (CI mode, non-watch)
-pnpm test:unit
-
-# Run Storybook component tests (requires Storybook running)
-pnpm test:storybook
-
-# Run Storybook tests in CI mode
-pnpm test:storybook:ci
-
-# Run all unit tests for CI (non-watch)
+pnpm build:packages
 pnpm test:ci
-
-# Run all checks (lint + type-check + tests)
-pnpm check:all
-```
-
-### Test Architecture
-
-Sun UI separates unit tests from Storybook tests:
-
-| Test Type       | Command               | Purpose                         |
-| --------------- | --------------------- | ------------------------------- |
-| Unit Tests      | `pnpm test:unit`      | Fast, isolated component tests  |
-| Storybook Tests | `pnpm test:storybook` | Browser-based interaction tests |
-| CI Tests        | `pnpm test:ci`        | All unit tests (non-watch)      |
-| Full CI         | `pnpm check:all`      | Lint + Type-check + Unit tests  |
-
-**Why separate?** Storybook tests require a running Storybook server and browser (Playwright). Unit tests run instantly in Node.js with jsdom.
-
-### CI Workflow Details
-
-#### 1. Main CI Pipeline (`test.yml`)
-
-Runs on every push and pull request:
-
-```yaml
-jobs:
-  lint: # ESLint + TypeScript checks
-  unit-tests: # Component unit tests (@smug-ui/react)
-  storybook-tests: # Interaction + accessibility tests
-  visual-tests: # Chromatic visual regression
-  build: # Verify packages compile
-```
-
-#### 2. UI Tests on Deployment (`ui-tests.yml`)
-
-Runs after Vercel deploys your Storybook:
-
-- **Trigger**: `deployment_status` event from Vercel
-- **Benefit**: Test failures include links to the deployed Storybook
-- **Debugging**: Click the link in CI output to see the failing story
-
-```yaml
-# Passes deployed URL to tests for debugging
-env:
-  SB_URL: ${{ github.event.deployment_status.environment_url }}
-```
-
-#### 3. Debugging Test Failures
-
-When a test fails in CI, the output includes a clickable link:
-
-```
-❌ FAIL  src/Button.stories.tsx > Button > Click Event
-
-   View in Storybook: https://smug-ui.vercel.app/?path=/story/atoms-button--click-event
-```
-
-This link points to your deployed Storybook (via `SB_URL` environment variable).
-
-### Setting Up CI
-
-#### Required Secrets
-
-Add these secrets in GitHub Settings → Secrets:
-
-| Secret                    | Purpose                       |
-| ------------------------- | ----------------------------- |
-| `CHROMATIC_PROJECT_TOKEN` | Visual testing with Chromatic |
-| `NPM_TOKEN`               | Publishing to npm (optional)  |
-
-#### Vercel Integration
-
-The `ui-tests.yml` workflow automatically triggers when Vercel deploys:
-
-1. Push to `main` or open PR
-2. Vercel deploys Storybook
-3. Vercel emits `deployment_status` event
-4. UI tests run against deployed URL
-
-### Running CI Locally
-
-Simulate the CI environment locally:
-
-```bash
-# Full CI check (recommended)
-pnpm check:all
-
-# Individual steps:
-pnpm lint           # ESLint checks
-pnpm type-check     # TypeScript checks
-pnpm test:ci        # Unit tests (62 tests)
-pnpm build          # Build all packages
-```
-
-### Test Coverage
-
-Generate coverage reports:
-
-```bash
-# Unit test coverage
-pnpm vitest run --coverage
-
-# View coverage report
-open coverage/index.html
-```
-
-### Current Test Status
-
-- **Unit Tests**: 62 passing (16 test files)
-- **Components Tested**: All 14 components
-- **Test Framework**: Vitest with jsdom
-
-### GitHub Actions Workflows
-
-#### Test Workflow (test.yml)
-
-Runs on every push and pull request:
-
-1. Install dependencies
-2. Run linter (ESLint)
-3. Run type checker (tsc)
-4. Run tests (vitest)
-5. Build packages
-6. Build Storybook
-
-#### Storybook Publish (storybook-publish.yml)
-
-Publishes Storybook to Chromatic on push:
-
-1. Install dependencies
-2. Build Storybook
-3. Publish to Chromatic
-4. Report results to GitHub
-
-#### Publish Workflow (publish.yml)
-
-Publishes packages to npm on release:
-
-1. Create release via Changesets
-2. Build all packages
-3. Publish to npm registry
-4. Create GitHub release
-
-### Local CI Check
-
-Run all CI checks locally:
-
-```bash
-# Quick: Run all checks at once
-pnpm check:all
-
-# Or run individually:
-pnpm lint          # ESLint
-pnpm type-check    # TypeScript
-pnpm test:ci       # Unit tests (non-watch)
-pnpm build         # Build packages
-pnpm storybook:build  # Build Storybook
-```
-
----
-
-## Publishing
-
-### Using Changesets
-
-Changesets automate version management and publishing:
-
-```bash
-# Create a changeset
-pnpm changeset
-
-# List pending changesets
-pnpm changeset status
-
-# Version bump
-pnpm changeset version
-```
-
-### Changeset Format
-
-`.changeset/meaningful-name.md`:
-
-```markdown
----
-'@smug-ui/react': minor
-'@smug-ui/theme': patch
----
-
-Added new Avatar component with 5 variants.
-```
-
-### Publishing to npm
-
-```bash
-# Build all packages
+pnpm test:storybook:ci
 pnpm build
-
-# Publish to npm (requires authentication)
-pnpm publish -r
-
-# Or via CI/CD (automatic on GitHub release)
 ```
 
----
+## Releasing
 
-## Debugging
+Only the maintainer releases, and a push never publishes anything.
 
-### Debug Tests
+1. Each change that should ship adds a changeset (`pnpm changeset`).
+2. The maintainer runs `pnpm changeset version`, which bumps the package versions and writes their changelogs, and merges that to `main`.
+3. The maintainer publishes a GitHub release whose tag is `v<version>` (for example `v0.1.0`).
+4. `publish.yml` checks that the tag matches every public package version, builds and tests, then publishes to npm with the `NPM_TOKEN` repository secret. It stops before publishing if the secret is missing.
 
-Run tests with debugging:
+The public packages were numbered 1.0.0 before anything was published; the readiness pass lowered them to 0.1.0. So the first release skips steps 1 and 2: publish a release tagged `v0.1.0`.
 
-```bash
-node --inspect-brk ./node_modules/vitest/vitest.mjs
-```
+Before the first publish, the `@smug-ui` scope has to exist on npm: it is not registered yet (the registry answers "Scope not found"), so create an npm org named `smug-ui` and use an `NPM_TOKEN` from one of its members. The `@sun-ui` scope is already registered by another account (`https://registry.npmjs.org/-/org/sun-ui/package` returns 200), so it is not an option unless you own it.
 
-Then open `chrome://inspect` in Chrome.
-
-### Debug Storybook
-
-Add debugging to stories:
-
-```tsx
-export const Debug: Story = {
-  parameters: {
-    controls: { expanded: true },
-  },
-  render: (args) => {
-    console.log('Component args:', args);
-    return <MyComponent {...args} />;
-  },
-};
-```
-
-### TypeScript Debugging
-
-Enable stricter type checking:
-
-```bash
-pnpm type-check
-```
-
-Check `tsconfig.json` for strict options.
-
----
-
-## Best Practices
-
-### Code Style
-
-Follow the ESLint and Prettier configuration:
-
-```bash
-# Format code
-pnpm format
-
-# Lint and fix
-pnpm lint --fix
-```
-
-### Commit Messages
-
-Use conventional commits:
-
-```
-feat: add new Avatar component
-fix: resolve Button hover state issue
-docs: update theming guide
-test: add Avatar unit tests
-chore: update dependencies
-```
-
-### Branch Naming
-
-Use descriptive branch names:
-
-```
-feat/avatar-component
-fix/button-hover-state
-docs/theming-guide
-refactor/component-structure
-```
-
-### Pull Request Template
-
-Reference the PR template in `.github/pull_request_template.md`:
-
-- Title: Clear description of changes
-- Description: What and why
-- Tests: Added/updated tests
-- Related: Link to related issues
-
----
+Private packages (`@smug-ui/icons`, `docs`, `web`) are never versioned or published.
 
 ## Troubleshooting
 
-### Issue: Tests fail to run
-
-```bash
-# Clear cache
-pnpm clean
-
-# Reinstall
-pnpm install
-
-# Try again
-pnpm test
-```
-
-### Issue: Storybook not starting
-
-```bash
-# Clear Storybook cache
-rm -rf apps/docs/node_modules/.cache/storybook
-
-# Rebuild
-pnpm build
-
-# Try starting
-pnpm storybook:dev
-```
-
-### Issue: Build fails
-
-```bash
-# Clean all builds
-pnpm clean
-
-# Rebuild from scratch
-pnpm build
-```
-
-### Issue: Type errors
-
-```bash
-# Run type check
-pnpm type-check
-
-# Fix TypeScript issues in files
-```
-
----
-
-## Additional Resources
-
-- [Vitest Documentation](https://vitest.dev)
-- [React Testing Library](https://testing-library.com/react)
-- [Storybook Guide](https://storybook.js.org)
-- [Material-UI Docs](https://mui.com)
-- [Changesets Guide](https://github.com/changesets/changesets)
-
----
-
-**Happy developing! 🚀**
+- **`Cannot find module '@smug-ui/tokens'` (or theme, core) in tests or Storybook**: run `pnpm build:packages`. Workspace packages resolve to their `dist/` folders.
+- **`Executable doesn't exist` from Playwright**: run `pnpm exec playwright install chromium`.
+- **Storybook cache problems**: delete `apps/docs/node_modules/.cache` and start Storybook again.

@@ -1,12 +1,16 @@
 {
   "name": "@smug-ui/icons",
-  "version": "1.0.0",
-  "description": "2000+ SVG icons for Smug UI. Tree-shakeable and optimized.",
-  "homepage": "https://smug-ui.vercel.app",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Placeholder for a future Sun UI icon package. It is empty and is not published.",
+  "homepage": "https://github.com/tahmidbintaslim/sun-ui#readme",
   "repository": {
     "type": "git",
-    "url": "https://github.com/tahmidbintaslim/smug-ui.git",
+    "url": "git+https://github.com/tahmidbintaslim/sun-ui.git",
     "directory": "packages/icons"
+  },
+  "bugs": {
+    "url": "https://github.com/tahmidbintaslim/sun-ui/issues"
   },
   "keywords": [
     "icons",
@@ -14,16 +18,26 @@
     "react-icons",
     "ui-icons"
   ],
-  "author": "Tahmid Bin Taslim <hello@tahmir.dev>",
+  "author": "Tahmid Bin Taslim Rafi (https://github.com/tahmidbintaslim)",
   "license": "MIT",
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.cts",
   "exports": {
     ".": {
-      "import": "./dist/index.js",
-      "require": "./dist/index.js"
-    }
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
+    },
+    "./package.json": "./package.json"
   },
+  "sideEffects": false,
   "files": [
     "dist"
   ],
@@ -31,21 +45,17 @@
     "access": "public"
   },
   "scripts": {
-    "build": "tsc",
+    "build": "tsup",
     "type-check": "tsc --noEmit",
     "lint": "eslint src",
     "clean": "rm -rf dist"
   },
-  "dependencies": {
-    "@storybook/react": "^10.1.4",
-    "storybook": "^10.1.4"
-  },
   "devDependencies": {
-    "@storybook/addon-docs": "^10.1.4",
-    "@storybook/addon-links": "^10.1.4",
+    "@storybook/addon-docs": "^10.6.3",
+    "@storybook/addon-links": "^10.6.3",
     "@storybook/test": "^8.6.14",
     "@storybook/test-runner": "^0.24.2",
-    "eslint-plugin-storybook": "^10.1.4",
+    "eslint-plugin-storybook": "^10.6.3",
     "typescript": "^5.9.3"
   }
 }

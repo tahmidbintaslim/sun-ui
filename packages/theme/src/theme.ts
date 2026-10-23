@@ -39,11 +39,28 @@ const themeOptions: ThemeOptions = {
 
 export const lightTheme = createTheme(themeOptions);
 
+// The light-theme `main` shades are too dark to read as text on dark surfaces (MUI
+// uses `main` for outlined and text buttons, links and focused labels), so dark
+// mode uses the lighter 500 shades.
 export const darkTheme = createTheme({
   ...themeOptions,
   palette: {
     ...themeOptions.palette,
     mode: 'dark',
+    primary: {
+      main: sunPalette.primary[500],
+      dark: sunPalette.primary[600],
+      light: sunPalette.primary.light,
+    },
+    success: {
+      main: sunPalette.success[500],
+    },
+    warning: {
+      main: sunPalette.warning[500],
+    },
+    error: {
+      main: sunPalette.danger[500],
+    },
     background: {
       default: sunPalette.neutral[900],
       paper: sunPalette.neutral[800],

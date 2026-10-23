@@ -45,7 +45,7 @@ Progress indicators show the status of ongoing processes. Sun UI provides both l
     },
     color: {
       control: 'select',
-      options: ['primary', 'secondary', 'success', 'warning', 'error', 'info', 'neutral'],
+      options: ['primary', 'secondary', 'success', 'warning', 'danger', 'info', 'neutral'],
       description: 'Color theme',
       table: { defaultValue: { summary: 'primary' } },
     },
@@ -123,7 +123,7 @@ export const LinearColors: Story = {
       'secondary',
       'success',
       'warning',
-      'error',
+      'danger',
       'info',
       'neutral',
     ];
@@ -286,7 +286,7 @@ export const CircularColors: Story = {
       'secondary',
       'success',
       'warning',
-      'error',
+      'danger',
       'info',
       'neutral',
     ];
@@ -388,7 +388,7 @@ export const VariantShowcase: Story = {
   name: 'All Variants Matrix',
   render: () => {
     const variants: ProgressVariant[] = ['solid', 'soft', 'outlined', 'ghost', 'plain'];
-    const colors: ProgressColor[] = ['primary', 'secondary', 'success', 'error'];
+    const colors: ProgressColor[] = ['primary', 'secondary', 'success', 'danger'];
 
     return (
       <Stack spacing={4}>

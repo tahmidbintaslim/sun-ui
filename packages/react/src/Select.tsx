@@ -9,7 +9,7 @@ import {
   SelectProps as MuiSelectProps,
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import { animations, colors, sizing, typography } from '@smug-ui/tokens';
+import { animations, colors, colorScaleForMode, sizing, typography } from '@smug-ui/tokens';
 import * as React from 'react';
 
 // =============================================================================
@@ -39,7 +39,7 @@ export interface SelectProps extends Omit<MuiSelectProps<string>, 'variant' | 's
 // STYLE UTILITIES
 // =============================================================================
 
-const getColorScale = (color: SunColor) => colors.semantic[color];
+const getColorScale = (color: SunColor, isDark: boolean) => colorScaleForMode(color, isDark);
 
 const sizeConfig = {
   xs: {
@@ -92,7 +92,7 @@ interface StyledProps {
 const StyledSelect = styled(MuiSelect, {
   shouldForwardProp: (prop) => !['sunVariant', 'sunColor', 'sunSize'].includes(prop as string),
 })<StyledProps>(({ theme, sunVariant, sunColor, sunSize }) => {
-  const colorScale = getColorScale(sunColor);
+  const colorScale = getColorScale(sunColor, theme.palette.mode === 'dark');
   const sizeStyles = sizeConfig[sunSize];
   const isDark = theme.palette.mode === 'dark';
 
@@ -131,7 +131,7 @@ const StyledSelect = styled(MuiSelect, {
       '&.Mui-error': {
         backgroundColor: colors.semantic.danger.alpha12,
         '& .MuiOutlinedInput-notchedOutline': {
-          borderColor: colors.semantic.danger.main,
+          borderColor: colorScaleForMode('danger', isDark).main,
         },
       },
     },
@@ -155,7 +155,7 @@ const StyledSelect = styled(MuiSelect, {
       },
       '&.Mui-error': {
         '& .MuiOutlinedInput-notchedOutline': {
-          borderColor: colors.semantic.danger.main,
+          borderColor: colorScaleForMode('danger', isDark).main,
         },
       },
     },
@@ -177,7 +177,7 @@ const StyledSelect = styled(MuiSelect, {
       },
       '&.Mui-error': {
         '& .MuiOutlinedInput-notchedOutline': {
-          borderColor: colors.semantic.danger.main,
+          borderColor: colorScaleForMode('danger', isDark).main,
         },
       },
     },
@@ -198,7 +198,7 @@ const StyledSelect = styled(MuiSelect, {
       },
       '&.Mui-error': {
         '& .MuiOutlinedInput-notchedOutline': {
-          borderColor: colors.semantic.danger.main,
+          borderColor: colorScaleForMode('danger', isDark).main,
         },
       },
     },
@@ -223,7 +223,7 @@ const StyledSelect = styled(MuiSelect, {
       },
       '&.Mui-error': {
         '& .MuiOutlinedInput-notchedOutline': {
-          borderBottomColor: colors.semantic.danger.main,
+          borderBottomColor: colorScaleForMode('danger', isDark).main,
         },
       },
     },
@@ -238,7 +238,7 @@ const StyledSelect = styled(MuiSelect, {
 const StyledFormControl = styled(FormControl, {
   shouldForwardProp: (prop) => !['sunSize', 'sunColor'].includes(prop as string),
 })<{ sunSize: SunSize; sunColor: SunColor }>(({ theme, sunSize, sunColor }) => {
-  const colorScale = getColorScale(sunColor);
+  const colorScale = getColorScale(sunColor, theme.palette.mode === 'dark');
   const isDark = theme.palette.mode === 'dark';
   return {
     '& .MuiInputLabel-root': {
@@ -249,7 +249,7 @@ const StyledFormControl = styled(FormControl, {
         color: colorScale.main,
       },
       '&.Mui-error': {
-        color: colors.semantic.danger.main,
+        color: colorScaleForMode('danger', isDark).main,
       },
     },
     '& .MuiFormHelperText-root': {

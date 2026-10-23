@@ -4,7 +4,7 @@ import {
   AvatarProps as MuiAvatarProps,
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import { animations, colors, typography } from '@smug-ui/tokens';
+import { animations, colors, colorScaleForMode, typography } from '@smug-ui/tokens';
 import * as React from 'react';
 
 // =============================================================================
@@ -34,7 +34,7 @@ export interface AvatarProps extends Omit<MuiAvatarProps, 'variant'> {
 // STYLE UTILITIES
 // =============================================================================
 
-const getColorScale = (color: SunColor) => colors.semantic[color];
+const getColorScale = (color: SunColor, isDark: boolean) => colorScaleForMode(color, isDark);
 
 const sizeConfig = {
   xs: { size: 24, fontSize: typography.fontSize.xs, iconSize: 12, statusSize: 6 },
@@ -44,12 +44,18 @@ const sizeConfig = {
   xl: { size: 80, fontSize: typography.fontSize.xl, iconSize: 40, statusSize: 16 },
 };
 
-const statusColors = {
-  online: colors.semantic.success.main,
-  offline: colors.semantic.neutral[400],
-  away: colors.semantic.warning.main,
-  busy: colors.semantic.danger.main,
-};
+const statusScales = {
+  online: 'success',
+  away: 'warning',
+  busy: 'danger',
+} as const;
+
+// The status dot follows the mode like the avatar itself: the light-theme `main`
+// shades are too dark to see on dark surfaces.
+const getStatusColor = (status: 'online' | 'offline' | 'away' | 'busy', isDark: boolean) =>
+  status === 'offline'
+    ? colors.semantic.neutral[400]
+    : colorScaleForMode(statusScales[status], isDark).main;
 
 // =============================================================================
 // STYLED COMPONENTS
@@ -66,7 +72,7 @@ const StyledAvatar = styled(MuiAvatar, {
   shouldForwardProp: (prop) =>
     !['sunVariant', 'sunColor', 'sunSize', '$disableAnimation'].includes(prop as string),
 })<StyledProps>(({ theme, sunVariant, sunColor, sunSize, $disableAnimation }) => {
-  const colorScale = getColorScale(sunColor);
+  const colorScale = getColorScale(sunColor, theme.palette.mode === 'dark');
   const sizeStyles = sizeConfig[sunSize];
   const isDark = theme.palette.mode === 'dark';
 
@@ -126,14 +132,14 @@ const AvatarWrapper = styled('div')({
 const StatusIndicator = styled('span')<{
   status: 'online' | 'offline' | 'away' | 'busy';
   sunSize: SunSize;
-}>(({ status, sunSize }) => ({
+}>(({ theme, status, sunSize }) => ({
   position: 'absolute',
   bottom: 0,
   right: 0,
   width: sizeConfig[sunSize].statusSize,
   height: sizeConfig[sunSize].statusSize,
   borderRadius: '50%',
-  backgroundColor: statusColors[status],
+  backgroundColor: getStatusColor(status, theme.palette.mode === 'dark'),
   border: '2px solid white',
   boxSizing: 'content-box',
 }));

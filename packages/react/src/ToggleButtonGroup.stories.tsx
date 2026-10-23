@@ -57,7 +57,7 @@ ToggleButtonGroup allows users to select one or multiple options from a set. Sun
     },
     color: {
       control: 'select',
-      options: ['primary', 'secondary', 'success', 'warning', 'error', 'info', 'neutral'],
+      options: ['primary', 'secondary', 'success', 'warning', 'danger', 'info', 'neutral'],
       description: 'Color theme',
       table: { defaultValue: { summary: 'primary' } },
     },
@@ -166,7 +166,7 @@ export const AllColors: Story = {
       'secondary',
       'success',
       'warning',
-      'error',
+      'danger',
       'info',
       'neutral',
     ];
@@ -487,7 +487,7 @@ export const VariantShowcase: Story = {
   name: 'Variant × Color Matrix',
   render: () => {
     const variants: ToggleButtonGroupVariant[] = ['solid', 'soft', 'outlined', 'ghost', 'plain'];
-    const colors: ToggleButtonGroupColor[] = ['primary', 'secondary', 'success', 'error'];
+    const colors: ToggleButtonGroupColor[] = ['primary', 'secondary', 'success', 'danger'];
 
     return (
       <Stack spacing={4}>

@@ -1,6 +1,6 @@
 import { Button as MuiButton, ButtonProps as MuiButtonProps } from '@mui/material';
 import { keyframes, styled } from '@mui/material/styles';
-import { colors, componentSizes, radius, transitions } from '@smug-ui/tokens';
+import { colors, colorScaleForMode, componentSizes, radius, transitions } from '@smug-ui/tokens';
 import * as React from 'react';
 
 // =============================================================================
@@ -56,7 +56,7 @@ const spinKeyframes = keyframes`
 // =============================================================================
 
 const getColorStyles = (color: SunColor, variant: SunVariant, isDark: boolean = false) => {
-  const colorScale = colors[color];
+  const colorScale = colorScaleForMode(color, isDark);
   const neutralScale = colors.neutral;
 
   const variants: Record<SunVariant, object> = {

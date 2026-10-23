@@ -5,8 +5,8 @@ import {
   Checkbox as MuiCheckbox,
   CheckboxProps as MuiCheckboxProps,
 } from '@mui/material';
-import { styled } from '@mui/material/styles';
-import { animations, colors, sizing, typography } from '@smug-ui/tokens';
+import { styled, useTheme } from '@mui/material/styles';
+import { animations, colors, colorScaleForMode, sizing, typography } from '@smug-ui/tokens';
 import * as React from 'react';
 
 // =============================================================================
@@ -34,7 +34,7 @@ export interface CheckboxProps extends Omit<MuiCheckboxProps, 'size' | 'color'> 
 // STYLE UTILITIES
 // =============================================================================
 
-const getColorScale = (color: SunColor) => colors.semantic[color];
+const getColorScale = (color: SunColor, isDark: boolean) => colorScaleForMode(color, isDark);
 
 const sizeConfig = {
   xs: { checkbox: 16, icon: 12, label: typography.fontSize.xs },
@@ -136,13 +136,13 @@ interface StyledProps {
 
 const StyledCheckbox = styled(MuiCheckbox, {
   shouldForwardProp: (prop) => prop !== 'sunSize',
-})<StyledProps>(() => ({
+})<StyledProps>(({ theme }) => ({
   padding: sizing.spacing[1],
   '&:hover': {
     backgroundColor: 'transparent',
   },
   '&.Mui-focusVisible': {
-    outline: `2px solid ${colors.semantic.primary.main}`,
+    outline: `2px solid ${colorScaleForMode('primary', theme.palette.mode === 'dark').main}`,
     outlineOffset: '2px',
     borderRadius: sizing.radius.sm,
   },
@@ -187,7 +187,8 @@ export const Checkbox = React.forwardRef<HTMLButtonElement, CheckboxProps>(
     ref
   ) => {
     const [isChecked, setIsChecked] = React.useState(checked ?? false);
-    const colorScale = getColorScale(color);
+    const theme = useTheme();
+    const colorScale = getColorScale(color, theme.palette.mode === 'dark');
     const sizeStyles = sizeConfig[size];
 
     React.useEffect(() => {

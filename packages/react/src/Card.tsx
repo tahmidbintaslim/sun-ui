@@ -8,7 +8,7 @@ import {
   CardProps as MuiCardProps,
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import { animations, colors, sizing } from '@smug-ui/tokens';
+import { animations, colors, colorScaleForMode, sizing } from '@smug-ui/tokens';
 import * as React from 'react';
 
 // =============================================================================
@@ -38,7 +38,7 @@ export interface CardProps extends Omit<MuiCardProps, 'variant'> {
 // STYLE UTILITIES
 // =============================================================================
 
-const getColorScale = (color: SunColor) => colors.semantic[color];
+const getColorScale = (color: SunColor, isDark: boolean) => colorScaleForMode(color, isDark);
 
 const sizeConfig = {
   xs: { padding: sizing.spacing[2], borderRadius: sizing.radius.sm },
@@ -75,7 +75,7 @@ const StyledCard = styled(MuiCard, {
   $loading,
   $disableAnimation,
 }) => {
-  const colorScale = getColorScale(sunColor);
+  const colorScale = getColorScale(sunColor, theme.palette.mode === 'dark');
   const sizeStyles = sizeConfig[sunSize];
   const isDark = theme.palette.mode === 'dark';
 

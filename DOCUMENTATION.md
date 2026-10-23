@@ -1,116 +1,64 @@
-# 😎 Smug UI Documentation
+# Sun UI documentation
 
-> **MUI Components, Reimagined.** Beautiful defaults. Full MUI ecosystem. Zero config.
+Sun UI is a set of 26 React components built on Material UI (MUI) v7. Every component takes the same `variant` and `size` props and, with the three exceptions listed under [`color`](#color), the same `color` prop. Each still accepts the props of the MUI component it wraps. The [Storybook](https://sun-ui-brown.vercel.app) shows every component with live controls.
 
----
+Sun UI is in development and nothing has been published to npm. The packages were numbered 1.0.0 before any release; they now start at 0.1.0, which is unreleased.
 
-## Table of Contents
+## Contents
 
-1. [Introduction](#introduction)
-2. [Quick Start](#quick-start)
-3. [Core Concepts](#core-concepts)
-4. [Components](#components)
-5. [Design Tokens](#design-tokens)
-6. [Theming](#theming)
-7. [Dark Mode](#dark-mode)
-8. [Customization](#customization)
-9. [Best Practices](#best-practices)
-10. [API Reference](#api-reference)
-11. [Troubleshooting](#troubleshooting)
+1. [Install](#install)
+2. [Setup](#setup)
+3. [The shared props](#the-shared-props)
+4. [Component examples](#component-examples)
+5. [Design tokens](#design-tokens)
+6. [Themes and dark mode](#themes-and-dark-mode)
+7. [Customization](#customization)
+8. [Server rendering and Next.js](#server-rendering-and-nextjs)
+9. [Troubleshooting](#troubleshooting)
 
 ---
 
-## Introduction
+## Install
 
-### What is Smug UI?
-
-**Smug UI** is a React component library built on top of Material-UI (MUI) v7 that provides:
-
-- **7 Design Variants** — solid, soft, outlined, dash, ghost, plain, link
-- **7 Color Schemes** — primary, secondary, success, warning, danger, info, neutral
-- **5 Sizes** — xs, sm, md, lg, xl
-- **Production-Ready** — 62 tests passing, WCAG 2.1 AA compliant
-- **Zero Config** — Beautiful defaults that just work
-
-### Who is Smug UI For?
-
-| If you are...                                 | Smug UI helps you...                    |
-| --------------------------------------------- | --------------------------------------- |
-| **MUI user frustrated with limited variants** | Get 7 beautiful variants out of the box |
-| **Team needing consistent design**            | Use production-ready design tokens      |
-| **Developer wanting type safety**             | Enjoy 100% TypeScript with strict mode  |
-| **Building accessible products**              | Ship WCAG 2.1 AA compliant components   |
-
-### The Problem We Solve
-
-```
-┌─────────────────────────────────────────────────────────────────────┐
-│                                                                     │
-│   Raw MUI ←────────── Smug UI ──────────→ Opinionated Systems        │
-│   (Flexible           (Best of          (Chakra, Mantine —          │
-│    but verbose)        both worlds)       locked ecosystem)         │
-│                                                                     │
-└─────────────────────────────────────────────────────────────────────┘
-```
-
-**Smug UI gives you:**
-
-- 🎨 Beautiful defaults (like Chakra/Mantine)
-- 🔌 Full MUI ecosystem access (600+ components)
-- 🛠️ Complete customization (it's still MUI under the hood)
-
----
-
-## Quick Start
-
-### Installation
+After the first release:
 
 ```bash
-# npm
-npm install @smug-ui/react @mui/material @emotion/react @emotion/styled
-
-# pnpm (recommended)
-pnpm add @smug-ui/react @mui/material @emotion/react @emotion/styled
-
-# yarn
-yarn add @smug-ui/react @mui/material @emotion/react @emotion/styled
+npm install @smug-ui/react @smug-ui/theme \
+  @mui/material @mui/icons-material @mui/x-date-pickers \
+  @emotion/react @emotion/styled dayjs
 ```
 
-### Basic Usage
+| Requirement                            | Version       |
+| -------------------------------------- | ------------- |
+| React and React DOM                    | 19            |
+| `@mui/material`, `@mui/icons-material` | 7             |
+| `@mui/x-date-pickers`                  | 8             |
+| `@emotion/react`, `@emotion/styled`    | 11            |
+| `dayjs`                                | 1.11 or later |
 
-```tsx
-import { Button, TextField, Alert } from '@smug-ui/react';
+These are peer dependencies, so your app owns one copy of each. `@smug-ui/react` imports all of them, including MUI X Date Pickers and dayjs, because its single entry point also exports `DatePicker`.
 
-export default function App() {
-  return (
-    <div>
-      <Alert variant="soft" color="info">
-        Welcome to Smug UI!
-      </Alert>
+Until then, run Sun UI from source:
 
-      <TextField variant="outlined" label="Email" />
-
-      <Button variant="solid" color="primary">
-        Get Started
-      </Button>
-    </div>
-  );
-}
+```bash
+git clone https://github.com/tahmidbintaslim/sun-ui.git
+cd sun-ui
+pnpm install
+pnpm build:packages
+pnpm storybook:dev
 ```
 
-**That's it!** No ThemeProvider required for basic usage.
+## Setup
 
-### With Theme Provider (Recommended)
-
-For full theming support including dark mode:
+Wrap your app in MUI's `ThemeProvider` with a Sun UI theme:
 
 ```tsx
-import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
-import { lightTheme } from '@smug-ui/theme';
+import { ThemeProvider } from '@mui/material/styles';
 import { Button } from '@smug-ui/react';
+import { lightTheme } from '@smug-ui/theme';
 
-export default function App() {
+export function App() {
   return (
     <ThemeProvider theme={lightTheme}>
       <CssBaseline />
@@ -120,533 +68,252 @@ export default function App() {
 }
 ```
 
----
+Components read their colors from `@smug-ui/tokens` and read the theme to choose light or dark styles, so the provider is what turns dark mode on.
 
-## Core Concepts
+## The shared props
 
-### 7 Design Variants
+### `variant`
 
-Every Smug UI component supports the same 7 variants:
+| Variant    | Look                                    | Available on   |
+| ---------- | --------------------------------------- | -------------- |
+| `solid`    | Filled background with contrasting text | All components |
+| `soft`     | Tinted background                       | All components |
+| `outlined` | Colored border, transparent background  | All components |
+| `ghost`    | Neutral until hovered                   | All components |
+| `plain`    | No border or background                 | All components |
+| `dash`     | Dashed border                           | Button only    |
+| `link`     | Underlined, inline                      | Button only    |
 
-| Variant    | Use Case                   | Appearance                         |
-| ---------- | -------------------------- | ---------------------------------- |
-| `solid`    | Primary actions, CTAs      | Filled background, high contrast   |
-| `soft`     | Secondary actions          | Subtle tinted background           |
-| `outlined` | Tertiary actions           | Border with transparent background |
-| `dash`     | Upload zones, placeholders | Dashed border style                |
-| `ghost`    | Minimal actions            | Shows color on hover only          |
-| `plain`    | Text-only actions          | No background or border            |
-| `link`     | Inline links               | Underlined, hyperlink style        |
+### `color`
+
+`primary`, `secondary`, `success`, `warning`, `danger`, `info` and `neutral`. Three components differ:
+
+- Autocomplete calls the red color `error` instead of `danger`. Its input field ignores `color` and renders in MUI's default blue, but its multi-select tags pass `color` to MUI `Chip` and follow the theme palette.
+- DatePicker calls the red color `error` and ignores `color` (MUI's default blue).
+- Drawer accepts `color` but never reads it.
+
+### `size`
+
+`xs`, `sm`, `md`, `lg` and `xl`. The default is `md`.
 
 ```tsx
-<Button variant="solid">Primary Action</Button>
-<Button variant="soft">Secondary Action</Button>
-<Button variant="outlined">Tertiary Action</Button>
-<Button variant="dash">Upload File</Button>
-<Button variant="ghost">Cancel</Button>
-<Button variant="plain">Learn more</Button>
-<Button variant="link">View details</Button>
+<Button variant="soft" color="success" size="lg">
+  Save changes
+</Button>
 ```
 
-### 7 Color Schemes
+The README has a [table of every component](README.md#components).
 
-All components support 7 semantic colors:
+## Component examples
 
-| Color       | Use Case                        |
-| ----------- | ------------------------------- |
-| `primary`   | Brand color, main actions       |
-| `secondary` | Secondary brand color           |
-| `success`   | Positive actions, confirmations |
-| `warning`   | Caution, attention needed       |
-| `danger`    | Destructive actions, errors     |
-| `info`      | Informational content           |
-| `neutral`   | Neutral, subdued actions        |
+These examples use only props that exist in the current code. The Storybook has many more.
+
+### Button
 
 ```tsx
-<Button color="primary">Primary</Button>
-<Button color="success">Success</Button>
-<Button color="danger">Delete</Button>
-```
-
-### 5 Sizes
-
-Components come in 5 sizes:
-
-| Size | Use Case            |
-| ---- | ------------------- |
-| `xs` | Compact UIs, tables |
-| `sm` | Secondary actions   |
-| `md` | Default size        |
-| `lg` | Primary CTAs        |
-| `xl` | Hero sections       |
-
-```tsx
-<Button size="xs">Extra Small</Button>
-<Button size="sm">Small</Button>
-<Button size="md">Medium</Button>
-<Button size="lg">Large</Button>
-<Button size="xl">Extra Large</Button>
-```
-
----
-
-## Components
-
-### Form Controls
-
-#### Button
-
-```tsx
+import SaveIcon from '@mui/icons-material/Save';
 import { Button } from '@smug-ui/react';
 
-// Basic usage
-<Button variant="solid" color="primary">
-  Click me
-</Button>
-
-// With loading state
-<Button variant="solid" loading>
-  Saving...
-</Button>
-
-// With icons
-<Button variant="soft" startIcon={<SaveIcon />}>
-  Save
-</Button>
-
-// Different shapes
-<Button shape="circle"><AddIcon /></Button>
-<Button shape="square"><MenuIcon /></Button>
-<Button shape="wide">Wide Button</Button>
-<Button shape="block">Full Width</Button>
+<Button variant="solid" color="primary">Continue</Button>
+<Button variant="solid" loading>Saving</Button>
+<Button variant="soft" startIcon={<SaveIcon />}>Save</Button>
+<Button variant="dash" color="info">Upload file</Button>
+<Button variant="link">View details</Button>
+<Button shape="block">Full width</Button>
 ```
 
-#### TextField
+`shape` takes `default`, `wide` (up to 256px), `block` (full width), `square` or `circle`. `loadingPosition` takes `start`, `end` or `center`.
+
+### Form controls
 
 ```tsx
-import { TextField } from '@smug-ui/react';
+import { Checkbox, MenuItem, Select, Switch, TextField } from '@smug-ui/react';
 
-// Basic
 <TextField variant="outlined" label="Email" />
+<TextField variant="soft" label="Message" multiline rows={4} />
+<TextField variant="solid" label="Password" type="password" error helperText="Required" />
 
-// With validation
-<TextField
-  variant="solid"
-  label="Password"
-  type="password"
-  error
-  helperText="Password is required"
-/>
-
-// Multiline
-<TextField
-  variant="soft"
-  label="Message"
-  multiline
-  rows={4}
-/>
-```
-
-#### Select
-
-```tsx
-import { Select } from '@smug-ui/react';
-
-<Select variant="outlined" label="Country">
-  <option value="us">United States</option>
-  <option value="uk">United Kingdom</option>
-  <option value="ca">Canada</option>
-</Select>;
-```
-
-#### Checkbox, Radio, Switch
-
-```tsx
-import { Checkbox, Radio, Switch } from '@smug-ui/react';
+<Select variant="outlined" label="Country" value={country} onChange={(e) => setCountry(e.target.value)}>
+  <MenuItem value="us">United States</MenuItem>
+  <MenuItem value="th">Thailand</MenuItem>
+</Select>
 
 <Checkbox variant="solid" label="I agree" />
-<Radio variant="soft" label="Option A" />
-<Switch variant="solid" label="Dark mode" />
+<Switch variant="soft" label="Email alerts" />
 ```
 
-### Feedback Components
-
-#### Alert
+### Feedback
 
 ```tsx
-import { Alert } from '@smug-ui/react';
+import { Alert, Dialog, DialogActions, DialogContent, DialogTitle, Snackbar } from '@smug-ui/react';
 
-<Alert variant="solid" color="success">
-  Changes saved successfully!
+<Alert variant="soft" color="warning" onClose={() => setOpen(false)}>
+  Your session ends in 5 minutes.
 </Alert>
 
-<Alert variant="soft" color="warning" onClose={() => {}}>
-  Your session will expire soon.
-</Alert>
+<Dialog open={open} onClose={() => setOpen(false)}>
+  <DialogTitle>Delete item?</DialogTitle>
+  <DialogContent>This cannot be undone.</DialogContent>
+  <DialogActions>
+    <Button variant="plain" onClick={() => setOpen(false)}>Cancel</Button>
+    <Button variant="solid" color="danger">Delete</Button>
+  </DialogActions>
+</Dialog>
+
+<Snackbar open={saved} onClose={() => setSaved(false)} message="Saved" autoHideDuration={3000} />
 ```
 
-#### Snackbar
+### Navigation
 
 ```tsx
-import { Snackbar } from '@smug-ui/react';
+import { Pagination, Tabs } from '@smug-ui/react';
 
-<Snackbar
-  open={open}
-  onClose={handleClose}
-  message="Item deleted"
-  action={<Button size="sm">Undo</Button>}
-/>;
+<Tabs
+  variant="soft"
+  tabs={[
+    { id: 'overview', label: 'Overview', content: <p>Overview panel</p> },
+    { id: 'settings', label: 'Settings', content: <p>Settings panel</p> },
+  ]}
+  defaultValue="overview"
+/>
+
+<Pagination count={10} page={page} onChange={(_, next) => setPage(next)} />
 ```
 
-#### Dialog
+### Data display
 
 ```tsx
-import { Dialog } from '@smug-ui/react';
+import { Avatar, Badge, Chip, Table, type TableColumn } from '@smug-ui/react';
 
-<Dialog open={open} onClose={handleClose} title="Confirm">
-  Are you sure you want to delete this item?
-</Dialog>;
-```
+type User = { name: string; role: string };
 
-#### Tooltip & Popover
+const columns: TableColumn<User>[] = [
+  { id: 'name', header: 'Name', accessor: 'name', sortable: true },
+  { id: 'role', header: 'Role', accessor: 'role' },
+];
 
-```tsx
-import { Tooltip, Popover } from '@smug-ui/react';
-
-<Tooltip title="Save changes">
-  <Button>Save</Button>
-</Tooltip>
-
-<Popover content={<MenuContent />}>
-  <Button>Open Menu</Button>
-</Popover>
-```
-
-### Data Display
-
-#### Card
-
-```tsx
-import { Card } from '@smug-ui/react';
-
-<Card variant="soft">
-  <Card.Header title="Card Title" subtitle="Subtitle" />
-  <Card.Content>Card content goes here.</Card.Content>
-  <Card.Actions>
-    <Button>Action</Button>
-  </Card.Actions>
-</Card>;
-```
-
-#### Avatar & Badge
-
-```tsx
-import { Avatar, Badge } from '@smug-ui/react';
+<Table<User> columns={columns} data={users} sortable selectable pagination rowsPerPage={10} />
 
 <Badge badgeContent={4} color="danger">
-  <Avatar src="/avatar.jpg" alt="John Doe" />
+  <Avatar variant="soft" color="primary">JD</Avatar>
 </Badge>
 
-<Avatar variant="soft" color="primary">JD</Avatar>
+<Chip variant="soft" color="success" label="Active" />
 ```
 
-#### Chip
+### DatePicker
 
 ```tsx
-import { Chip } from '@smug-ui/react';
+import { DatePicker, dayjs } from '@smug-ui/react';
 
-<Chip variant="solid" label="Active" color="success" />
-<Chip variant="soft" label="Pending" onDelete={() => {}} />
+<DatePicker label="Start date" value={dayjs()} onChange={(value) => setDate(value)} />;
 ```
 
----
+DatePicker brings its own `LocalizationProvider` with the dayjs adapter.
 
-## Design Tokens
+## Design tokens
 
-Smug UI includes a comprehensive design token system via `@smug-ui/tokens`:
+`@smug-ui/tokens` holds the raw values the components use.
 
-```bash
-npm install @smug-ui/tokens
-```
+```ts
+import { colors, radius, spacing, typography } from '@smug-ui/tokens';
 
-### Colors
+colors.primary.main; // '#0369a1'
+colors.primary.dark; // '#075985'
+colors.primary.contrastText; // '#ffffff'
+colors.primary[500]; // '#0ea5e9'
+colors.primary.alpha12; // 'rgba(14, 165, 233, 0.12)'
 
-```tsx
-import { colors } from '@smug-ui/tokens';
-
-// Full color palette
-colors.primary.main; // #3b82f6
-colors.primary.light; // #60a5fa
-colors.primary.dark; // #2563eb
-colors.primary[500]; // #3b82f6
-colors.primary.alpha20; // rgba(59, 130, 246, 0.2)
-
-// Semantic colors
-colors.success.main;
-colors.warning.main;
-colors.danger.main;
-colors.info.main;
-colors.neutral[500];
-```
-
-### Spacing
-
-```tsx
-import { spacing } from '@smug-ui/tokens';
-
-spacing.xs; // 4px
-spacing.sm; // 8px
-spacing.md; // 16px
-spacing.lg; // 24px
-spacing.xl; // 32px
-spacing.xxl; // 48px
-```
-
-### Typography
-
-```tsx
-import { typography } from '@smug-ui/tokens';
-
-typography.fontSize.xs; // 12px
-typography.fontSize.sm; // 14px
-typography.fontSize.base; // 16px
-typography.fontSize.lg; // 18px
-typography.fontSize.xl; // 20px
-
-typography.fontWeight.normal; // 400
-typography.fontWeight.medium; // 500
+spacing[4]; // '16px' (4px grid: spacing[1] is 4px)
+radius.md; // '8px'
+typography.fontSize.base; // '1rem'
 typography.fontWeight.semibold; // 600
-typography.fontWeight.bold; // 700
 ```
 
-### Radius
+Each color has a 50 to 900 scale, `main`, `light`, `dark`, `contrastText` and alpha steps (`alpha8` to `alpha40`). `main` and `dark` are picked to reach 4.5:1 contrast against white and against `contrastText`; `packages/tokens/src/contrast.test.ts` checks this.
 
-```tsx
-import { radius } from '@smug-ui/tokens';
+In dark mode the components use `darkModeColorPalette`, where `main` is the lighter 500 shade. `colorScaleForMode` picks the scale for you:
 
-radius.none; // 0
-radius.sm; // 4px
-radius.md; // 8px
-radius.lg; // 12px
-radius.xl; // 16px
-radius.full; // 9999px
+```ts
+import { colorScaleForMode } from '@smug-ui/tokens';
+
+colorScaleForMode('primary', false).main; // '#0369a1'
+colorScaleForMode('primary', true).main; // '#0ea5e9'
 ```
 
----
+The variant helpers in `@smug-ui/core` (`getColorScale`, `getVariantStyles`, `getVariantCss`) return the light-theme shades unless you pass `true` as their last argument in dark mode:
 
-## Theming
+```ts
+import { getVariantStyles } from '@smug-ui/core';
 
-### Using Pre-built Themes
+getVariantStyles('outlined', 'primary').color; // '#0369a1'
+getVariantStyles('outlined', 'primary', true).color; // '#0ea5e9'
+```
+
+## Themes and dark mode
 
 ```tsx
 import { ThemeProvider } from '@mui/material/styles';
-import { lightTheme, darkTheme } from '@smug-ui/theme';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import { darkTheme, lightTheme } from '@smug-ui/theme';
 
-// Light theme
-<ThemeProvider theme={lightTheme}>
-  <App />
-</ThemeProvider>
-
-// Dark theme
-<ThemeProvider theme={darkTheme}>
-  <App />
-</ThemeProvider>
+function Root() {
+  const prefersDark = useMediaQuery('(prefers-color-scheme: dark)');
+  return (
+    <ThemeProvider theme={prefersDark ? darkTheme : lightTheme}>
+      <App />
+    </ThemeProvider>
+  );
+}
 ```
 
-### Creating Custom Themes
+To change the theme, extend it with MUI's `createTheme`:
 
-```tsx
+```ts
 import { createTheme } from '@mui/material/styles';
-import { colors } from '@smug-ui/tokens';
+import { lightTheme } from '@smug-ui/theme';
 
-const customTheme = createTheme({
-  palette: {
-    primary: {
-      main: '#your-brand-color',
-    },
-  },
-  typography: {
-    fontFamily: '"Inter", sans-serif',
-  },
+const theme = createTheme(lightTheme, {
+  typography: { fontFamily: '"Inter", sans-serif' },
 });
 ```
 
----
+Sun UI's variant colors come from the tokens, not from the MUI palette, so changing `palette.primary` changes MUI's own components but not Sun UI's variant styles.
 
-## Dark Mode
-
-### Automatic (System Preference)
-
-```tsx
-import { useMediaQuery } from '@mui/material';
-import { lightTheme, darkTheme } from '@smug-ui/theme';
-
-function App() {
-  const prefersDark = useMediaQuery('(prefers-color-scheme: dark)');
-
-  return (
-    <ThemeProvider theme={prefersDark ? darkTheme : lightTheme}>
-      <YourApp />
-    </ThemeProvider>
-  );
-}
-```
-
-### Manual Toggle
-
-```tsx
-import { useState } from 'react';
-import { lightTheme, darkTheme } from '@smug-ui/theme';
-import { Switch } from '@smug-ui/react';
-
-function App() {
-  const [isDark, setIsDark] = useState(false);
-
-  return (
-    <ThemeProvider theme={isDark ? darkTheme : lightTheme}>
-      <Switch checked={isDark} onChange={() => setIsDark(!isDark)} label="Dark mode" />
-      <YourApp />
-    </ThemeProvider>
-  );
-}
-```
-
----
+Known limits: in dark mode, solid fills (white on the 500 shades) are below 4.5:1 contrast for most colors, and so are neutral text and secondary, danger and neutral text on the paper surface. In the light theme, ghost and plain hover and pressed tints drop below 4.5:1 for some colors.
 
 ## Customization
 
-### Using the `sx` Prop
-
-```tsx
-<Button
-  variant="solid"
-  sx={{
-    borderRadius: '20px',
-    textTransform: 'uppercase',
-    letterSpacing: 2,
-  }}
->
-  Custom Button
-</Button>
-```
-
-### Styled Components
+Every component accepts the MUI `sx` prop, and works with MUI's `styled()`:
 
 ```tsx
 import { styled } from '@mui/material/styles';
 import { Button } from '@smug-ui/react';
 
-const GradientButton = styled(Button)({
-  background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
-  border: 0,
-  color: 'white',
-  padding: '0 30px',
-});
+<Button variant="solid" sx={{ borderRadius: '20px', letterSpacing: 1 }}>
+  Rounded
+</Button>;
 
-<GradientButton variant="solid">Gradient</GradientButton>;
+const UppercaseButton = styled(Button)({ textTransform: 'uppercase' });
 ```
 
----
+Every component's prop type is exported (`ButtonProps`, `TableProps`, `SunDatePickerProps`, and so on), so you can wrap components with your own defaults.
 
-## Best Practices
+## Server rendering and Next.js
 
-### 1. Use Semantic Variants
-
-```tsx
-// ✅ Good - Clear visual hierarchy
-<Button variant="solid">Save</Button>      // Primary action
-<Button variant="soft">Cancel</Button>     // Secondary
-<Button variant="ghost">Skip</Button>      // Tertiary
-
-// ❌ Avoid - All same emphasis
-<Button variant="solid">Save</Button>
-<Button variant="solid">Cancel</Button>
-<Button variant="solid">Skip</Button>
-```
-
-### 2. Be Consistent
-
-Use the same variant for similar actions across your app.
-
-### 3. Tree-shake Imports
-
-```tsx
-// ✅ Good - Tree-shakeable
-import { Button, TextField } from '@smug-ui/react';
-
-// ❌ Avoid - May include unused code
-import * as SunUI from '@smug-ui/react';
-```
-
-### 4. Leverage TypeScript
-
-```tsx
-import { ButtonProps } from '@smug-ui/react';
-
-interface MyButtonProps extends ButtonProps {
-  analyticsId?: string;
-}
-```
-
----
-
-## API Reference
-
-### Common Props (All Components)
-
-| Prop       | Type                                                                                    | Default     | Description    |
-| ---------- | --------------------------------------------------------------------------------------- | ----------- | -------------- |
-| `variant`  | `'solid' \| 'soft' \| 'outlined' \| 'dash' \| 'ghost' \| 'plain' \| 'link'`             | `'solid'`   | Visual style   |
-| `color`    | `'primary' \| 'secondary' \| 'success' \| 'warning' \| 'danger' \| 'info' \| 'neutral'` | `'primary'` | Color scheme   |
-| `size`     | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'`                                                  | `'md'`      | Component size |
-| `disabled` | `boolean`                                                                               | `false`     | Disabled state |
-
-### Button Props
-
-| Prop              | Type                                                     | Default     | Description          |
-| ----------------- | -------------------------------------------------------- | ----------- | -------------------- |
-| `loading`         | `boolean`                                                | `false`     | Show loading spinner |
-| `loadingPosition` | `'start' \| 'end' \| 'center'`                           | `'center'`  | Spinner position     |
-| `startIcon`       | `ReactNode`                                              | -           | Icon before text     |
-| `endIcon`         | `ReactNode`                                              | -           | Icon after text      |
-| `shape`           | `'default' \| 'wide' \| 'block' \| 'square' \| 'circle'` | `'default'` | Button shape         |
-
----
+The packages ship ESM and CommonJS builds, and both have been server-rendered with `react-dom/server` in Node. The `@smug-ui/react` build starts with `"use client"`, so React Server Components frameworks treat it as client code. Put `ThemeProvider` in one of your own client components, because themes contain functions that cannot cross the server and client boundary. Sun UI has not been tested inside a Next.js app yet.
 
 ## Troubleshooting
 
-### Styles Not Applying
+**`Cannot find module '@mui/x-date-pickers'` (or `dayjs`, `@mui/icons-material`)**: install all the peer dependencies listed under [Install](#install), even if you do not use DatePicker or Rating.
 
-Ensure you have peer dependencies installed:
+**Dark styles do not apply**: wrap the app in `ThemeProvider` with `darkTheme`.
 
-```bash
-npm install @mui/material @emotion/react @emotion/styled
-```
-
-### Dark Mode Not Working
-
-Wrap your app with `ThemeProvider`:
-
-```tsx
-<ThemeProvider theme={darkTheme}>
-  <CssBaseline />
-  <App />
-</ThemeProvider>
-```
-
-### TypeScript Errors
-
-Make sure you're using TypeScript 4.7+ and have `@types/react` installed.
-
----
+**Two copies of MUI or Emotion**: make sure your app lists `@mui/material` and Emotion as dependencies and that only one version of each is installed (`npm ls @mui/material`).
 
 ## Resources
 
-- [🎨 Live Demo](https://smug-ui.vercel.app)
-- [📖 Storybook](https://smug-ui.vercel.app)
-- [🐙 GitHub](https://github.com/tahmidbintaslim/smug-ui)
-- [📦 npm](https://www.npmjs.com/package/@smug-ui/react)
-
----
-
-**Happy building with Smug UI! 😎**
+- [Storybook](https://sun-ui-brown.vercel.app)
+- [GitHub repository](https://github.com/tahmidbintaslim/sun-ui)
+- [Contributing guide](CONTRIBUTING.md)
+- [Testing guide](TESTING_GUIDE.md)
