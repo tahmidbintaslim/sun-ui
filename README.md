@@ -81,12 +81,12 @@ Use `darkTheme` for dark mode. More examples are in [DOCUMENTATION.md](DOCUMENTA
 
 ## Components
 
-All components take the 7 colors and the 5 sizes above. Autocomplete and DatePicker name the red color `error` instead of `danger`.
+All components take the 7 colors and the 5 sizes above. Autocomplete and DatePicker name the red color `error` instead of `danger`, and their `color` prop has no visible effect yet: their styles read `--sun-color-*` CSS variables that Sun UI does not define, so they fall back to MUI's default blue.
 
 | Component         | `variant` values                                | Notes                                                           |
 | ----------------- | ----------------------------------------------- | --------------------------------------------------------------- |
 | Alert             | solid, soft, outlined, ghost, plain             |                                                                 |
-| Autocomplete      | solid, soft, outlined, ghost, plain             | Uses `error` instead of `danger`                                |
+| Autocomplete      | solid, soft, outlined, ghost, plain             | Uses `error` instead of `danger`; `color` has no effect yet     |
 | Avatar            | solid, soft, outlined, ghost, plain             | Optional `status` dot                                           |
 | Badge             | solid, soft, outlined, ghost, plain             |                                                                 |
 | Breadcrumbs       | solid, soft, outlined, ghost, plain             |                                                                 |
@@ -94,7 +94,7 @@ All components take the 7 colors and the 5 sizes above. Autocomplete and DatePic
 | Card              | solid, soft, outlined, ghost, plain             |                                                                 |
 | Checkbox          | solid, soft, outlined, ghost, plain             | `label` prop                                                    |
 | Chip              | solid, soft, outlined, ghost, plain             |                                                                 |
-| DatePicker        | solid, soft, outlined, ghost, plain             | MUI X Date Pickers with dayjs; uses `error`; re-exports `dayjs` |
+| DatePicker        | solid, soft, outlined, ghost, plain             | MUI X with dayjs; re-exports `dayjs`; `color` has no effect yet |
 | Dialog            | solid, soft, outlined, ghost, plain             | Also exports DialogTitle, DialogContent, DialogActions          |
 | Drawer            | solid, soft, outlined, ghost, plain             |                                                                 |
 | Pagination        | solid, soft, outlined, ghost, plain             |                                                                 |
@@ -114,16 +114,16 @@ All components take the 7 colors and the 5 sizes above. Autocomplete and DatePic
 
 ## Accessibility
 
-- In the light theme, each color's tokens reach 4.5:1 text contrast (the WCAG 2.1 AA level for normal text) in the resting state of the solid, soft, outlined, plain and link variants. A unit test in `packages/tokens` checks those pairs.
-- Some hover and pressed states fall short: ghost and plain variants put `main` text on an 8% or 16% tint, which drops below 4.5:1 for some colors (danger and neutral on hover).
-- Dark mode does not reach 4.5:1 yet: outlined, plain and link variants use the same `main` color as text on dark surfaces.
+- Light theme: the `main`, `dark` and `contrastText` tokens reach 4.5:1 text contrast (the WCAG 2.1 AA level for normal text) in the resting state of the solid, soft, outlined, plain and link variants. A unit test in `packages/tokens` checks those pairs.
+- Light theme gaps: ghost and plain variants put `main` text on an 8% or 16% tint on hover and press, which drops below 4.5:1 for some colors (danger and neutral on hover). Progress, Rating, Slider and ToggleButtonGroup use the lighter 500 shades instead of `main`, and Autocomplete and DatePicker use MUI's default blue, so the token test does not cover them.
+- Dark mode: components switch to lighter shades (`colorScaleForMode` in `@smug-ui/tokens`), so `main` text reaches 4.5:1 on the dark page for every color except neutral, and borders and icons reach 3:1. Still short of 4.5:1: solid fills (white on the 500 shades) for most colors, neutral text, and secondary, danger and neutral text on the lighter paper surface.
 - Components rely on the keyboard and ARIA behavior of the MUI components they wrap. Six component test files run jest-axe, and Storybook includes the a11y addon, but the library has not had a full accessibility audit.
 
 ## Tests
 
-- 422 unit tests in 28 files (Vitest, Testing Library, jsdom): 376 for the components, 5 that load the built CommonJS bundle with `require()`, and 41 contrast checks for the tokens.
+- 474 unit tests in 29 files (Vitest, Testing Library, jsdom): 376 for the components, 7 that render components in light and dark mode, 5 that load the built CommonJS bundle with `require()`, and 86 contrast checks for the tokens.
 - 372 Storybook stories, each run as a test in headless Chromium through Vitest browser mode, including 128 interaction (`play`) functions.
-- CI runs lint, type-check, both test suites and a full build on every push and pull request to `main`.
+- The CI workflow (`.github/workflows/test.yml`) runs lint, type-check, both test suites and a full build on every push and pull request to `main`.
 
 ## Development
 
@@ -159,7 +159,8 @@ sun-ui/
 ## Known gaps
 
 - Not published to npm yet.
-- Dark-mode text contrast for outlined, plain and link variants, and some hover and pressed states (see [Accessibility](#accessibility)).
+- Dark-mode solid fills and some text and hover states fall short of 4.5:1 contrast (see [Accessibility](#accessibility)).
+- The `color` prop of Autocomplete and DatePicker has no visible effect yet.
 - `@smug-ui/icons` is empty.
 - The packed packages have been imported and server-rendered from Node (ESM and CommonJS), but not yet tested inside a Next.js or Vite app.
 

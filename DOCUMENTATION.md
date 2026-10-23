@@ -86,7 +86,7 @@ Components read their colors from `@smug-ui/tokens` and read the theme to choose
 
 ### `color`
 
-`primary`, `secondary`, `success`, `warning`, `danger`, `info` and `neutral`. Autocomplete and DatePicker call the red color `error` instead of `danger`.
+`primary`, `secondary`, `success`, `warning`, `danger`, `info` and `neutral`. Autocomplete and DatePicker call the red color `error` instead of `danger`, and their `color` prop has no visible effect yet (they render in MUI's default blue).
 
 ### `size`
 
@@ -228,6 +228,15 @@ typography.fontWeight.semibold; // 600
 
 Each color has a 50 to 900 scale, `main`, `light`, `dark`, `contrastText` and alpha steps (`alpha8` to `alpha40`). `main` and `dark` are picked to reach 4.5:1 contrast against white and against `contrastText`; `packages/tokens/src/contrast.test.ts` checks this.
 
+In dark mode the components use `darkModeColorPalette`, where `main` is the lighter 500 shade. `colorScaleForMode` picks the scale for you:
+
+```ts
+import { colorScaleForMode } from '@smug-ui/tokens';
+
+colorScaleForMode('primary', false).main; // '#0369a1'
+colorScaleForMode('primary', true).main; // '#0ea5e9'
+```
+
 ## Themes and dark mode
 
 ```tsx
@@ -258,7 +267,7 @@ const theme = createTheme(lightTheme, {
 
 Sun UI's variant colors come from the tokens, not from the MUI palette, so changing `palette.primary` changes MUI's own components but not Sun UI's variant styles.
 
-Known limits: in dark mode, outlined, plain and link variants use the same `main` color as text on dark surfaces, which is below 4.5:1 contrast. In the light theme, ghost and plain hover and pressed tints drop below 4.5:1 for some colors.
+Known limits: in dark mode, solid fills (white on the 500 shades) are below 4.5:1 contrast for most colors, and so are neutral text and secondary, danger and neutral text on the paper surface. In the light theme, ghost and plain hover and pressed tints drop below 4.5:1 for some colors.
 
 ## Customization
 

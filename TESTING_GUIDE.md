@@ -39,7 +39,7 @@ pnpm build:packages   # workspace packages import each other from dist/
 ### Unit tests
 
 - Vitest with Testing Library in jsdom, configured per package (`packages/react/vitest.config.ts`, `packages/tokens/vitest.config.ts`) and run together from the root `vitest.config.ts`.
-- 422 tests in 28 files: one file per component in `packages/react/src` (376 tests), `packages/react/src/cjs-build.test.ts` (5 tests that `require()` the built CommonJS bundle; skipped until `pnpm build:packages` has run) and `packages/tokens/src/contrast.test.ts` (41 tests).
+- 474 tests in 29 files: one file per component in `packages/react/src` (376 tests), `packages/react/src/dark-mode.test.tsx` (7 tests that render components in light and dark mode and check their text color), `packages/react/src/cjs-build.test.ts` (5 tests that `require()` the built CommonJS bundle; skipped until `pnpm build:packages` has run) and `packages/tokens/src/contrast.test.ts` (86 tests).
 - Six component test files also run jest-axe.
 
 ```bash
@@ -58,7 +58,7 @@ pnpm vitest run --coverage                        # with a v8 coverage report in
 - `dark` on the `alpha12` and `alpha20` tints (soft)
 - the MUI theme palette `main` colors on white
 
-It covers the light theme only. Dark mode and the ghost and plain hover tints are known gaps.
+For dark mode it requires 4.5:1 for `main` text on the dark page (every color except neutral), `light` on the soft tint, and the dark MUI theme's primary, success, warning and error; and 3:1 for `main` borders and icons on the page and on paper. Dark-mode solid fills, neutral text, secondary, danger and neutral text on paper, and the light-theme ghost and plain hover tints are known gaps.
 
 ### Storybook tests
 
