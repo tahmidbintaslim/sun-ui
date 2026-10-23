@@ -62,12 +62,12 @@
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.1",
     "@mui/material": "^7.3.5",
-    "@storybook/addon-docs": "^10.1.4",
-    "@storybook/addon-links": "^10.1.4",
+    "@storybook/addon-docs": "^10.6.3",
+    "@storybook/addon-links": "^10.6.3",
     "@storybook/test": "^8.6.14",
     "@storybook/test-runner": "^0.24.2",
     "@types/react": "^19.2.7",
-    "eslint-plugin-storybook": "^10.1.4",
+    "eslint-plugin-storybook": "^10.6.3",
     "typescript": "^5.9.3"
   }
 }
