@@ -6,7 +6,14 @@ import {
   RadioProps as MuiRadioProps,
 } from '@mui/material';
 import { styled, useTheme } from '@mui/material/styles';
-import { animations, colors, colorScaleForMode, sizing, typography } from '@smug-ui/tokens';
+import {
+  animations,
+  colors,
+  colorScaleForMode,
+  sizing,
+  textColorsForMode,
+  typography,
+} from '@smug-ui/tokens';
 import * as React from 'react';
 
 // =============================================================================
@@ -144,15 +151,15 @@ const StyledRadio = styled(MuiRadio, {
 
 const StyledLabel = styled(FormControlLabel, {
   shouldForwardProp: (prop) => prop !== 'sunSize',
-})<{ sunSize: SunSize }>(({ sunSize }) => ({
+})<{ sunSize: SunSize }>(({ theme, sunSize }) => ({
   margin: 0,
   gap: sizing.spacing[2],
   '& .MuiFormControlLabel-label': {
     fontSize: sizeConfig[sunSize].label,
     fontFamily: typography.fontFamily.sans,
-    color: colors.textColors.light.primary,
+    color: textColorsForMode(theme.palette.mode === 'dark').primary,
     '&.Mui-disabled': {
-      color: colors.textColors.light.disabled,
+      color: textColorsForMode(theme.palette.mode === 'dark').disabled,
     },
   },
 }));

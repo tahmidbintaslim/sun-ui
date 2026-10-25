@@ -250,6 +250,15 @@ getVariantStyles('outlined', 'primary').color; // '#0369a1'
 getVariantStyles('outlined', 'primary', true).color; // '#0ea5e9'
 ```
 
+Text colors work the same way. `textColorsForMode` returns `textColors.light` or `textColors.dark`; Checkbox, Radio and Switch labels, unselected ToggleButtonGroup text and the Slider value and min/max labels use it:
+
+```ts
+import { textColorsForMode } from '@smug-ui/tokens';
+
+textColorsForMode(false).primary; // '#0f172a'
+textColorsForMode(true).primary; // '#f8fafc'
+```
+
 ## Themes and dark mode
 
 ```tsx

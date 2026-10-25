@@ -339,6 +339,15 @@ export const borderColors = {
   },
 };
 
+/**
+ * Returns the text colors for the current mode. Components call it with
+ * `theme.palette.mode === 'dark'`, so labels and helper text stay readable on the
+ * dark page instead of keeping the light theme's near-black text.
+ */
+export function textColorsForMode(isDark: boolean): (typeof textColors)['light'] {
+  return isDark ? textColors.dark : textColors.light;
+}
+
 export type ColorPalette = typeof colorPalette;
 export type Backgrounds = typeof backgrounds;
 export type TextColors = typeof textColors;

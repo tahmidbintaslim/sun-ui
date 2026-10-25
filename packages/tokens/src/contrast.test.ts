@@ -5,6 +5,8 @@ import {
   colorPalette,
   colorScaleForMode,
   darkModeColorPalette,
+  textColors,
+  textColorsForMode,
   type ColorScale,
   type SemanticColor,
 } from './colors';
@@ -112,6 +114,24 @@ describe('colorScaleForMode', () => {
   it.each(semanticColors)('returns the dark-mode scale for %s in dark mode', (name) => {
     expect(colorScaleForMode(name, true)).toBe(darkModeColorPalette[name]);
   });
+});
+
+describe('textColorsForMode', () => {
+  it('returns the light text colors outside dark mode and the dark ones in dark mode', () => {
+    expect(textColorsForMode(false)).toBe(textColors.light);
+    expect(textColorsForMode(true)).toBe(textColors.dark);
+  });
+
+  // Checkbox, Radio and Switch labels use `primary`; unselected ToggleButton text and
+  // the Slider min/max labels use `secondary`.
+  it.each(['primary', 'secondary'] as const)(
+    'dark %s text reaches 4.5:1 on the dark page and on paper',
+    (role) => {
+      const color = textColorsForMode(true)[role];
+      expect(contrast(color, DARK_PAGE, DARK_PAGE)).toBeGreaterThanOrEqual(AA_TEXT);
+      expect(contrast(color, DARK_PAPER, DARK_PAPER)).toBeGreaterThanOrEqual(AA_TEXT);
+    }
+  );
 });
 
 describe.each(semanticColors)('%s tokens on a dark page', (name) => {

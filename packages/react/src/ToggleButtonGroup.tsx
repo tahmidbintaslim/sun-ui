@@ -6,7 +6,14 @@ import MuiToggleButtonGroup, {
 } from '@mui/material/ToggleButtonGroup';
 import { styled } from '@mui/material/styles';
 import type { SunColor, SunSize, SunVariant } from '@smug-ui/core';
-import { colors, ColorScale, radius, transitions } from '@smug-ui/tokens';
+import {
+  colors,
+  ColorScale,
+  colorScaleForMode,
+  radius,
+  textColorsForMode,
+  transitions,
+} from '@smug-ui/tokens';
 import * as React from 'react';
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -86,12 +93,20 @@ const getColorValue = (color: ToggleButtonGroupColor, shade: keyof ColorScale = 
 const getVariantStyles = (
   variant: ToggleButtonGroupVariant,
   color: ToggleButtonGroupColor,
-  size: ToggleButtonGroupSize
+  size: ToggleButtonGroupSize,
+  isDark: boolean
 ) => {
   const mainColor = getColorValue(color, 500);
   const lightColor = getColorValue(color, 100);
   const darkColor = getColorValue(color, 700);
   const config = sizeConfig[size];
+  // Unselected text and the light hover and resting fills behind it follow the mode;
+  // the light-theme values are the ones these variants always used.
+  const unselectedText = isDark ? textColorsForMode(true).secondary : colors.neutral[600];
+  const solidHover = isDark ? colorScaleForMode(color, true).alpha12 : getColorValue(color, 50);
+  const softRest = isDark ? colors.neutral[800] : colors.neutral[100];
+  const softHover = isDark ? colors.neutral[700] : colors.neutral[200];
+  const plainHover = isDark ? colors.neutral[800] : colors.neutral[50];
 
   const baseButtonStyles = {
     padding: config.padding,
@@ -109,11 +124,11 @@ const getVariantStyles = (
     solid: {
       '& .MuiToggleButton-root': {
         ...baseButtonStyles,
-        color: colors.neutral[600],
+        color: unselectedText,
         backgroundColor: 'transparent',
         border: `1px solid ${colors.neutral[300]}`,
         '&:hover': {
-          backgroundColor: getColorValue(color, 50),
+          backgroundColor: solidHover,
         },
         '&.Mui-selected': {
           color: 'white',
@@ -131,11 +146,11 @@ const getVariantStyles = (
     soft: {
       '& .MuiToggleButton-root': {
         ...baseButtonStyles,
-        color: colors.neutral[600],
-        backgroundColor: colors.neutral[100],
+        color: unselectedText,
+        backgroundColor: softRest,
         border: 'none',
         '&:hover': {
-          backgroundColor: colors.neutral[200],
+          backgroundColor: softHover,
         },
         '&.Mui-selected': {
           color: darkColor,
@@ -152,7 +167,7 @@ const getVariantStyles = (
     outlined: {
       '& .MuiToggleButton-root': {
         ...baseButtonStyles,
-        color: colors.neutral[600],
+        color: unselectedText,
         backgroundColor: 'transparent',
         border: `1px solid ${colors.neutral[300]}`,
         '&:hover': {
@@ -175,7 +190,7 @@ const getVariantStyles = (
     ghost: {
       '& .MuiToggleButton-root': {
         ...baseButtonStyles,
-        color: colors.neutral[600],
+        color: unselectedText,
         backgroundColor: 'transparent',
         border: 'none',
         '&:hover': {
@@ -196,11 +211,11 @@ const getVariantStyles = (
     plain: {
       '& .MuiToggleButton-root': {
         ...baseButtonStyles,
-        color: colors.neutral[600],
+        color: unselectedText,
         backgroundColor: 'transparent',
         border: `1px solid ${colors.neutral[200]}`,
         '&:hover': {
-          backgroundColor: colors.neutral[50],
+          backgroundColor: plainHover,
         },
         '&.Mui-selected': {
           color: darkColor,
@@ -227,45 +242,47 @@ const getVariantStyles = (
 const StyledToggleButtonGroup = styled(MuiToggleButtonGroup, {
   shouldForwardProp: (prop) =>
     !['$variant', '$color', '$size', '$fullWidth', '$gap'].includes(prop as string),
-})<StyledToggleButtonGroupProps>(({ $variant, $color, $size, $fullWidth, $gap, orientation }) => ({
-  display: 'flex',
-  flexDirection: orientation === 'vertical' ? 'column' : 'row',
-  gap: $gap,
-  ...($fullWidth && {
-    width: '100%',
-    '& .MuiToggleButton-root': {
-      flex: 1,
-    },
-  }),
-  ...($gap > 0 && {
-    '& .MuiToggleButtonGroup-grouped': {
-      borderRadius: `${radius.md} !important`,
-      border: 'inherit !important',
-      '&:not(:first-of-type)': {
-        marginLeft: 0,
-        borderLeft: 'inherit !important',
+})<StyledToggleButtonGroupProps>(
+  ({ theme, $variant, $color, $size, $fullWidth, $gap, orientation }) => ({
+    display: 'flex',
+    flexDirection: orientation === 'vertical' ? 'column' : 'row',
+    gap: $gap,
+    ...($fullWidth && {
+      width: '100%',
+      '& .MuiToggleButton-root': {
+        flex: 1,
       },
-    },
-  }),
-  ...($gap === 0 && {
-    '& .MuiToggleButtonGroup-grouped': {
-      '&:first-of-type': {
-        borderTopLeftRadius: radius.md,
-        borderBottomLeftRadius: orientation === 'vertical' ? 0 : radius.md,
-        borderTopRightRadius: orientation === 'vertical' ? radius.md : 0,
+    }),
+    ...($gap > 0 && {
+      '& .MuiToggleButtonGroup-grouped': {
+        borderRadius: `${radius.md} !important`,
+        border: 'inherit !important',
+        '&:not(:first-of-type)': {
+          marginLeft: 0,
+          borderLeft: 'inherit !important',
+        },
       },
-      '&:last-of-type': {
-        borderTopRightRadius: orientation === 'vertical' ? 0 : radius.md,
-        borderBottomRightRadius: radius.md,
-        borderBottomLeftRadius: orientation === 'vertical' ? radius.md : 0,
+    }),
+    ...($gap === 0 && {
+      '& .MuiToggleButtonGroup-grouped': {
+        '&:first-of-type': {
+          borderTopLeftRadius: radius.md,
+          borderBottomLeftRadius: orientation === 'vertical' ? 0 : radius.md,
+          borderTopRightRadius: orientation === 'vertical' ? radius.md : 0,
+        },
+        '&:last-of-type': {
+          borderTopRightRadius: orientation === 'vertical' ? 0 : radius.md,
+          borderBottomRightRadius: radius.md,
+          borderBottomLeftRadius: orientation === 'vertical' ? radius.md : 0,
+        },
+        '&:not(:first-of-type):not(:last-of-type)': {
+          borderRadius: 0,
+        },
       },
-      '&:not(:first-of-type):not(:last-of-type)': {
-        borderRadius: 0,
-      },
-    },
-  }),
-  ...getVariantStyles($variant, $color, $size),
-}));
+    }),
+    ...getVariantStyles($variant, $color, $size, theme.palette.mode === 'dark'),
+  })
+);
 
 // ─────────────────────────────────────────────────────────────────────────────
 // ToggleButton Component
