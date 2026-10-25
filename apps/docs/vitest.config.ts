@@ -51,7 +51,7 @@ export default defineConfig({
     },
   },
   optimizeDeps: {
-    include: ['@mui/material', '@mui/system', '@mui/utils', '@emotion/react', '@emotion/styled'],
+    include: ['@mui/material', '@emotion/react', '@emotion/styled'],
     // Exclude workspace packages from pre-bundling - they're resolved via aliases
     exclude: ['@smug-ui/tokens', '@smug-ui/theme', '@smug-ui/react'],
   },
