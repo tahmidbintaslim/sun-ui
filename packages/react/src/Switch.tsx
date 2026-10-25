@@ -6,7 +6,14 @@ import {
   SwitchProps as MuiSwitchProps,
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import { animations, colors, colorScaleForMode, sizing, typography } from '@smug-ui/tokens';
+import {
+  animations,
+  colors,
+  colorScaleForMode,
+  sizing,
+  textColorsForMode,
+  typography,
+} from '@smug-ui/tokens';
 import * as React from 'react';
 
 // =============================================================================
@@ -141,15 +148,15 @@ const StyledSwitch = styled(MuiSwitch, {
   };
 });
 
-const StyledLabel = styled(FormControlLabel)<{ sunSize: SunSize }>(({ sunSize }) => ({
+const StyledLabel = styled(FormControlLabel)<{ sunSize: SunSize }>(({ theme, sunSize }) => ({
   margin: 0,
   gap: sizing.spacing[2],
   '& .MuiFormControlLabel-label': {
     fontSize: sizeConfig[sunSize].label,
     fontFamily: typography.fontFamily.sans,
-    color: colors.textColors.light.primary,
+    color: textColorsForMode(theme.palette.mode === 'dark').primary,
     '&.Mui-disabled': {
-      color: colors.textColors.light.disabled,
+      color: textColorsForMode(theme.palette.mode === 'dark').disabled,
     },
   },
 }));

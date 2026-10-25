@@ -1,9 +1,9 @@
 import Box from '@mui/material/Box';
 import MuiSlider, { SliderProps as MuiSliderProps } from '@mui/material/Slider';
 import Typography from '@mui/material/Typography';
-import { styled } from '@mui/material/styles';
+import { styled, useTheme } from '@mui/material/styles';
 import type { SunColor, SunSize, SunVariant } from '@smug-ui/core';
-import { colors, ColorScale, radius, transitions } from '@smug-ui/tokens';
+import { colors, ColorScale, radius, textColorsForMode, transitions } from '@smug-ui/tokens';
 import * as React from 'react';
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -352,6 +352,17 @@ export const Slider = React.forwardRef<HTMLSpanElement, SliderProps>((props, ref
     : formatValue(currentValue);
 
   const config = sizeConfig[size];
+  // In the light theme these labels keep the inherited page color, as before; dark
+  // mode sets the dark text colors so they do not stay near-black on the dark page.
+  const isDark = useTheme().palette.mode === 'dark';
+  const valueSx = {
+    fontSize: config.fontSize,
+    ...(isDark && { color: textColorsForMode(true).primary }),
+  };
+  const boundSx = {
+    fontSize: config.fontSize,
+    ...(isDark && { color: textColorsForMode(true).secondary }),
+  };
 
   const slider = (
     <StyledSlider
@@ -376,16 +387,16 @@ export const Slider = React.forwardRef<HTMLSpanElement, SliderProps>((props, ref
       <SliderWrapper>
         <SliderContainer>
           {slider}
-          <ValueLabel variant="body2" sx={{ fontSize: config.fontSize }}>
+          <ValueLabel variant="body2" sx={valueSx}>
             {displayValue}
           </ValueLabel>
         </SliderContainer>
         {showMinMax && (
           <MinMaxContainer>
-            <Typography variant="caption" sx={{ fontSize: config.fontSize }}>
+            <Typography variant="caption" sx={boundSx}>
               {formatValue(min)}
             </Typography>
-            <Typography variant="caption" sx={{ fontSize: config.fontSize }}>
+            <Typography variant="caption" sx={boundSx}>
               {formatValue(max)}
             </Typography>
           </MinMaxContainer>
@@ -399,10 +410,10 @@ export const Slider = React.forwardRef<HTMLSpanElement, SliderProps>((props, ref
       <SliderWrapper>
         {slider}
         <MinMaxContainer>
-          <Typography variant="caption" sx={{ fontSize: config.fontSize }}>
+          <Typography variant="caption" sx={boundSx}>
             {formatValue(min)}
           </Typography>
-          <Typography variant="caption" sx={{ fontSize: config.fontSize }}>
+          <Typography variant="caption" sx={boundSx}>
             {formatValue(max)}
           </Typography>
         </MinMaxContainer>

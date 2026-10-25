@@ -120,12 +120,12 @@ All components take the 5 sizes above. The 7 colors apply everywhere except in t
 
 - Light theme: the `main`, `dark` and `contrastText` tokens reach 4.5:1 text contrast (the WCAG 2.1 AA level for normal text) in the resting state of the solid, soft, outlined, plain and link variants. A unit test in `packages/tokens` checks those pairs.
 - Light theme gaps: ghost and plain variants put `main` text on an 8% or 16% tint on hover and press, which drops below 4.5:1 for some colors (danger and neutral on hover). Progress, Rating, Slider and ToggleButtonGroup use the lighter 500 shades instead of `main`, and Autocomplete and DatePicker use MUI's default blue, so the token test does not cover them.
-- Dark mode: components switch to lighter shades (`colorScaleForMode` in `@smug-ui/tokens`; the `@smug-ui/core` variant helpers take an `isDark` flag), so `main` text reaches 4.5:1 on the dark page for every color except neutral, and borders and icons reach 3:1. Still short of 4.5:1: solid fills (white on the 500 shades) for most colors, neutral text, and secondary, danger and neutral text on the lighter paper surface.
+- Dark mode: components switch to lighter shades (`colorScaleForMode` in `@smug-ui/tokens`; the `@smug-ui/core` variant helpers take an `isDark` flag), so `main` text reaches 4.5:1 on the dark page for every color except neutral, and borders and icons reach 3:1. Checkbox, Radio and Switch labels, unselected ToggleButtonGroup text and the Slider value and min/max labels use the dark text tokens (`textColorsForMode`), which reach 4.5:1 on the page and on paper. Still short of 4.5:1: solid fills (white on the 500 shades) for most colors, neutral text, and secondary, danger and neutral text on the lighter paper surface.
 - Components rely on the keyboard and ARIA behavior of the MUI components they wrap. Six component test files run jest-axe, and Storybook includes the a11y addon, but the library has not had a full accessibility audit.
 
 ## Tests
 
-- 484 unit tests in 29 files (Vitest, Testing Library, jsdom): 376 for the components, 17 that render components and the core variant helpers in light and dark mode, 5 that load the built CommonJS bundle with `require()` (skipped until `pnpm build:packages` has run), and 86 contrast checks for the tokens.
+- 505 unit tests in 29 files (Vitest, Testing Library, jsdom): 376 for the components, 35 that render components and the core variant helpers in light and dark mode, 5 that load the built CommonJS bundle with `require()` (skipped until `pnpm build:packages` has run), and 89 contrast checks for the tokens.
 - 372 Storybook stories, each run as a test in headless Chromium through Vitest browser mode, including 54 interaction (`play`) functions.
 - The CI workflow (`.github/workflows/test.yml`) runs lint, type-check, both test suites and a full build on every push and pull request to `main`.
 
