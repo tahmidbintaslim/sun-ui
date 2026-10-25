@@ -1,0 +1,46 @@
+# Sun UI - Deployed Storybook check
+#
+# Vercel builds and hosts the Storybook (vercel.json); this workflow does not deploy.
+# After each successful Production deployment, and once a week, it checks that the
+# public URL serves iframe.html and an index.json that lists every component.
+# Preview deployments are skipped: their URLs sit behind Vercel Authentication.
+#
+# The story tests themselves run in CI (test.yml, job "Storybook Tests").
+# Set the repository variable STORYBOOK_URL if the production domain changes.
+
+name: Storybook Deploy Check
+
+on:
+  deployment_status:
+  schedule:
+    - cron: "17 2 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: storybook-deploy-check
+  cancel-in-progress: true
+
+jobs:
+  check:
+    name: Check deployed Storybook
+    runs-on: ubuntu-latest
+    if: >-
+      github.event_name != 'deployment_status' ||
+      (github.event.deployment_status.state == 'success' &&
+       github.event.deployment.environment == 'Production')
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Check the public Storybook
+        run: node scripts/check-deployed-storybook.mjs
+        env:
+          STORYBOOK_URL: ${{ vars.STORYBOOK_URL || 'https://sun-ui-brown.vercel.app' }}
