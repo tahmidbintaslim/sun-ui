@@ -48,7 +48,7 @@
     "test": "vitest",
     "test:unit": "vitest run",
     "test:storybook": "pnpm --filter=docs exec vitest --project=storybook",
-    "test:storybook:ci": "pnpm --filter=docs exec vitest run --project=storybook",
+    "test:storybook:ci": "pnpm --filter=docs exec vitest run --project=storybook --browser.headless",
     "test:ci": "vitest run",
     "lint": "turbo run lint",
     "type-check": "turbo run type-check",
