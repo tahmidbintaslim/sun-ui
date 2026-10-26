@@ -1,0 +1,52 @@
+# Dependabot version updates. Security updates are separate and ignore these limits.
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+      time: "09:00"
+      timezone: Asia/Bangkok
+    # Wait two weeks after a release before proposing it.
+    cooldown:
+      default-days: 14
+    open-pull-requests-limit: 5
+    groups:
+      storybook:
+        patterns:
+          - storybook
+          - "@storybook/*"
+          - eslint-plugin-storybook
+          - "@chromatic-com/*"
+      vitest:
+        patterns:
+          - vitest
+          - "@vitest/*"
+      mui-emotion:
+        patterns:
+          - "@mui/*"
+          - "@emotion/*"
+      dev-dependencies:
+        dependency-type: development
+      dependencies:
+        dependency-type: production
+    ignore:
+      # Major versions need a deliberate migration and a full test pass.
+      - dependency-name: "*"
+        update-types:
+          - version-update:semver-major
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+      time: "09:00"
+      timezone: Asia/Bangkok
+    cooldown:
+      default-days: 14
+    groups:
+      github-actions:
+        patterns:
+          - "*"

@@ -83,14 +83,15 @@ When `SB_URL` is set, failure messages link to that deployed Storybook instead o
 
 ## CI
 
-| Workflow                | Trigger                         | Jobs                                                                          |
-| ----------------------- | ------------------------------- | ----------------------------------------------------------------------------- |
-| `test.yml`              | Push and pull request to `main` | lint and type-check, unit tests, Storybook tests, build, Chromatic (optional) |
-| `storybook-publish.yml` | Push and pull request to `main` | Build Storybook and publish it to Chromatic (optional)                        |
-| `ui-tests.yml`          | Successful deployment status    | Storybook tests with links to the deployed Storybook                          |
-| `publish.yml`           | A published GitHub release      | Build, type-check, unit tests, then `pnpm publish` of the public packages     |
+| Workflow                     | Trigger                                              | Jobs                                                                          |
+| ---------------------------- | ---------------------------------------------------- | ----------------------------------------------------------------------------- |
+| `test.yml`                   | Push and pull request to `main`                      | lint and type-check, unit tests, Storybook tests, build, Chromatic (optional) |
+| `storybook-deploy-check.yml` | Successful Production deployment, weekly, or by hand | Checks that the public Storybook serves every component                       |
+| `publish.yml`                | A published GitHub release                           | Build, type-check, unit tests, then `pnpm publish` of the public packages     |
 
-Every job installs with `pnpm install --frozen-lockfile` on Node 22, and builds the packages before it runs tests. The Chromatic steps do not fail the run when the `CHROMATIC_PROJECT_TOKEN` secret is not set.
+Vercel builds and deploys the Storybook from `vercel.json`; no workflow deploys it. `storybook-deploy-check.yml` runs `node scripts/check-deployed-storybook.mjs`, which you can also run locally. Dependabot (`.github/dependabot.yml`) opens grouped npm and GitHub Actions updates every Monday, 14 days after a release at the earliest; it does not propose npm major versions.
+
+Every `test.yml` and `publish.yml` job installs with `pnpm install --frozen-lockfile` on Node 22, and builds the packages before it runs tests. The Chromatic step does not fail the run when the `CHROMATIC_PROJECT_TOKEN` secret is not set.
 
 To run the same checks locally:
 
